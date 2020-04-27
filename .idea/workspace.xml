@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9646209f-31ce-49c7-b7f8-1fcf9875de62" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZsiC5ZfN4z0hm5NQugKypEhJ0Q" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\prototype\app\views\pages" />
+      <recent name="C:\xampp\htdocs\prototype\app\views\inc" />
+      <recent name="C:\xampp\htdocs\prototype\app\libraries" />
+      <recent name="C:\xampp\htdocs\prototype\public" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9646209f-31ce-49c7-b7f8-1fcf9875de62" name="Default Changelist" comment="" />
+      <created>1585634072029</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585634072029</updated>
+      <workItem from="1585634076629" duration="5632000" />
+      <workItem from="1585672755242" duration="15061000" />
+      <workItem from="1586974666753" duration="9323000" />
+      <workItem from="1587523747590" duration="6388000" />
+      <workItem from="1587605519338" duration="1300000" />
+      <workItem from="1587661587111" duration="6060000" />
+      <workItem from="1588018828258" duration="2969000" />
+      <workItem from="1588026990029" duration="597000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="213" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587665318795">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="213" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1587665318795" />
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586978664452">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1586978664452" />
+    <state x="237" y="142" key="EditFileWatcherDialog" timestamp="1586978884215">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="237" y="142" key="EditFileWatcherDialog/0.0.1366.728@0.0.1366.728" timestamp="1586978884215" />
+    <state x="453" y="179" key="NewPhpClassDialog" timestamp="1587535638834">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="453" y="179" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1587535638834" />
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1587666200595">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1587666200595" />
+    <state x="184" y="0" key="SettingsEditor" timestamp="1587527114672">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1587527114672" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1588026989031">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1588026989031" />
+  </component>
+</project>

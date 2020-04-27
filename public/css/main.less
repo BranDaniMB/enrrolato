@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
+
+@backgroud: #2EB7BD;
+@orange: #F9B122;
+@black: #0D181C;
+@primaryFont: 'Gotu', sans-serif;
+
+body {
+  background-color: #216e7e;
+  font-family: @primaryFont;
+}
+
+a {
+  text-decoration: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 10px;
+  width: 99%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+footer span {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0 auto;
+  color: white;
+}
+
+.button-left {
+  .button(left);
+}
+
+.button-right {
+  .button(right)
+}
+
+h2, h3 {
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+  user-select: none;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: 3em;
+  color: white;
+}
+
+h3 {
+  font-size: 1em;
+  color: @black;
+}
+
+.main-buttons {
+  margin-top: 70px;
+}
+
+.primary-button {
+  .button(none, 10px 15px, 1.5em, block, 2px dashed @black, 15px auto);
+}
+
+.button (@float: none, @padding: 10px, @fontSize: 1em, @display: inline-block, @border: 1px dashed black, @margin: 0 5px) {
+  background-color: @orange;
+  font-size: @fontSize;
+  display: @display;
+  font-weight: bold;
+  width: fit-content;
+  text-align: center;
+  padding: @padding;
+  margin: @margin;
+  border: @border;
+  color: black;
+  float: @float;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button {
+  .button();
+}
+
+.orders-container {
+  padding: 0 10px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 480px;
+}
+
+.order {
+  background-color: #e6e6e6;
+  color: black;
+  padding: 0 10px;
+  width: fit-content;
+  height: fit-content;
+  display: inline-block;
+  text-align: center;
+  border-radius: 5px 5px 10% 10%;
+  user-select: none;
+  min-width: 250px;
+}
+
+.icecream {
+  display: inline-block;
+  border-right: 2px dashed @black;
+  padding: 0 10px;
+}
+
+.icecream-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.icecream-container .icecream:last-child {
+  border-right: none;
+}
+
+.on-time {
+  border-top: 6px solid #00FFFD;
+}
+
+.near-expiration {
+  border-top: 6px solid #FDFF6D;
+}
+
+.delayed {
+  border-top: 6px solid #FC6A6D;
+}
+
+.adult:before {
+  border-radius: 100% 10px 100% 100%;
+  padding: 7px;
+  content: "+18";
+  font-weight: bold;
+  font-size: 1em;
+  background-color: black;
+  color: white;
+  text-align: center;
+  float: right;
+  margin: -6px -10px 0 0;
+}
+
+.order h4 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 5px 0;
+  word-wrap: unset;
+}
+
+.order-id {
+  margin-top: -20px;
+  font-size: 0.8em;
+}
+
+.order-topping, .order-flavors, .order-syrup, .order-container {
+  margin: 0 0 5px 0;
+  font-size: 1em;
+}
+
+.order-container {
+  font-weight: bold;
+}
+
+.orders-buttons {
+  display: flex;
+  width: 100%;
+  margin: 20px auto -15px auto;
+  justify-content: space-around;
+}
