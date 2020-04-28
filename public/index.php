@@ -1,5 +1,6 @@
 <?php
-    require_once "../app/init.php"
+    require_once "../app/init.php";
+    $core = new Core;
 ?>
 <!DOCTYPE html>
 <html lang="en">
