@@ -3,3 +3,9 @@
     RewriteRule ^$ public/ [L]
     RewriteRule (.*) public/$1 [L]
 </IfModule>
+
+# Force UTF-8 for a number of file formats
+AddCharset utf-8 .css .less .js .xml .json .rss .atom
+
+# You can add custom pages to handle 500 or 403 pretty easily, if you like.
+ErrorDocument 404 /404.html

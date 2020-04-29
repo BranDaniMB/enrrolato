@@ -1,14 +1,9 @@
-<?php
-use \BusinessLogic\mainController as controller;
-
-controller::getOrdersInQueue();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Ordenes</title>
-    <link rel="stylesheet/less" type="text/css" href="../../../public/css/main.less"/>
+    <link rel="stylesheet/less" type="text/css" href="/enrrolato/public/css/main.less"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 </head>
 <body>
@@ -74,7 +69,7 @@ controller::getOrdersInQueue();
     </div>
 </div>
 <?php
-include "components/footer.php";
+include "../inc/footer.php";
 ?>
 </body>
 </html>
