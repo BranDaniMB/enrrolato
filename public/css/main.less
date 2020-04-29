@@ -60,10 +60,15 @@ h3 {
 }
 
 .primary-button {
-  .button(none, 10px 15px, 1.5em, block, 2px dashed @black, 15px auto);
+  .button(none, 10px 15px, 1.5em, block, none, 15px auto, 10px 10px 0px -3px rgba(0,0,0,0.75));
 }
 
-.button (@float: none, @padding: 10px, @fontSize: 1em, @display: inline-block, @border: 1px dashed black, @margin: 0 5px) {
+.primary-button:hover {
+  box-shadow: 10px 10px 0px 1px rgba(0,0,0,0.75);
+  transition-duration: 500ms;
+}
+
+.button (@float: none, @padding: 10px, @fontSize: 1em, @display: inline-block, @border: none, @margin: 0 5px, @box-shadow: none) {
   background-color: @orange;
   font-size: @fontSize;
   display: @display;
@@ -73,6 +78,8 @@ h3 {
   padding: @padding;
   margin: @margin;
   border: @border;
+  box-shadow: @box-shadow;
+  transition-duration: 500ms;
   color: black;
   float: @float;
   border-radius: 10px;
@@ -169,4 +176,10 @@ h3 {
   width: 100%;
   margin: 20px auto -15px auto;
   justify-content: space-around;
+}
+
+/* About page */
+.logo-img {
+  margin: 0 auto;
+  display: block;
 }

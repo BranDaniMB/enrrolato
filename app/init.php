@@ -1,12 +1,11 @@
 
 <?php
-    require_once "config/dirs.php";
-    require_once "libraries/Core.php";
-    require_once "libraries/Controller.php";
-    require_once "libraries/Database.php";
+    require_once "config/config.php";
     require_once "compilers/lessphp/lessc.inc.php";
 
-
+    spl_autoload_register(function ($className) {
+        require_once LIBRARIES_PATH . $className . ".php";
+    });
 
     $less = new lessc;
     try {
@@ -14,4 +13,3 @@
     } catch (exception $e) {
         echo "fatal error: " . $e->getMessage();
     }
-    ?>
