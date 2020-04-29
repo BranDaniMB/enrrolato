@@ -1,6 +1,6 @@
 
 <?php
-    require_once "dirs.php";
+    require_once "config/dirs.php";
     require_once "libraries/Core.php";
     require_once "libraries/Controller.php";
     require_once "libraries/Database.php";
