@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
+@import "offline-theme-default-indicator.css";
+@import "offline-language-spanish-indicator.css";
 body {
   background-color: #216e7e;
-  font-family: 'Gotu', sans-serif;
+  font-family: 'Gotu', 'Helvetica Neue', sans-serif;
 }
 a {
   text-decoration: none;
@@ -189,4 +191,5 @@ h3 {
 }
 .logo-img {
   margin: 0 auto;
+  display: block;
 }
