@@ -11,4 +11,8 @@ class Pages extends Controller
     {
         $this->view("pages/main");
     }
+
+    public function about() {
+        $this->view("pages/about");
+    }
 }

@@ -28,7 +28,9 @@ footer span {
   text-align: center;
   padding: 10px;
   margin: 0 5px;
-  border: 1px dashed black;
+  border: none;
+  box-shadow: none;
+  transition-duration: 500ms;
   color: black;
   float: left;
   border-radius: 10px;
@@ -43,7 +45,9 @@ footer span {
   text-align: center;
   padding: 10px;
   margin: 0 5px;
-  border: 1px dashed black;
+  border: none;
+  box-shadow: none;
+  transition-duration: 500ms;
   color: black;
   float: right;
   border-radius: 10px;
@@ -77,11 +81,17 @@ h3 {
   text-align: center;
   padding: 10px 15px;
   margin: 15px auto;
-  border: 2px dashed #0D181C;
+  border: none;
+  box-shadow: 10px 10px 0px -3px rgba(0,0,0,0.75);
+  transition-duration: 500ms;
   color: black;
   float: none;
   border-radius: 10px;
   cursor: pointer;
+}
+.primary-button:hover {
+  box-shadow: 10px 10px 0px 1px rgba(0,0,0,0.75);
+  transition-duration: 500ms;
 }
 .button {
   background-color: #F9B122;
@@ -92,7 +102,9 @@ h3 {
   text-align: center;
   padding: 10px;
   margin: 0 5px;
-  border: 1px dashed black;
+  border: none;
+  box-shadow: none;
+  transition-duration: 500ms;
   color: black;
   float: none;
   border-radius: 10px;
@@ -174,4 +186,7 @@ h3 {
   width: 100%;
   margin: 20px auto -15px auto;
   justify-content: space-around;
+}
+.logo-img {
+  margin: 0 auto;
 }

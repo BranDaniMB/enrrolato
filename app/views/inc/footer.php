@@ -1,4 +1,6 @@
 <footer>
-    <a class="button-left" onclick="history.back()">Regresar</a>
-    <a class="button-right" href="/prototype/about.php">Acerca de</a>
+    <a class="button-left" href="/enrrolato/" ">Pantalla de inicio</a>
+    <a class="button-right" href="/enrrolato/pages/about/">Acerca de</a>
 </footer>
+</body>
+</html>
