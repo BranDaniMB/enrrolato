@@ -1,6 +1,7 @@
 <?php
 
-class Order
+
+class ModifyAccounts
 {
     private $db;
     public function __construct()

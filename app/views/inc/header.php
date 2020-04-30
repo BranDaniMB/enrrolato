@@ -7,6 +7,7 @@
     <title><?php echo $data["TITLE"] ?></title>
     <!-- Scripts -->
     <script src="/enrrolato/public/js/offline.min.js"></script>
+    <script src="/enrrolato/public/js/main.js"></script>
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="/enrrolato/public/css/main.css">
     <!-- Favicon -->

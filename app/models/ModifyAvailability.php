@@ -1,6 +1,6 @@
 <?php
 
-class Order
+class ModifyAvailability
 {
     private $db;
     public function __construct()
