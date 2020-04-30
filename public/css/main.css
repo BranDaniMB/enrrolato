@@ -10,7 +10,7 @@ a {
 }
 footer {
   position: absolute;
-  bottom: 10px;
+  bottom: 1em;
   width: 99%;
   text-align: center;
   margin: 0 auto;
@@ -31,7 +31,7 @@ footer span {
   padding: 10px;
   margin: 0 5px;
   border: none;
-  box-shadow: none;
+  box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
   transition-duration: 500ms;
   color: black;
   float: left;
@@ -48,7 +48,7 @@ footer span {
   padding: 10px;
   margin: 0 5px;
   border: none;
-  box-shadow: none;
+  box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75);
   transition-duration: 500ms;
   color: black;
   float: right;
@@ -84,15 +84,18 @@ h3 {
   padding: 10px 15px;
   margin: 15px auto;
   border: none;
-  box-shadow: 10px 10px 0px -3px rgba(0,0,0,0.75);
+  box-shadow: 7px 7px 0px -1px rgba(0,0,0,0.75);
   transition-duration: 500ms;
   color: black;
   float: none;
   border-radius: 10px;
   cursor: pointer;
 }
-.primary-button:hover {
-  box-shadow: 10px 10px 0px 1px rgba(0,0,0,0.75);
+.primary-button:hover,
+.button-right:hover,
+.button-left:hover {
+  transform: translate(3px,3px);
+  box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.75);
   transition-duration: 500ms;
 }
 .button {

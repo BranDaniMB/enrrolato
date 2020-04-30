@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="x-ua-compatible" content="id=edge">
-    <title><?php echo SITE_NAME ?></title>
+    <title><?php echo $data["TITLE"] ?></title>
     <!-- Scripts -->
     <script src="/enrrolato/public/js/offline.min.js"></script>
     <!-- Styles -->

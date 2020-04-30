@@ -1,6 +1,7 @@
 <?php
 
 class Controller {
+    protected $controllerModel;
     // Cargar modelo
     public function model($model) {
         require_once MODELS_PATH . $model . ".php";

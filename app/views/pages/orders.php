@@ -1,14 +1,14 @@
 <?php
 include VIEWS_PATH . "inc/header.php";
 ?>
-<h2>Ordenes</h2>
+<h2>Órdenes</h2>
 <div class="orders-container">
     <div class="order on-time adult">
         <h3>Ordenado por Brandon</h3>
         <p class="order-id">ID: 20200331.1103.30</p>
         <h4>Sabores</h4>
         <p class="order-flavors">Chocolate-Banano-Vainilla</p>
-        <h4>jarabe</h4>
+        <h4>Jarabe</h4>
         <p class="order-syrup">Caramelo</p>
         <h4>Topping</h4>
         <p class="order-topping">Botonetas-Granola</p>
@@ -23,7 +23,7 @@ include VIEWS_PATH . "inc/header.php";
         <p class="order-id">ID: 20200331.1103.30</p>
         <h4>Sabores</h4>
         <p class="order-flavors">Chocolate-Banano-Vainilla</p>
-        <h4>jarabe</h4>
+        <h4>Jarabe</h4>
         <p class="order-syrup">Caramelo</p>
         <h4>Topping</h4>
         <p class="order-topping">Botonetas-Granola</p>
@@ -40,7 +40,7 @@ include VIEWS_PATH . "inc/header.php";
             <div class="icecream">
                 <h4>Sabores</h4>
                 <p class="order-flavors">Chocolate-Banano-Vainilla</p>
-                <h4>jarabe</h4>
+                <h4>Jarabe</h4>
                 <p class="order-syrup">Caramelo</p>
                 <h4>Topping</h4>
                 <p class="order-topping">Botonetas-Granola</p>

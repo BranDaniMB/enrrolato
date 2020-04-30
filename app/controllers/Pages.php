@@ -9,10 +9,16 @@ class Pages extends Controller
 
     public function index()
     {
-        $this->view("pages/main");
+        $data = [
+            "TITLE" => "Inicio | " . SITE_NAME
+        ];
+        $this->view("pages/main", $data);
     }
 
     public function about() {
-        $this->view("pages/about");
+        $data = [
+            "TITLE" => "Acerca de | " . SITE_NAME
+        ];
+        $this->view("pages/about", $data);
     }
 }
