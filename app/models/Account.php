@@ -1,7 +1,7 @@
 <?php
 
 
-class ModifyAccounts
+class Account
 {
     private $db;
     public function __construct()
