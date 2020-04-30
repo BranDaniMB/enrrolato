@@ -1,21 +1,16 @@
 <?php
 
 
-namespace DatabaseAccess;
-
-
-class Database
+class Base
 {
     private $conn;
 
     private function connect()
     {
-        $serverName = "localhost"; //serverName\instanceName
-
         // Puesto que no se han especificado UID ni PWD en el array  $connectionInfo,
         // La conexión se intentará utilizando la autenticación Windows.
-        $connectionInfo = array("Database" => "Enrrolato");
-        $this->conn = sqlsrv_connect($serverName, $connectionInfo);
+        $connectionInfo = array("Database" => DB_NAME);
+        $this->conn = sqlsrv_connect(DB_HOST, $connectionInfo);
 
         if ($this->conn) {
             echo "Conexión establecida.<br />";
