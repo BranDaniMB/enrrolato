@@ -1,6 +1,7 @@
 <?php
 
-class Order
+
+class Report
 {
     private $db;
     public function __construct()

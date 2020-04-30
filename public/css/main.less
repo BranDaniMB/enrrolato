@@ -1,14 +1,39 @@
+/**
+ * Enrrolato - Back Office - LESS
+ * Autor: BranDaniMB
+ * Actualizado por última vez el 29/04/2020
+ *
+ * Las modificaciones deben hacerse en este archivo Less, el compilador incluido creará el archivo CSS correspondiente.
+ *
+ * Para documentación utilizar este mismo formato de comentarios.
+ */
+
+/**
+ * Importes de Fonts y otros CSS incluidos, incluir aquí abajo todos los importes.
+ */
 @import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
 @import "offline-theme-default-indicator.css";
 @import "offline-language-spanish-indicator.css";
 
-@backgroud: #2EB7BD;
+/**
+ * Paleta principal de colores y fuentes
+ */
+@backgroud: #216e7e;
 @orange: #F9B122;
 @black: #0D181C;
 @primaryFont: 'Gotu' ,'Helvetica Neue', sans-serif;
 
+/**
+ * Variables - Color de estado de orden
+ */
+@not-ready: #dc143c;
+@ready: #0A286E;
+
+/**
+ * Estilos globales
+ */
 body {
-  background-color: #216e7e;
+  background-color: @backgroud;
   font-family: @primaryFont;
 }
 
@@ -16,6 +41,27 @@ a {
   text-decoration: none;
 }
 
+h2, h3 {
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+  user-select: none;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: 2.5em;
+  color: white;
+}
+
+h3 {
+  font-size: 1em;
+  color: @black;
+}
+
+/**
+ * Footer
+ */
 footer {
   position: absolute;
   bottom: 1em;
@@ -39,27 +85,9 @@ footer span {
   .button(@float: right, @box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.75))
 }
 
-h2, h3 {
-  font-weight: bold;
-  text-align: center;
-  text-transform: capitalize;
-  user-select: none;
-  margin: 15px 0;
-}
-
-h2 {
-  font-size: 3em;
-  color: white;
-}
-
-h3 {
-  font-size: 1em;
-  color: @black;
-}
-
-.main-buttons {
-  margin-top: 70px;
-}
+/**
+ * Estilos de los botones
+ */
 
 .primary-button {
   .button(@padding:  10px 15px, @fontSize: 1.5em, @display: block, @margin: 15px auto, @box-shadow: 7px 7px 0px -1px rgba(0,0,0,0.75));
@@ -92,6 +120,18 @@ h3 {
 .button {
   .button();
 }
+
+/**
+ * Página: Inicio
+ */
+
+.main-buttons {
+  margin-top: 70px;
+}
+
+/**
+ * Página: Ordenes actuales
+ */
 
 .orders-container {
   padding: 0 10px;
@@ -128,18 +168,15 @@ h3 {
   border-right: none;
 }
 
-.on-time {
-  border-top: 6px solid #00FFFD;
+.not-ready {
+  border-top: 6px solid @not-ready;
 }
 
-.near-expiration {
-  border-top: 6px solid #FDFF6D;
+.ready {
+  border-top: 6px solid @ready;
 }
 
-.delayed {
-  border-top: 6px solid #FC6A6D;
-}
-
+/* Utiliza un pseudo-class para generar un viñeta con anunciando el contenido para mayores */
 .adult:before {
   border-radius: 100% 10px 100% 100%;
   padding: 7px;
@@ -158,6 +195,7 @@ h3 {
   font-weight: bold;
   margin: 5px 0;
   word-wrap: unset;
+  text-decoration: underline;
 }
 
 .order-id {
@@ -168,6 +206,7 @@ h3 {
 .order-topping, .order-flavors, .order-syrup, .order-container {
   margin: 0 0 5px 0;
   font-size: 1em;
+  font-weight: bold;
 }
 
 .order-container {
@@ -181,8 +220,103 @@ h3 {
   justify-content: space-around;
 }
 
-/* About page */
+/* Guía de colores superior */
+.guide-colors-container {
+  display: block;
+  position: fixed;
+  top: 1px;
+  left: 100px;
+}
+
+#guide-color-ready, #guide-color-not-ready {
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+#guide-color-not-ready {
+  background-color: @not-ready;
+}
+
+#guide-color-ready {
+  background-color: @ready;
+}
+
+/**
+ * Página: Sobre de
+ */
 .logo-img {
   margin: 0 auto;
   display: block;
+}
+
+.about-subtitle {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px;
+  color: #C9F1F8;
+  width: fit-content;
+  margin: 0 auto -39px auto;
+}
+
+.about-description-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-description {
+  font-size: 1em;
+  font-weight: bold;
+  background-color: #A6E3EE;
+  border-radius: 10px;
+  padding: 10px;
+  color: @backgroud;
+  width: fit-content;
+  text-align: center;
+}
+
+.about-description a {
+  color: @backgroud;
+  text-decoration: underline;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-family: 'Gotu', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  color: #e6e6e6;
+  font-size: 1em;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #115967;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #02434F;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
 }

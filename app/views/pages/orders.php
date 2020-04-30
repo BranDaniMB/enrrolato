@@ -2,8 +2,12 @@
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Órdenes</h2>
+<div class="guide-colors-container">
+    <span id="guide-color-not-ready">En preparación</span>
+    <span id="guide-color-ready">Listo pero no entregado</span>
+</div>
 <div class="orders-container">
-    <div class="order on-time adult">
+    <div class="order not-ready adult">
         <h3>Ordenado por Brandon</h3>
         <p class="order-id">ID: 20200331.1103.30</p>
         <h4>Sabores</h4>
@@ -18,7 +22,7 @@ include VIEWS_PATH . "inc/header.php";
             <a class="button">Entregada</a>
         </div>
     </div>
-    <div class="order near-expiration">
+    <div class="order ready">
         <h3>Ordenado por Brayan</h3>
         <p class="order-id">ID: 20200331.1103.30</p>
         <h4>Sabores</h4>
@@ -33,7 +37,7 @@ include VIEWS_PATH . "inc/header.php";
             <a class="button">Entregada</a>
         </div>
     </div>
-    <div class="order delayed adult">
+    <div class="order not-ready adult">
         <h3>Ordenado por Mariana</h3>
         <p class="order-id">ID: 20200331.1103.30</p>
         <div class="icecream-container">
