@@ -31,8 +31,11 @@
             <img id="user-profile-img" src="<?php echo $_SESSION["payload"]["picture"] ?>" width="50px" height="50px" />
             <p id="user-profile-name"><?php echo strtolower($_SESSION["payload"]["given_name"]) ?></p>
             <a href="/enrrolato/authentication/logout/" id="user-profile-logout">Cerrar sesión</a>
+
         </div>
         <?php
+        echo $_SESSION["payload"]["sub"];
+        echo  phpversion();
     }
 ?>
 <body>
