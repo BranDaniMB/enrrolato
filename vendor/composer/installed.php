@@ -7,7 +7,7 @@
     array (
       0 => '9999999-dev',
     ),
-    'reference' => '3960d92b66307384ce9836fd98612fd667f067ab',
+    'reference' => 'd4882506e1f9e832bd661e4759c12923378669b4',
     'name' => '__root__',
   ),
   'versions' => 
@@ -20,7 +20,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '3960d92b66307384ce9836fd98612fd667f067ab',
+      'reference' => 'd4882506e1f9e832bd661e4759c12923378669b4',
     ),
     'firebase/php-jwt' => 
     array (

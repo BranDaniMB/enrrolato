@@ -16,6 +16,8 @@ if (isset($_GET['code'])) {
 
     $payload = $googleClient->verifyIdToken($_SESSION["token_data"]["id_token"]);
     $_SESSION["payload"] = $payload;
+
+    $auth->authenticate($_SESSION["payload"]["sup"], $_SESSION["payload"]["email"]);
     header('Location: /enrrolato/');
 }
 ?>
