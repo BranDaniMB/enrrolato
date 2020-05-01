@@ -21,7 +21,3 @@ define('UID', NULL);
 define('PWD', NULL);
 define('DB_NAME', 'Enrrolato');
 
-// Credenciales de Auth Google
-$credentials = json_decode(utf8_encode(file_get_contents(CONFIG_PATH . "credentials.json")), true);
-define('GOOGLE_AUTH', $credentials);
-

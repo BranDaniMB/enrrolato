@@ -270,3 +270,46 @@ footer span {
   padding: 6px 12px;
   border-top: none;
 }
+.google-login {
+  display: block;
+  margin: 200px auto 0 auto;
+  width: fit-content;
+}
+.google-login img {
+  border-radius: 10px;
+}
+#user-profile {
+  position: fixed;
+  top: 1em;
+  right: 170px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: fit-content;
+  padding: 3px;
+  border-radius: 50px 20px 20px 50px;
+  background-color: #02434F;
+  font-weight: bold;
+  color: #e6e6e6;
+  text-transform: capitalize;
+}
+#user-profile img {
+  border-radius: 100px;
+  overflow: hidden;
+  border: 2px solid #e6e6e6;
+}
+#user-profile #user-profile-name {
+  margin: 0 5px 0 15px;
+}
+#user-profile-logout {
+  display: none;
+  color: #0D181C;
+  padding: 12px 10px;
+  border-radius: 10px;
+  background-color: #F9B122;
+  margin: 0 1px 0 10px;
+}
+#user-profile:hover > a {
+  width: fit-content;
+  display: inline-block;
+}

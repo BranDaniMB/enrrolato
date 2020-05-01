@@ -12,10 +12,10 @@ include VIEWS_PATH . "inc/header.php";
         <br/>E-mail: <a href="mailto:brandanimb@gmail.com">brandanimb@gmail.com</a>
         <br/>Informática Empresarial, Recinto de Grecia, UCR.</p>
     <p class="about-description">Mariana Salazar Castro
-        <br/>E-mail: <a href="mailto:mariana.salazar@ucrso.info">mariana.salazar@ucrso.info</a>
+        <br/>E-mail: <a href="mailto:msmasaca@gmail.com">msmasaca@gmail.com</a>
         <br/>Informática Empresarial, Recinto de Grecia, UCR.</p>
     <p class="about-description">Brayan Barrantes Rodríguez
-        <br/>E-mail: <a href="mailto:brayan.barrates@ucrso.info">brayan.barrates@ucrso.info</a>
+        <br/>E-mail: <a href="mailto:bbr3196@gmail.com">bbr3196@gmail.com</a>
         <br/>Informática Empresarial, Recinto de Grecia, UCR.</p>
 </div>
 

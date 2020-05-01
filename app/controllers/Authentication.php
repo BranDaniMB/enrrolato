@@ -22,4 +22,10 @@ class Authentication extends Controller
         ];
         $this->view("pages/login", $data);
     }
+
+    public function logout() {
+        session_start();
+        session_destroy();
+        header('Location: /enrrolato/authentication/login/');
+    }
 }
