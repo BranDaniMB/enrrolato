@@ -146,7 +146,7 @@ footer span {
   border-right: none;
 }
 .not-ready {
-  border-top: 6px solid #dc143c;
+  border-top: 6px solid #e81a3f;
 }
 .ready {
   border-top: 6px solid #0A286E;
@@ -206,7 +206,7 @@ footer span {
   font-weight: bold;
 }
 #guide-color-not-ready {
-  background-color: #dc143c;
+  background-color: #e81a3f;
 }
 #guide-color-ready {
   background-color: #0A286E;
@@ -312,4 +312,22 @@ footer span {
 #user-profile:hover > a {
   width: fit-content;
   display: inline-block;
+}
+#error {
+  display: block;
+  background-color: #e81a3f;
+  color: #0D181C;
+  max-width: 300px;
+  margin: 50px auto 10px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 7px 7px 0px -1px rgba(0,0,0,0.75);
+  font-weight: bold;
+}
+#error #error-title {
+  color: #0D181C;
+  font-size: 1.5em;
+}
+#error #error-message {
+  text-align: center;
 }

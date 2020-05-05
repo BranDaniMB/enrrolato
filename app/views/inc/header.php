@@ -18,24 +18,22 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION["payload"]) && !isset($_GET['code'])) {
+    if (!isset($_SESSION["isValidLogin"]) && !isset($_GET['code'])) {
         if (strcmp( "Iniciar sesión | " . SITE_NAME, $data["TITLE"]) != 0
-        && strcmp( "Acerca de | " . SITE_NAME, $data["TITLE"]) != 0) {
+        && strcmp( "Acerca de | " . SITE_NAME, $data["TITLE"]) != 0
+        && strcmp("No autorizado | " . SITE_NAME, $data["TITLE"]) != 0) {
             header('Location: /enrrolato/authentication/login/');
         }
     }
 
-    if (isset($_SESSION["payload"])) {
+    if (isset($_SESSION["isValidLogin"])) {
         ?>
         <div id="user-profile">
             <img id="user-profile-img" src="<?php echo $_SESSION["payload"]["picture"] ?>" width="50px" height="50px" />
             <p id="user-profile-name"><?php echo strtolower($_SESSION["payload"]["given_name"]) ?></p>
             <a href="/enrrolato/authentication/logout/" id="user-profile-logout">Cerrar sesión</a>
-
         </div>
         <?php
-        echo $_SESSION["payload"]["sub"];
-        echo  phpversion();
     }
 ?>
 <body>
