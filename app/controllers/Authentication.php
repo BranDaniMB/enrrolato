@@ -28,4 +28,11 @@ class Authentication extends Controller
         session_destroy();
         header('Location: /enrrolato/authentication/login/');
     }
+
+    public function loginerror() {
+        $data = [
+            "TITLE" => "No autorizado | " . SITE_NAME
+        ];
+        $this->view("pages/loginerror", $data);
+    }
 }

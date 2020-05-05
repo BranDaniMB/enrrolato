@@ -26,7 +26,7 @@
 /**
  * Variables - Color de estado de orden
  */
-@not-ready: #dc143c;
+@not-ready: #e81a3f;
 @ready: #0A286E;
 
 /**
@@ -375,4 +375,28 @@ footer span {
 #user-profile:hover > a {
   width: fit-content;
   display: inline-block;
+}
+
+/**
+ * Error box
+ */
+#error {
+  display: block;
+  background-color: @not-ready;
+  color: @black;
+  max-width: 300px;
+  margin: 50px auto 10px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 7px 7px 0px -1px rgba(0,0,0,0.75);
+  font-weight: bold;
+}
+
+#error #error-title {
+  color: @black;
+  font-size: 1.5em;
+}
+
+#error #error-message {
+  text-align: center;
 }

@@ -1,4 +1,5 @@
 <?php
+$_SESSION["MODE"] = "LOGIN";
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Iniciar sesión con Google</h2>
@@ -6,7 +7,7 @@ include VIEWS_PATH . "inc/header.php";
 $googleClient = new Google_Client();
 $auth = new Account($googleClient);
 
-if (isset($_SESSION["access_token"])) {
+if (isset($_SESSION["isValidLogin"])) {
     header('Location: /enrrolato/');
 }
 
@@ -17,8 +18,18 @@ if (isset($_GET['code'])) {
     $payload = $googleClient->verifyIdToken($_SESSION["token_data"]["id_token"]);
     $_SESSION["payload"] = $payload;
 
-    $auth->authenticate($_SESSION["payload"]["sup"], $_SESSION["payload"]["email"]);
-    header('Location: /enrrolato/');
+   if ($auth->authenticate($_SESSION["payload"]["sub"], $_SESSION["payload"]["email"]) == 1) {
+       unset($_SESSION["access_token"]);
+       $_SESSION["isValidLogin"] = true;
+       header('Location: /enrrolato/');
+   } else {
+       unset($_SESSION["access_token"]);
+       unset($_SESSION["token_data"]);
+       $_SESSION["ERROR_TITLE"] = "Cuenta no autorizada";
+       $_SESSION["ERROR_MESSAGE"] = "La cuenta de correo <u>" . $_SESSION["payload"]["email"] . "</u> no está autorizada a ingresar al sistema.";
+       unset($_SESSION["payload"]);
+       header('Location: /enrrolato/authentication/loginerror');
+   }
 }
 ?>
 <a class="google-login" href="<?php echo $auth->getAuthUrl() ?>">

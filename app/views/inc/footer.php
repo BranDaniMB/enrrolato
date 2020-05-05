@@ -1,9 +1,9 @@
 <footer>
     <?php
-        if (strcmp( "Inicio | " . SITE_NAME, $data["TITLE"]) != 0 && isset($_SESSION["access_token"])) {
+        if (strcmp( "Inicio | " . SITE_NAME, $data["TITLE"]) != 0 && isset($_SESSION["isValidLogin"])) {
             echo '<a class="button-left" href="/enrrolato/" ">Pantalla de inicio</a>';
         }
-        if (strcmp( "Acerca de | " . SITE_NAME, $data["TITLE"]) == 0 && !isset($_SESSION["access_token"])) {
+        if (strcmp( "Acerca de | " . SITE_NAME, $data["TITLE"]) == 0 && !isset($_SESSION["isValidLogin"])) {
             echo '<a class="button-left" href="/enrrolato/authentication/login/" ">Regresar</a>';
         }
         if (strcmp( "Acerca de | " . SITE_NAME, $data["TITLE"]) != 0) {

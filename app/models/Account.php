@@ -31,7 +31,7 @@ class Account extends Base
             array(&$myparams['result'], SQLSRV_PARAM_OUT)
         );
 
-        $sql = "EXEC stp_authenticate @id = ?, @email = ?";
+        $sql = "EXEC stp_authenticate @id = ?, @email = ?, @result = ?";
 
         $stmt = sqlsrv_prepare($this->conn, $sql, $procedure_params);
 
