@@ -3,29 +3,54 @@
 
   .navigation {
     font-size: 12px;
-	.border {
-		.outside {
-			color: blue;
-		}
-	}
+
+    .border {
+      .outside {
+        color: blue;
+      }
+    }
   }
+
   .logo {
     width: 300px;
-    &:hover { text-decoration: none }
+
+    &:hover {
+      text-decoration: none
+    }
   }
 }
 
-a { b { ul { li { color: green; } } } }
+a {
+  b {
+    ul {
+      li {
+        color: green;
+      }
+    }
+  }
+}
 
-this { will { not { show { } } } }
+this {
+  will {
+    not {
+      show {
+      }
+    }
+  }
+}
 
 .cool {
-  div & { color: green; }
-  p & span { color: yellow; }
+  div & {
+    color: green;
+  }
+
+  p & span {
+    color: yellow;
+  }
 }
 
 another {
- .cool;
+  .cool;
 }
 
 b {
@@ -43,9 +68,11 @@ b {
     & .qux {
       display: block;
     }
+
     .qux & {
       display: inline;
     }
+
     .qux & .biz {
       display: none;
     }
@@ -53,8 +80,8 @@ b {
 }
 
 b {
-	hello [x="&yeah"] {
-		color: red;
-	}
+  hello [x="&yeah"] {
+    color: red;
+  }
 }
 

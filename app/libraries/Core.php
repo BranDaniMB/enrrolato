@@ -1,5 +1,7 @@
 <?php
-class Core {
+
+class Core
+{
     protected $currentController = "pages";
     protected $currentMethod = "index";
     protected $params = [];
@@ -8,14 +10,14 @@ class Core {
     {
         $url = $this->getURL();
 
-        if (file_exists(CONTROLLER_PATH . ucwords($url[0]).".php")) {
+        if (file_exists(CONTROLLER_PATH . ucwords($url[0]) . ".php")) {
             // Se cambia el controlador por defecto
             $this->currentController = ucwords($url[0]);
             // Unset a controlador
             unset($url[0]);
         }
         // Obtiene el nuevo controlador
-        require_once CONTROLLER_PATH . $this->currentController .".php";
+        require_once CONTROLLER_PATH . $this->currentController . ".php";
         $this->currentController = new $this->currentController;
 
         // Verificar el metodo
@@ -30,7 +32,8 @@ class Core {
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
     }
 
-    public function getURL() {
+    public function getURL()
+    {
         if (isset($_GET["url"])) {
             $url = rtrim($_GET["url"], "/");
             $url = filter_var($url, FILTER_SANITIZE_URL);
