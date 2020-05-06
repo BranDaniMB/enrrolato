@@ -15,7 +15,8 @@ class Pages extends Controller
         $this->view("pages/main", $data);
     }
 
-    public function about() {
+    public function about()
+    {
         $data = [
             "TITLE" => "Acerca de | " . SITE_NAME
         ];

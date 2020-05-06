@@ -20,26 +20,28 @@ class Base
         }
     }
 
-    protected function disconnect() {
+    protected function disconnect()
+    {
         if ($this->conn) {
             sqlsrv_close($this->conn);
         }
     }
 
-    protected function execute($sql, $procedureParams) {
+    protected function execute($sql, $procedureParams)
+    {
         $this->connect();
         $stmt = sqlsrv_prepare($this->conn, $sql, $procedureParams);
 
-        if( !$stmt ) {
-            die( print_r( sqlsrv_errors(), true));
+        if (!$stmt) {
+            die(print_r(sqlsrv_errors(), true));
         }
 
-        if(sqlsrv_execute($stmt)){
-            while($res = sqlsrv_next_result($stmt)) {
+        if (sqlsrv_execute($stmt)) {
+            while ($res = sqlsrv_next_result($stmt)) {
                 // make sure all result sets are stepped through, since the output params may not be set until this happens
             }
-        }else{
-            die( print_r( sqlsrv_errors(), true));
+        } else {
+            die(print_r(sqlsrv_errors(), true));
         }
     }
 }

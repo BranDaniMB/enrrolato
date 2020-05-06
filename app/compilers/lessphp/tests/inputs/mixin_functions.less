@@ -1,14 +1,19 @@
-
 @outer: 10px;
-@class(@var:22px, @car: 400px + @outer) {
-  margin: @var;
-  height: @car;
+@class(
+
+@var: 22px, @car: 400px + @outer
+)
+{
+  margin: @var
+;
+  height: @car
+;
 }
 
-@group { 
+@group {
   @f(@color) {
-    color: @color;
-  }
+  color: @color;
+}
   .cool {
     border-bottom: 1px solid green;
   }
@@ -20,14 +25,20 @@
 
 body {
   .class(2.0em);
-  @group > @f(red);
+@group > @f(red);
   @class(10px, 10px + 2);
-  @group > .cool;
+@group > . cool;
 }
 
 
-@lots(@a: 10px, @b: 20px, @c: 30px, @d: 40px, @e: 4px, @f:3px, @g:2px, @h: 1px) {
-	padding: @a @b @c @d;
-	margin: @e @f @g @h;
+@lots(
+
+@a: 10px, @b: 20px, @c: 30px, @d: 40px, @e: 4px, @f: 3px, @g: 2px, @h: 1px
+)
+{
+  padding: @a @b @c @d
+;
+  margin: @e @f @g @h
+;
 }
 

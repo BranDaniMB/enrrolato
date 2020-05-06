@@ -4,6 +4,7 @@
 class Account extends Base
 {
     private $googleClient;
+
     public function __construct(Google_Client $newGoogleClient = null)
     {
         $this->googleClient = $newGoogleClient;
@@ -14,11 +15,13 @@ class Account extends Base
         }
     }
 
-    public function getAuthUrl() {
+    public function getAuthUrl()
+    {
         return $this->googleClient->createAuthUrl();
     }
 
-    public function authenticate($sup, $email) {
+    public function authenticate($sup, $email)
+    {
         $this->connect();
 
         $myparams['id'] = $sup;
@@ -35,18 +38,18 @@ class Account extends Base
 
         $stmt = sqlsrv_prepare($this->conn, $sql, $procedure_params);
 
-        if( !$stmt ) {
-            die( print_r( sqlsrv_errors(), true));
+        if (!$stmt) {
+            die(print_r(sqlsrv_errors(), true));
         }
 
-        if(sqlsrv_execute($stmt)){
-            while($res = sqlsrv_next_result($stmt)){
+        if (sqlsrv_execute($stmt)) {
+            while ($res = sqlsrv_next_result($stmt)) {
                 // make sure all result sets are stepped through, since the output params may not be set until this happens
             }
             // Output params are now set,
             print_r($myparams);
-        }else{
-            die( print_r( sqlsrv_errors(), true));
+        } else {
+            die(print_r(sqlsrv_errors(), true));
         }
 
         $this->disconnect();
