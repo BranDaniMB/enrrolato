@@ -1,5 +1,6 @@
 <?php
-$_SESSION["MODE"] = "LOGIN";
+session_start();
+$_SESSION["ACCESS"] = AVAIL_DISCONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Iniciar sesión con Google</h2>
@@ -28,7 +29,7 @@ if (isset($_GET['code'])) {
         $_SESSION["ERROR_TITLE"] = "Cuenta no autorizada";
         $_SESSION["ERROR_MESSAGE"] = "La cuenta de correo <u>" . $_SESSION["payload"]["email"] . "</u> no está autorizada a ingresar al sistema.";
         unset($_SESSION["payload"]);
-        header('Location: /enrrolato/authentication/loginerror');
+        header('Location: /enrrolato/systemerror');
     }
 }
 ?>

@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION["ACCESS"] = AVAIL_CONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Disponibilidad de ingredientes</h2>
@@ -7,10 +9,17 @@ include VIEWS_PATH . "inc/header.php";
     <button class="tablinks" onclick="openCity(event, 'jarabes')">Jarabes</button>
     <button class="tablinks" onclick="openCity(event, 'topping')">Topping's</button>
 </div>
+<?php
+$modify = new ModifyAvailability();
+?>
 
 <!-- Tab content -->
 <div id="sabores" class="tabcontent">
-    <p>Aquí los sabores</p>
+    <div class="ingredients-container">
+    <?php
+    echo $modify->createFlavorsBox();
+    ?>
+    </div>
 </div>
 
 <div id="jarabes" class="tabcontent">

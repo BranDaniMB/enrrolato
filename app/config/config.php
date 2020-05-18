@@ -14,6 +14,9 @@ define('IMAGES_PATH', PUBLIC_PATH . 'images/');
 define('JS_PATH', PUBLIC_PATH . 'js/');
 
 define('SITE_NAME', 'Enrrolato');
+define('AVAIL_CONNECT', 2);
+define('AVAIL_DISCONNECT', 1);
+define('AVAIL_FOREVER', 0);
 
 // Base de datos
 define('DB_HOST', 'localhost');

@@ -12,11 +12,10 @@ class Base
         $connectionInfo = array("Database" => DB_NAME);
         $this->conn = sqlsrv_connect(DB_HOST, $connectionInfo);
 
-        if ($this->conn) {
-            echo "Conexión establecida.<br />";
-        } else {
-            echo "Conexión no se pudo establecer.<br />";
-            die(print_r(sqlsrv_errors(), true));
+        if (!$this->conn) {
+            $_SESSION["ERROR_TITLE"] = "Error en la base de datos";
+            $_SESSION["ERROR_MESSAGE"] = "No sé ha logrado conectar a la base de datos.";
+            header('Location: /enrrolato/systemerror');
         }
     }
 
@@ -27,21 +26,33 @@ class Base
         }
     }
 
-    protected function execute($sql, $procedureParams)
+    protected function execute($sql, $procedureParams = Null)
     {
         $this->connect();
-        $stmt = sqlsrv_prepare($this->conn, $sql, $procedureParams);
+
+        if (isset($procedureParams)) {
+            $stmt = sqlsrv_prepare($this->conn, $sql, $procedureParams);
+        } else {
+            $stmt = sqlsrv_prepare($this->conn, $sql);
+        }
 
         if (!$stmt) {
             die(print_r(sqlsrv_errors(), true));
         }
 
         if (sqlsrv_execute($stmt)) {
-            while ($res = sqlsrv_next_result($stmt)) {
-                // make sure all result sets are stepped through, since the output params may not be set until this happens
+            $count = 0;
+            $result = [];
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $result[$count] = $row;
+                $count++;
             }
         } else {
             die(print_r(sqlsrv_errors(), true));
         }
+
+        $this->disconnect();
+
+        return $result;
     }
 }

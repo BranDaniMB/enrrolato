@@ -36,6 +36,6 @@ class Authentication extends Controller
         $data = [
             "TITLE" => "No autorizado | " . SITE_NAME
         ];
-        $this->view("pages/loginerror", $data);
+        $this->view("pages/system", $data);
     }
 }

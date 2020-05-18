@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION["ACCESS"] = AVAIL_FOREVER;
 include VIEWS_PATH . "inc/header.php";
 ?>
     <div id="error">
@@ -6,7 +8,7 @@ include VIEWS_PATH . "inc/header.php";
         <p id="error-message"><?php echo $_SESSION["ERROR_MESSAGE"] ?></p>
     </div>
     <div class="main-buttons">
-        <a class="primary-button" href="/enrrolato/authentication/login">Volver a intentar</a>
+        <a class="primary-button" href="/enrrolato/">Volver</a>
     </div>
 <?php
 include VIEWS_PATH . "inc/footer.php";
