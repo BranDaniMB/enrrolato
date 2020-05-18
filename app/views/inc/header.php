@@ -10,23 +10,19 @@
     <script src="/enrrolato/public/js/main.js"></script>
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="/enrrolato/public/css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/enrrolato/public/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/enrrolato/public/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/enrrolato/public/images/favicon-16x16.png">
 </head>
 <?php
-session_start();
 
-if (!isset($_SESSION["isValidLogin"]) && !isset($_GET['code'])) {
-    if (strcmp("Iniciar sesión | " . SITE_NAME, $data["TITLE"]) != 0
-        && strcmp("Acerca de | " . SITE_NAME, $data["TITLE"]) != 0
-        && strcmp("No autorizado | " . SITE_NAME, $data["TITLE"]) != 0) {
-        header('Location: /enrrolato/authentication/login/');
-    }
-}
-
-if (isset($_SESSION["isValidLogin"])) {
+if ($_SESSION["ACCESS"] == AVAIL_CONNECT && !isset($_SESSION["isValidLogin"])) {
+    header('Location: /enrrolato/authentication/login/');
+} elseif ($_SESSION["ACCESS"] == AVAIL_DISCONNECT && isset($_SESSION["isValidLogin"])) {
+    header('Location: /enrrolato/');
+} elseif ($_SESSION["ACCESS"] == AVAIL_CONNECT && isset($_SESSION["isValidLogin"])) {
     ?>
     <div id="user-profile">
         <img id="user-profile-img" src="<?php echo $_SESSION["payload"]["picture"] ?>" width="50px" height="50px"/>

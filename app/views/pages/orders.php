@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION["ACCESS"] = AVAIL_CONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Órdenes</h2>
@@ -17,7 +19,7 @@ include VIEWS_PATH . "inc/header.php";
         <h4>Topping</h4>
         <p class="order-topping">Botonetas-Granola</p>
         <p class="order-container">todo en cono.</p>
-        <div class="orders-buttons">
+        <div class="container-buttons">
             <a class="button">Lista</a>
             <a class="button">Entregada</a>
         </div>
@@ -32,7 +34,7 @@ include VIEWS_PATH . "inc/header.php";
         <h4>Topping</h4>
         <p class="order-topping">Botonetas-Granola</p>
         <p class="order-container">todo en cono.</p>
-        <div class="orders-buttons">
+        <div class="container-buttons">
             <a class="button">Lista</a>
             <a class="button">Entregada</a>
         </div>
@@ -60,7 +62,7 @@ include VIEWS_PATH . "inc/header.php";
                 <p class="order-container">todo en cono.</p>
             </div>
         </div>
-        <div class="orders-buttons">
+        <div class="container-buttons">
             <a class="button">Lista</a>
             <a class="button">Entregada</a>
         </div>

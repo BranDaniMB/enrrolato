@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION["ACCESS"] = AVAIL_FOREVER;
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Acerca de...</h2>

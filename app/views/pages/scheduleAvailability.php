@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION["ACCESS"] = AVAIL_CONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Disponibilidad de horarios</h2>
