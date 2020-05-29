@@ -8,7 +8,7 @@ class Base
     public function insertData($file, $data) {
         $file = $this->url . $file . ".json";
 
-        $data = json_decode($data, JSON_FORCE_OBJECT);
+        $data = json_encode($data, JSON_FORCE_OBJECT);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $file);
