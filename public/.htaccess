@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c >
 Options -Multiviews
 RewriteEngine On
-RewriteBase /enrrolato/public
+RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !\.(pdf|js|ico|gif|jpg|png|css|rar|zip|tar\.gz)$
 RewriteCond ${REQUEST_FILENAME} !-d
 RewriteCond ${REQUEST_FILENAME} !-f
