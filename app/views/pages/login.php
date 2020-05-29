@@ -19,6 +19,11 @@ if (isset($_GET['code'])) {
     $payload = $googleClient->verifyIdToken($_SESSION["token_data"]["id_token"]);
     $_SESSION["payload"] = $payload;
 
+    // Acceso temporal
+    unset($_SESSION["access_token"]);
+    $_SESSION["isValidLogin"] = true;
+    header('Location: /');
+
     /*if ($auth->authenticate($_SESSION["payload"]["sub"], $_SESSION["payload"]["email"]) == 1) {
         unset($_SESSION["access_token"]);
         $_SESSION["isValidLogin"] = true;
