@@ -6,15 +6,15 @@
     <meta http-equiv="x-ua-compatible" content="id=edge">
     <title><?php echo $data["TITLE"] ?></title>
     <!-- Scripts -->
-    <script src="/public/js/offline.min.js"></script>
-    <script src="/public/js/main.js"></script>
+    <script src="/js/offline.min.js"></script>
+    <script src="/js/main.js"></script>
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/public/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/public/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
 </head>
 <?php
 
