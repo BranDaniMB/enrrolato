@@ -8,7 +8,7 @@ include VIEWS_PATH . "inc/header.php";
         <p id="error-message"><?php echo $_SESSION["ERROR_MESSAGE"] ?></p>
     </div>
     <div class="main-buttons">
-        <a class="primary-button" href="/enrrolato/">Volver</a>
+        <a class="primary-button" href="/">Volver</a>
     </div>
 <?php
 include VIEWS_PATH . "inc/footer.php";
