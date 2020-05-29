@@ -9,7 +9,7 @@
     <script src="/public/js/offline.min.js"></script>
     <script src="/public/js/main.js"></script>
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="public/css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/public/images/apple-touch-icon.png">
