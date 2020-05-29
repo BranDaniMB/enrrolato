@@ -18,10 +18,10 @@
 </head>
 <?php
 
-if ($_SESSION["ACCESS"] == AVAIL_CONNECT && !isset($_SESSION["isValidLogin"])) {
-    header('Location: /enrrolato/authentication/login/');
+/*if ($_SESSION["ACCESS"] == AVAIL_CONNECT && !isset($_SESSION["isValidLogin"])) {
+    header('Location: /authentication/login/');
 } elseif ($_SESSION["ACCESS"] == AVAIL_DISCONNECT && isset($_SESSION["isValidLogin"])) {
-    header('Location: /enrrolato/');
+    header('Location: /');
 } elseif ($_SESSION["ACCESS"] == AVAIL_CONNECT && isset($_SESSION["isValidLogin"])) {
     ?>
     <div id="user-profile">
@@ -30,6 +30,6 @@ if ($_SESSION["ACCESS"] == AVAIL_CONNECT && !isset($_SESSION["isValidLogin"])) {
         <a href="/enrrolato/authentication/logout/" id="user-profile-logout">Cerrar sesión</a>
     </div>
     <?php
-}
+}*/
 ?>
 <body>
