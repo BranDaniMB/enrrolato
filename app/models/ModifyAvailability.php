@@ -9,9 +9,13 @@ class ModifyAvailability extends Base
 
     public function getFlavors()
     {
-        $sql = "EXEC stp_getFlavors";
-
-        return $this->execute($sql);
+        $data = array('Mora' => array('name'=> 'Mora',
+            'isLiqueur' => '0',
+            'isSpecial' => '0',
+            'isExclusive' => '0',
+            'avaliable' => '1'));
+        $this->insertData('flavors', $data);
+        return $data;
     }
 
     public function definedIsValue($value) {
