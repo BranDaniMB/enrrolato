@@ -20,9 +20,9 @@ class Base
         $response = curl_exec($ch);
 
         if (curl_errno($ch)) {
-            echo 'Error:' . curl_errno($ch);
+
         } else {
-            echo 'Se inserto.';
+
         }
 
         curl_close($ch);
@@ -41,8 +41,6 @@ class Base
         unset($ch);
 
         $data = json_decode($response, true);
-        foreach ($data as $key => $value) {
-            echo $data[$key];
-        }
+        return $data;
     }
 }
