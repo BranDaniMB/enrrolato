@@ -3,56 +3,46 @@
 
 class Base
 {
-    protected $conn;
+    protected $url = "https://enrrolato-1588267227733.firebaseio.com/";
 
-    protected function connect()
-    {
-        // Puesto que no se han especificado UID ni PWD en el array  $connectionInfo,
-        // La conexión se intentará utilizando la autenticación Windows.
-        $connectionInfo = array("Database" => DB_NAME);
-        $this->conn = sqlsrv_connect(DB_HOST, $connectionInfo);
+    public function insertData($file, $data) {
+        $file = $this->url . $file . ".json";
 
-        if (!$this->conn) {
-            $_SESSION["ERROR_TITLE"] = "Error en la base de datos";
-            $_SESSION["ERROR_MESSAGE"] = "No sé ha logrado conectar a la base de datos.";
-            header('Location: /enrrolato/systemerror');
+        $data = json_decode($data, JSON_FORCE_OBJECT);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $file);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: text/plain'));
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_errno($ch);
+        } else {
+            echo 'Se inserto.';
         }
+
+        curl_close($ch);
+        unset($ch);
     }
 
-    protected function disconnect()
-    {
-        if ($this->conn) {
-            sqlsrv_close($this->conn);
+    public function getData($file) {
+        $file = $this->url . $file . ".json";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $file);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        unset($ch);
+
+        $data = json_decode($response, true);
+        foreach ($data as $key => $value) {
+            echo $data[$key];
         }
-    }
-
-    protected function execute($sql, $procedureParams = Null)
-    {
-        $this->connect();
-
-        if (isset($procedureParams)) {
-            $stmt = sqlsrv_prepare($this->conn, $sql, $procedureParams);
-        } else {
-            $stmt = sqlsrv_prepare($this->conn, $sql);
-        }
-
-        if (!$stmt) {
-            die(print_r(sqlsrv_errors(), true));
-        }
-
-        if (sqlsrv_execute($stmt)) {
-            $count = 0;
-            $result = [];
-            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                $result[$count] = $row;
-                $count++;
-            }
-        } else {
-            die(print_r(sqlsrv_errors(), true));
-        }
-
-        $this->disconnect();
-
-        return $result;
     }
 }
