@@ -4,7 +4,7 @@ class ModifyAvailability extends Base
 {
     public function __construct()
     {
-
+        parent::__construct();
     }
 
     public function getFlavors()
