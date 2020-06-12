@@ -12,6 +12,7 @@ class ModifyAvailability extends Base
         $reference = $this->getReference('business/ingredients/flavors');
         try {
             $snapshot = $reference->getSnapshot();
+            print_r($snapshot->exists());
             if ($snapshot->exists()) {
                 print_r($snapshot->getValue());
             }
