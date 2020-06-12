@@ -9,12 +9,20 @@ class ModifyAvailability extends Base
 
     public function getFlavors()
     {
+        $reference = $this->getReference('business/ingredients/flavors');
+        try {
+            $snapshot = $reference->getSnapshot();
+            if ($snapshot->exists()) {
+                print_r($snapshot->getValue());
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+        }
         $data = array('Mora' => array('name'=> 'Mora',
             'isLiqueur' => '0',
             'isSpecial' => '0',
             'isExclusive' => '0',
             'avaliable' => '1'));
-        $this->insertData('flavors', $data);
+        //$this->insertData('flavors', $data);
         return $data;
     }
 

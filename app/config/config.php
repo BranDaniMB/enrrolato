@@ -18,9 +18,7 @@ define('AVAIL_CONNECT', 2);
 define('AVAIL_DISCONNECT', 1);
 define('AVAIL_FOREVER', 0);
 
-// Base de datos
-define('DB_HOST', 'localhost');
-define('UID', NULL);
-define('PWD', NULL);
-define('DB_NAME', 'Enrrolato');
+// Firebase
+define('GOOGLE_APPLICATION_CREDENTIALS', CONFIG_PATH . "enrrolato-1588267227733-firebase-adminsdk-mcd44-8adfedd088.json");
+
 
