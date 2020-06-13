@@ -9,8 +9,10 @@ function openCity(evt, cityName) {
     }
 
     // Get all elements with class="tablinks" and remove the class "active"
+    var addButton = document.getElementById("add-ingredient-button");
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
+        addButton.setAttribute("href", "/ingredients/add/" + tablinks[i].className);
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
