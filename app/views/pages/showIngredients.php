@@ -3,14 +3,14 @@ session_start();
 $_SESSION["ACCESS"] = AVAIL_CONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
-<h2>Disponibilidad de ingredientes</h2>
+<h2>Lista de ingredientes</h2>
 <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'sabores')" id="defaultOpen">Sabores</button>
     <button class="tablinks" onclick="openCity(event, 'jarabes')">Jarabes</button>
     <button class="tablinks" onclick="openCity(event, 'topping')">Topping's</button>
 </div>
 <?php
-$modify = new ModifyAvailability();
+$modify = new FlavorsModel();
 ?>
 
 <!-- Tab content -->

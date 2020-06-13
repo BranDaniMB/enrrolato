@@ -1,6 +1,6 @@
 <?php
 
-class ModifyAvailability extends Base
+class FlavorsModel extends Base
 {
     public function __construct()
     {
