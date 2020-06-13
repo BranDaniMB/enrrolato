@@ -6,7 +6,7 @@ function openCity(evt, cityName) {
     var addButton = document.getElementById("add-ingredient-button");
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
-        addButton.setAttribute("href", "/ingredients/add/" + tablinks[i].getAttribute("name"));
+        addButton.setAttribute("href", "/ingredients/add/" + tabcontent[i].getAttribute("name"));
         tabcontent[i].style.display = "none";
     }
 
