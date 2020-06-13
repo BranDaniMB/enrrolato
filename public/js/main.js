@@ -3,16 +3,16 @@ function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
 
     // Get all elements with class="tabcontent" and hide them
+    var addButton = document.getElementById("add-ingredient-button");
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
+        addButton.setAttribute("href", "/ingredients/add/" + tablinks[i].getAttribute("name"));
         tabcontent[i].style.display = "none";
     }
 
     // Get all elements with class="tablinks" and remove the class "active"
-    var addButton = document.getElementById("add-ingredient-button");
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
-        addButton.setAttribute("href", "/ingredients/add/" + tablinks[i].getAttribute("name"));
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
