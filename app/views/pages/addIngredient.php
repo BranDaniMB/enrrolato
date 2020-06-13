@@ -5,7 +5,7 @@ include VIEWS_PATH . "inc/header.php";
 ?>
     <h2>Agregar nuevo ingrediente</h2>
 <?php
-switch ($data["FLAVOR"]) {
+switch ($data["TYPE"]) {
     case "flavor":
         ?>
         <form name="add_ingredient_flavor" action="/action/add/flavor" method="post">
