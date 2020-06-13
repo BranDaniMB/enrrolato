@@ -4,6 +4,9 @@ $_SESSION["ACCESS"] = AVAIL_CONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Lista de ingredientes</h2>
+
+<a class="add-ingredient-button button" href="/ingredients/add">Añadir un ingrediente</a>
+
 <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'sabores')" id="defaultOpen">Sabores</button>
     <button class="tablinks" onclick="openCity(event, 'jarabes')">Jarabes</button>

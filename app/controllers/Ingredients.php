@@ -22,6 +22,17 @@ class Ingredients extends Controller
     }
 
     public function edit($flavor) {
-        echo $flavor;
+        $data = [
+            "TITLE" => "Editar {$flavor}| " . SITE_NAME,
+            "FLAVOR" => $flavor
+        ];
+        $this->view("pages/editIngredient", $data);
+    }
+
+    public function add() {
+        $data = [
+            "TITLE" => "Añadir ingrediente| " . SITE_NAME
+        ];
+        $this->view("pages/addIngredient", $data);
     }
 }
