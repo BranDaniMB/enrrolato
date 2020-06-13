@@ -5,7 +5,7 @@ class Schedule extends Controller
 {
     public function __construct()
     {
-        $this->controllerModel = $this->model("Schedule");
+        $this->controllerModel = $this->model("SchedulesModel");
     }
 
     public function index()
