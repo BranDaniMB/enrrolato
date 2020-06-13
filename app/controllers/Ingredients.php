@@ -20,4 +20,8 @@ class Ingredients extends Controller
         ];
         $this->view("pages/showIngredients", $data);
     }
+
+    public function edit($flavor) {
+        echo $flavor;
+    }
 }

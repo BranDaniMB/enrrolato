@@ -12,9 +12,9 @@ class FlavorsModel extends Base
         $reference = $this->getReference('business/ingredients/flavors');
         try {
             $snapshot = $reference->getSnapshot();
-            print_r($snapshot->exists());
+           echo $snapshot->exists();
             if ($snapshot->exists()) {
-                print_r($snapshot->getValue());
+                echo $snapshot->getValue();
             }
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
         }
@@ -48,7 +48,7 @@ class FlavorsModel extends Base
                         '<p>¿Sabor especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u></p>' .
                         '<p>¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u></p>' .
                         '<p>¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></p>' .
-                        '<a class="ingredient-edit"><i class="material-icons">create</i></a>' .
+                        '<a class="ingredient-edit" href="/ingredients/edit/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
                     '</div>';
         }
 
