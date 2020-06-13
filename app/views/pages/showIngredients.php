@@ -18,7 +18,7 @@ $modify = new FlavorsModel();
 ?>
 
 <!-- Tab content -->
-<div id="sabores" class="tabcontent">
+<div id="sabores" name="flavor" class="tabcontent">
     <div class="ingredients-container">
     <?php
     echo $modify->createFlavorsBox();
@@ -26,12 +26,16 @@ $modify = new FlavorsModel();
     </div>
 </div>
 
-<div id="jarabes" class="tabcontent">
+<div id="jarabes" name="filling" class="tabcontent">
     <p>Aquí los rellenos</p>
 </div>
 
-<div id="topping" class="tabcontent">
+<div id="topping" name="topping" class="tabcontent">
     <p>Aquí los topping's</p>
+</div>
+
+<div id="envases" name="container" class="tabcontent">
+    <p>Aquí los envases's</p>
 </div>
 
 <script>

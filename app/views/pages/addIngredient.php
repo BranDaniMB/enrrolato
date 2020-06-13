@@ -10,15 +10,15 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_flavor" action="/action/add/flavor" method="post">
             <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name">
+            <input id="name" type="text" name="name" required>
             <label for="isLiqueur">Es licor:</label>
-            <input id="isLiqueur" type="checkbox" name="isLiqueur">
+            <input id="isLiqueur" type="checkbox" name="isLiqueur" required>
             <label for="isSpecial">Es especial:</label>
-            <input id="isSpecial" type="checkbox" name="isSpecial">
+            <input id="isSpecial" type="checkbox" name="isSpecial" required>
             <label for="isExclusive">Es exclusivo:</label>
-            <input id="isExclusive" type="checkbox" name="isExclusive">
+            <input id="isExclusive" type="checkbox" name="isExclusive" required>
             <label for="avaliable">¿Disponible?:</label>
-            <input id="avaliable" type="checkbox" name="avaliable">
+            <input id="avaliable" type="checkbox" name="avaliable" required>
             <input type="submit" value="Agregar">
         </form>
         <?php
@@ -27,7 +27,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_filling" action="/action/add/filling" method="post">
             <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name">
+            <input id="name" type="text" name="name" required>
             <label for="isExclusive">Es exclusivo:</label>
             <input id="isExclusive" type="checkbox" name="isExclusive">
             <label for="avaliable">¿Disponible?:</label>
@@ -40,7 +40,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_topping" action="/action/add/topping" method="post">
             <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name">
+            <input id="name" type="text" name="name" required>
             <label for="avaliable">¿Disponible?:</label>
             <input id="avaliable" type="checkbox" name="avaliable">
             <input type="submit" value="Agregar">
@@ -51,7 +51,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_container" action="/action/add/container" method="post">
             <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name">
+            <input id="name" type="text" name="name" required>
             <label for="avaliable">¿Disponible?:</label>
             <input id="avaliable" type="checkbox" name="avaliable">
             <input type="submit" value="Agregar">

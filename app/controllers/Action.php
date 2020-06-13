@@ -47,7 +47,7 @@ class Action extends Controller
                     ];
                     break;
             }
-            $this->view("pages/sucess", $data);
+            $this->view("pages/success", $data);
         } else {
             header('Location: /systemerror');
         }

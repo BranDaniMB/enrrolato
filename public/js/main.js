@@ -12,7 +12,7 @@ function openCity(evt, cityName) {
     var addButton = document.getElementById("add-ingredient-button");
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
-        addButton.setAttribute("href", "/ingredients/add/" + tablinks[i].className);
+        addButton.setAttribute("href", "/ingredients/add/" + tablinks[i].getAttribute("name"));
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
