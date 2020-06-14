@@ -1,7 +1,7 @@
 <?php
 
 
-class SystemError extends Controller
+class AppError extends Controller
 {
     public function __construct()
     {

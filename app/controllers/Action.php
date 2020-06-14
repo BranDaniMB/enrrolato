@@ -53,14 +53,14 @@ class Action extends Controller
                 default:
                     $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
                     $_SESSION["ERROR_MESSAGE"] = "El tipo de sabor no es válido.";
-                    header('Location: /systemerror');
+                    header('Location: /appError');
                     break;
             }
             $this->view("pages/success", $data);
         } else {
             $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
             $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
-            header('Location: /systemerror');
+            header('Location: /appError');
         }
     }
 }

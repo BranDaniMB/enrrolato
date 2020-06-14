@@ -11,5 +11,9 @@ include VIEWS_PATH . "inc/header.php";
         <a class="primary-button" href="/">Volver</a>
     </div>
 <?php
+unset($_SESSION["ERROR_TITLE"]);
+unset($_SESSION["ERROR_MESSAGE"]);
+?>
+<?php
 include VIEWS_PATH . "inc/footer.php";
 ?>

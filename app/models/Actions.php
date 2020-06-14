@@ -27,12 +27,12 @@ class Actions extends Base
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
             $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
             $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el sabor.\n". $e->getMessage();
-            header('Location: /systemerror');
+            header('Location: /appError');
             return false;
         } catch (Exception $e) {
             $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
             $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            header('Location: /systemerror');
+            header('Location: /appError');
         }
     }
 
