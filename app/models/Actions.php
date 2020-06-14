@@ -12,19 +12,27 @@ class Actions extends Base
         print_r($POST);
         $reference = $this->getReference('business/ingredients/flavors/' . $POST["name"]);
         try {
-            $reference->set([
-                'name' => $POST['name'],
-                'isLiqueur' => isset($POST['isLiqueur'])?'1':'0',
-                'isSpecial' => isset($POST['isSpecial'])?'1':'0',
-                'isExclusive' => isset($POST['isExclusive'])?'1':'0',
-                'avaliable' => isset($POST['avaliable'])?'1':'0'
-            ]);
+            if (!$reference->getSnapshot()->exists()) {
+                $reference->set([
+                    'name' => $POST['name'],
+                    'isLiqueur' => isset($POST['isLiqueur'])?'1':'0',
+                    'isSpecial' => isset($POST['isSpecial'])?'1':'0',
+                    'isExclusive' => isset($POST['isExclusive'])?'1':'0',
+                    'avaliable' => isset($POST['avaliable'])?'1':'0'
+                ]);
+            } else {
+                throw new Exception("Ese sabor ya existe, por favor ese la opción de edición para modificar su contenido.")
+            }
             return true;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
             $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
             $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el sabor.\n". $e->getMessage();
             header('Location: /systemerror');
             return false;
+        } catch (Exception $e) {
+            $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
+            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
+            header('Location: /systemerror');
         }
     }
 

@@ -40,7 +40,7 @@ class FlavorsModel extends Base
 
         foreach ($flavorList as &$item) {
             $boxes .='<div class="ingredient-container">' .
-                        '<p class="ingredient-name">' . $item["name"] . '</p>' .
+                        '<p class="ingredient-name">' . ucfirst($item["name"]) . '</p>' .
                         '<p>¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u></p>' .
                         '<p>¿Sabor especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u></p>' .
                         '<p>¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u></p>' .
