@@ -9,16 +9,16 @@ switch ($data["TYPE"]) {
     case "flavor":
         ?>
         <form name="add_ingredient_flavor" action="/action/add/flavor" method="post">
-            <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name" required>
-            <label for="isLiqueur">Es licor:</label>
-            <input id="isLiqueur" type="checkbox" name="isLiqueur">
-            <label for="isSpecial">Es especial:</label>
-            <input id="isSpecial" type="checkbox" name="isSpecial">
-            <label for="isExclusive">Es exclusivo:</label>
-            <input id="isExclusive" type="checkbox" name="isExclusive">
-            <label for="avaliable">¿Disponible?:</label>
-            <input id="avaliable" type="checkbox" name="avaliable">
+            <label>Nombre:
+                <input id="name" type="text" name="name" required></label>
+            <label>Es licor:
+                <input id="isLiqueur" type="checkbox" name="isLiqueur"></label>
+            <label>Es especial:
+                <input id="isSpecial" type="checkbox" name="isSpecial"></label>
+            <label>Es exclusivo:
+                <input id="isExclusive" type="checkbox" name="isExclusive"></label>
+            <label>¿Disponible?
+                <input id="avaliable" type="checkbox" name="avaliable"></label>
             <input type="submit" value="Agregar">
         </form>
         <?php
@@ -26,12 +26,12 @@ switch ($data["TYPE"]) {
     case "filling":
         ?>
         <form name="add_ingredient_filling" action="/action/add/filling" method="post">
-            <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name" required>
-            <label for="isExclusive">Es exclusivo:</label>
-            <input id="isExclusive" type="checkbox" name="isExclusive">
-            <label for="avaliable">¿Disponible?:</label>
-            <input id="avaliable" type="checkbox" name="avaliable">
+            <label>Nombre:
+                <input id="name" type="text" name="name" required></label>
+            <label>Es exclusivo:
+                <input id="isExclusive" type="checkbox" name="isExclusive"></label>
+            <label>¿Disponible?
+                <input id="avaliable" type="checkbox" name="avaliable"></label>
             <input type="submit" value="Agregar">
         </form>
         <?php
@@ -39,10 +39,10 @@ switch ($data["TYPE"]) {
     case "topping":
         ?>
         <form name="add_ingredient_topping" action="/action/add/topping" method="post">
-            <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name" required>
-            <label for="avaliable">¿Disponible?:</label>
-            <input id="avaliable" type="checkbox" name="avaliable">
+            <label for="name">Nombre:
+                <input id="name" type="text" name="name" required></label>
+            <label for="avaliable">¿Disponible?
+                <input id="avaliable" type="checkbox" name="avaliable"></label>
             <input type="submit" value="Agregar">
         </form>
         <?php
@@ -50,10 +50,10 @@ switch ($data["TYPE"]) {
     case "container":
         ?>
         <form name="add_ingredient_container" action="/action/add/container" method="post">
-            <label for="name">Nombre:</label>
-            <input id="name" type="text" name="name" required>
-            <label for="avaliable">¿Disponible?:</label>
-            <input id="avaliable" type="checkbox" name="avaliable">
+            <label for="name">Nombre:
+                <input id="name" type="text" name="name" required></label>
+            <label for="avaliable">¿Disponible?
+                <input id="avaliable" type="checkbox" name="avaliable"></label>
             <input type="submit" value="Agregar">
         </form>
         <?php
