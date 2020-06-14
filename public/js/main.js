@@ -3,7 +3,7 @@ function openTab(evt, type) {
     var i, tabcontent, tablinks;
 
     var addButton = document.getElementById("add-ingredient-button");
-    addButton.innerText = "Agregar un " + evt.currentTarget.innerText;
+    addButton.innerText = "Agregar " + evt.currentTarget.innerText.toLowerCase();
     addButton.setAttribute("href", "/ingredients/add/" + type);
 
     // Get all elements with class="tabcontent" and hide them
