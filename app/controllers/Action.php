@@ -15,6 +15,7 @@ class Action extends Controller
 
     public function add($type)
     {
+        session_start();
         if (!empty($_POST)) {
             $model = new Actions();
             switch ($type) {
