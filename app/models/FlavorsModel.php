@@ -14,7 +14,7 @@ class FlavorsModel extends Base
             $snapshot = $reference->getSnapshot();
            echo $snapshot->exists();
             if ($snapshot->exists()) {
-                echo $snapshot->getValue();
+                print_r($snapshot->getValue());
             }
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
         }
