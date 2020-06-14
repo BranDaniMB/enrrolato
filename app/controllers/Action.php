@@ -49,7 +49,7 @@ class Action extends Controller
             }
             $this->view("pages/success", $data);
         } else {
-            header('Location: /systemerror');
+            echo "$_POST esta vacio.";
         }
     }
 }
