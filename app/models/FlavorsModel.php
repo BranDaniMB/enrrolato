@@ -12,28 +12,25 @@ class FlavorsModel extends Base
         $reference = $this->getReference('business/ingredients/flavors');
         try {
             $snapshot = $reference->getSnapshot();
-           echo $snapshot->exists();
             if ($snapshot->exists()) {
-                print_r($snapshot->getValue());
+                return $snapshot->getValue();
             }
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $_SESSION["ERROR_TITLE"] = "Error al acceder a la base de datos.";
+            $_SESSION["ERROR_MESSAGE"] = "Hubo un error al recopilar los datos desde la base de datos.";
+            header('Location: /systemerror');
         }
-        $data = array('Mora' => array('name'=> 'Mora',
-            'isLiqueur' => '0',
-            'isSpecial' => '0',
-            'isExclusive' => '0',
-            'avaliable' => '1'));
-        //$this->insertData('flavors', $data);
-        return $data;
+        return null;
     }
 
     public function definedIsValue($value) {
-        if ($value == 0) {
-            return "No";
-        } elseif ($value == 1) {
-            return "Sí";
-        } else {
-            return "Desconocido";
+        switch ($value) {
+            case 0:
+                return 'No';
+            case 1:
+                return 'Sí';
+            default:
+                return 'Desconocido';
         }
     }
 

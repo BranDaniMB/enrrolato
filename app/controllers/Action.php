@@ -19,37 +19,48 @@ class Action extends Controller
             $model = new Actions();
             switch ($type) {
                 case 'flavor':
-                    $model->createFlavor($_POST);
-                    $data = [
-                        "TITLE" => "Sabor agregado | " . SITE_NAME,
-                        "SUCCESS_ACTION" => "Sabor agregado"
-                    ];
+                    if ($model->createFlavor($_POST)) {
+                        $data = [
+                            "TITLE" => "Sabor agregado | " . SITE_NAME,
+                            "SUCCESS_ACTION" => "Sabor agregado"
+                        ];
+                    }
                     break;
                 case 'filling':
-                    $model->createFilling($_POST);
-                    $data = [
-                        "TITLE" => "Relleno agregado | " . SITE_NAME,
-                        "SUCCESS_ACTION" => "Relleno agregado"
-                    ];
+                    if ($model->createFilling($_POST)) {
+                        $data = [
+                            "TITLE" => "Relleno agregado | " . SITE_NAME,
+                            "SUCCESS_ACTION" => "Relleno agregado"
+                        ];
+                    }
                     break;
                 case 'topping':
-                    $model->createTopping($_POST);
-                    $data = [
-                        "TITLE" => "Topping agregado | " . SITE_NAME,
-                        "SUCCESS_ACTION" => "Topping agregado"
-                    ];
+                    if ($model->createTopping($_POST)) {
+                        $data = [
+                            "TITLE" => "Topping agregado | " . SITE_NAME,
+                            "SUCCESS_ACTION" => "Topping agregado"
+                        ];
+                    }
                     break;
                 case 'container':
-                    $model->createContainer($_POST);
-                    $data = [
-                        "TITLE" => "Envase agregado | " . SITE_NAME,
-                        "SUCCESS_ACTION" => "Envase agregado"
-                    ];
+                    if ($model->createContainer($_POST)) {
+                        $data = [
+                            "TITLE" => "Envase agregado | " . SITE_NAME,
+                            "SUCCESS_ACTION" => "Envase agregado"
+                        ];
+                    }
+                    break;
+                default:
+                    $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
+                    $_SESSION["ERROR_MESSAGE"] = "El tipo de sabor no es válido.";
+                    header('Location: /systemerror');
                     break;
             }
             $this->view("pages/success", $data);
         } else {
-            echo "$_POST esta vacio.";
+            $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
+            $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
+            header('Location: /systemerror');
         }
     }
 }

@@ -19,12 +19,13 @@ class Actions extends Base
                 'isExclusive' => isset($POST['isExclusive'])?'1':'0',
                 'avaliable' => isset($POST['avaliable'])?'1':'0'
             ]);
+            return true;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
             $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el sabor.n/". $e->getMessage();
+            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el sabor.\n". $e->getMessage();
             header('Location: /systemerror');
+            return false;
         }
-        return true;
     }
 
     public function createFilling($POST) {
