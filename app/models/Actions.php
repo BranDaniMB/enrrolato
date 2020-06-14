@@ -14,10 +14,10 @@ class Actions extends Base
         try {
             $reference->set([
                 'name' => $POST['name'],
-                'isLiqueur' => $POST['isLiqueur'],
-                'isSpecial' => $POST['isSpecial'],
-                'isExclusive' => $POST['isExclusive'],
-                'avaliable' => $POST['avaliable']
+                'isLiqueur' => isset($POST['isLiqueur'])?'1':'0',
+                'isSpecial' => isset($POST['isSpecial'])?'1':'0',
+                'isExclusive' => isset($POST['isExclusive'])?'1':'0',
+                'avaliable' => isset($POST['avaliable'])?'1':'0'
             ]);
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
             $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
