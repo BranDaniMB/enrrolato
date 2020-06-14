@@ -12,13 +12,13 @@ switch ($data["TYPE"]) {
             <label for="name">Nombre:</label>
             <input id="name" type="text" name="name" required>
             <label for="isLiqueur">Es licor:</label>
-            <input id="isLiqueur" type="checkbox" name="isLiqueur" required>
+            <input id="isLiqueur" type="checkbox" name="isLiqueur">
             <label for="isSpecial">Es especial:</label>
-            <input id="isSpecial" type="checkbox" name="isSpecial" required>
+            <input id="isSpecial" type="checkbox" name="isSpecial">
             <label for="isExclusive">Es exclusivo:</label>
-            <input id="isExclusive" type="checkbox" name="isExclusive" required>
+            <input id="isExclusive" type="checkbox" name="isExclusive">
             <label for="avaliable">¿Disponible?:</label>
-            <input id="avaliable" type="checkbox" name="avaliable" required>
+            <input id="avaliable" type="checkbox" name="avaliable">
             <input type="submit" value="Agregar">
         </form>
         <?php

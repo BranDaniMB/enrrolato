@@ -11,7 +11,7 @@ include VIEWS_PATH . "inc/header.php";
     <button class="tablinks" onclick="openTab(event, 'flavor')" id="defaultOpen">Sabores</button>
     <button class="tablinks" onclick="openTab(event, 'filling')">Jarabes</button>
     <button class="tablinks" onclick="openTab(event, 'topping')">Topping's</button>
-    <button class="tablinks" onclick="openTab(event, 'container')">envases</button>
+    <button class="tablinks" onclick="openTab(event, 'container')">Envases</button>
 </div>
 <?php
 $modify = new FlavorsModel();

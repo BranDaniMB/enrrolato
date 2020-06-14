@@ -2,9 +2,11 @@ function openTab(evt, type) {
     // Declare all variables
     var i, tabcontent, tablinks;
 
-    // Get all elements with class="tabcontent" and hide them
     var addButton = document.getElementById("add-ingredient-button");
+    addButton.innerText = "Agregar un " + evt.currentTarget.innerText;
     addButton.setAttribute("href", "/ingredients/add/" + type);
+
+    // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
