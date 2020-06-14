@@ -9,6 +9,7 @@ class Actions extends Base
     }
 
     public function createFlavor($POST) {
+        print_r($POST);
         $reference = $this->getReference('business/ingredients/flavors/' . $POST["name"]);
         try {
             $reference->set([
