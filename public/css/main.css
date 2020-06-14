@@ -366,6 +366,9 @@ footer span {
   color: #e6e6e6;
   transition-duration: 500ms;
 }
+.ingredient-container .ingredient-edit a {
+  color: #0D181C;
+}
 .ingredient-container .ingredient-edit:hover > a:before {
   content: " Editar";
 }

@@ -21,9 +21,10 @@ class Ingredients extends Controller
         $this->view("pages/showIngredients", $data);
     }
 
-    public function edit($flavor) {
+    public function edit($type, $flavor) {
         $data = [
             "TITLE" => "Editar {$flavor} | " . SITE_NAME,
+            "TYPE" => $type,
             "FLAVOR" => $flavor
         ];
         $this->view("pages/editIngredient", $data);
