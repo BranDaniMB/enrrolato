@@ -21,7 +21,7 @@ class Actions extends Base
                     'avaliable' => isset($POST['avaliable'])?'1':'0'
                 ]);
             } else {
-                throw new Exception("Ese sabor ya existe, por favor ese la opción de edición para modificar su contenido.")
+                throw new Exception("Ese sabor ya existe, por favor ese la opción de edición para modificar su contenido.");
             }
             return true;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
