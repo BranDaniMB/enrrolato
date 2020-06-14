@@ -9,7 +9,7 @@ class IngredientsModel extends Base
 
     public function getInfo($path)
     {
-        $reference = $this->getReference($path);
+        $reference = $this->getReference($path)->orderByKey();
         try {
             $snapshot = $reference->getSnapshot();
             if ($snapshot->exists()) {
@@ -35,7 +35,7 @@ class IngredientsModel extends Base
     }
 
     public function createFlavorsBox() {
-        $flavorList = $this->getInfo('business/ingredients/flavors');
+        $flavorList = $this->getInfo(FLAVORS);
         if (!empty($flavorList)) {
             $boxes = "";
             foreach ($flavorList as &$item) {
@@ -56,7 +56,7 @@ class IngredientsModel extends Base
     }
 
     public function createFillingBox() {
-        $fillingList = $this->getInfo('business/ingredients/fillings');
+        $fillingList = $this->getInfo(FILLINGS);
         if (!empty($fillingList)) {
             $boxes = "";
             foreach ($fillingList as &$item) {
@@ -75,7 +75,7 @@ class IngredientsModel extends Base
     }
 
     public function createToppingBox() {
-        $toppingList = $this->getInfo('business/ingredients/toppings');
+        $toppingList = $this->getInfo(TOPPINGS);
         if (!empty($toppingList)) {
             $boxes = "";
             foreach ($toppingList as &$item) {
@@ -93,7 +93,7 @@ class IngredientsModel extends Base
     }
 
     public function createContainerBox() {
-        $containerList = $this->getInfo('business/ingredients/containers');
+        $containerList = $this->getInfo(CONTAINERS);
         if (!empty($containerList)) {
             $boxes = "";
             foreach ($containerList as &$item) {

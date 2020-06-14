@@ -9,7 +9,7 @@ class Actions extends Base
     }
 
     public function createFlavor($POST) {
-        $reference = $this->getReference('business/ingredients/flavors/' . $POST["name"]);
+        $reference = $this->getReference(FLAVORS . '/' . $POST["name"]);
         try {
             if (!$reference->getSnapshot()->exists()) {
                 $reference->set([
@@ -39,7 +39,7 @@ class Actions extends Base
     }
 
     public function createFilling($POST) {
-        $reference = $this->getReference('business/ingredients/fillings/' . $POST["name"]);
+        $reference = $this->getReference( FILLINGS . '/' . $POST["name"]);
         try {
             if (!$reference->getSnapshot()->exists()) {
                 $reference->set([
@@ -67,7 +67,7 @@ class Actions extends Base
     }
 
     public function createTopping($POST) {
-        $reference = $this->getReference('business/ingredients/toppings/' . $POST["name"]);
+        $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
         try {
             if (!$reference->getSnapshot()->exists()) {
                 $reference->set([
@@ -94,7 +94,7 @@ class Actions extends Base
     }
 
     public function createContainer($POST) {
-        $reference = $this->getReference('business/ingredients/containers/' . $POST["name"]);
+        $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
         try {
             if (!$reference->getSnapshot()->exists()) {
                 $reference->set([

@@ -20,5 +20,13 @@ define('AVAIL_FOREVER', 0);
 
 // Firebase
 define('GOOGLE_APPLICATION_CREDENTIALS', CONFIG_PATH . "enrrolato-1588267227733-firebase-adminsdk-mcd44-8adfedd088.json");
+// Firebase references
+// business/ingredients/flavors'
+define('BUSINESS', 'business');
+define('INGREDIENTS', BUSINESS.'/ingredients');
+define('FLAVORS',INGREDIENTS.'/flavors');
+define('FILLINGS',INGREDIENTS.'/fillings');
+define('TOPPINGS',INGREDIENTS.'/toppings');
+define('CONTAINERS',INGREDIENTS.'/containers');
 
 
