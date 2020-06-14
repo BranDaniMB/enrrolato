@@ -10,7 +10,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_flavor" action="/action/add/flavor" method="post">
             <label>Nombre:
-                <input id="name" type="text" name="name" pattern="[a-záéíóúñü\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label>Es licor:
                 <input id="isLiqueur" type="checkbox" name="isLiqueur"></label>
             <label>Es especial:
@@ -27,7 +27,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_filling" action="/action/add/filling" method="post">
             <label>Nombre:
-                <input id="name" type="text" name="name" pattern="[a-záéíóúñü\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label>Es exclusivo:
                 <input id="isExclusive" type="checkbox" name="isExclusive"></label>
             <label>¿Disponible?
@@ -40,7 +40,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_topping" action="/action/add/topping" method="post">
             <label for="name">Nombre:
-                <input id="name" type="text" name="name" pattern="[a-záéíóúñü\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label for="avaliable">¿Disponible?
                 <input id="avaliable" type="checkbox" name="avaliable"></label>
             <input type="submit" value="Agregar">
@@ -51,7 +51,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="add_ingredient_container" action="/action/add/container" method="post">
             <label for="name">Nombre:
-                <input id="name" type="text" name="name" pattern="[a-záéíóúñü\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label for="avaliable">¿Disponible?
                 <input id="avaliable" type="checkbox" name="avaliable"></label>
             <input type="submit" value="Agregar">
