@@ -14,7 +14,7 @@ include VIEWS_PATH . "inc/header.php";
     <button class="tablinks" onclick="openTab(event, 'container')">Envases</button>
 </div>
 <?php
-$modify = new FlavorsModel();
+$modify = new IngredientsModel();
 ?>
 
 <!-- Tab content -->
@@ -27,15 +27,27 @@ $modify = new FlavorsModel();
 </div>
 
 <div id="filling" class="tabcontent">
-    <p>Aquí los rellenos</p>
+    <div class="ingredients-container">
+        <?php
+        echo $modify->createFillingBox();
+        ?>
+    </div>
 </div>
 
 <div id="topping" class="tabcontent">
-    <p>Aquí los topping's</p>
+    <div class="ingredients-container">
+        <?php
+        echo $modify->createToppingBox();
+        ?>
+    </div>
 </div>
 
 <div id="container" class="tabcontent">
-    <p>Aquí los envases's</p>
+    <div class="ingredients-container">
+        <?php
+        echo $modify->createContainerBox();
+        ?>
+    </div>
 </div>
 
 <script>

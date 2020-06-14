@@ -5,7 +5,7 @@ class Ingredients extends Controller
 {
     public function __construct()
     {
-        $this->controllerModel = $this->model("FlavorsModel");
+        $this->controllerModel = $this->model("IngredientsModel");
     }
 
     public function index()

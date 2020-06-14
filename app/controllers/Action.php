@@ -10,7 +10,10 @@ class Action extends Controller
 
     public function index()
     {
-
+        $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
+        $_SESSION["ERROR_MESSAGE"] = "No se ha seleccionado un tipo de ingrediente, los datos están incompletos, no se puede llevar a cabo la acción.";
+        $_SESSION["ERROR_HREF"] = "/ingredients/";
+        header('Location: /appError');
     }
 
     public function add($type)
@@ -54,6 +57,7 @@ class Action extends Controller
                 default:
                     $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
                     $_SESSION["ERROR_MESSAGE"] = "El tipo de sabor no es válido.";
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     header('Location: /appError');
                     break;
             }
@@ -61,6 +65,7 @@ class Action extends Controller
         } else {
             $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
             $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
+            $_SESSION["ERROR_HREF"] = "/ingredients/";
             header('Location: /appError');
         }
     }
