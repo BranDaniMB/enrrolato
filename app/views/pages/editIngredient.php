@@ -12,13 +12,13 @@ switch ($data["TYPE"]) {
             <label>Nombre:
                 <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label>Es licor:
-                <input id="isLiqueur" type="checkbox" checked="<?php echo $data['INGREDIENT']['isLiqueur'] == 1?'true':'false'?>" name="isLiqueur"></label>
+                <input id="isLiqueur" type="checkbox" <?php echo $data['INGREDIENT']['isLiqueur'] == 1?'checked':''?> name="isLiqueur"></label>
             <label>Es especial:
-                <input id="isSpecial" type="checkbox" checked="<?php echo $data['INGREDIENT']['isSpecial'] == 1?'true':'false'?>" name="isSpecial"></label>
+                <input id="isSpecial" type="checkbox" <?php echo $data['INGREDIENT']['isSpecial'] == 1?'checked':''?> name="isSpecial"></label>
             <label>Es exclusivo:
-                <input id="isExclusive" type="checkbox" checked="<?php echo $data['INGREDIENT']['isExclusive'] == 1?'true':'false'?>" name="isExclusive"></label>
+                <input id="isExclusive" type="checkbox" <?php echo $data['INGREDIENT']['isExclusive'] == 1?'checked':''?> name="isExclusive"></label>
             <label>¿Disponible?
-                <input id="avaliable" type="checkbox" checked="<?php echo $data['INGREDIENT']['avaliable'] == 1?'true':'false'?>" name="avaliable"></label>
+                <input id="avaliable" type="checkbox" <?php echo $data['INGREDIENT']['avaliable'] == 1?'checked':''?> name="avaliable"></label>
             <input type="submit" value="Guardar cambios">
         </form>
         <?php
