@@ -28,7 +28,7 @@ class Ingredients extends Controller
             "TYPE" => $type,
             "INGREDIENT" => $model->getInfo(INGREDIENTS.'/'.$type.'s/'.$ingredient)
         ];
-        echo $data["INGREDIENT"];
+        print_r($data["INGREDIENT"]);
         $this->view("pages/editIngredient", $data);
     }
 

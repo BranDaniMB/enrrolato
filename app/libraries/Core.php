@@ -9,7 +9,7 @@ class Core
     public function __construct()
     {
         $url = $this->getURL();
-        echo $this->getURL();
+        print_r($this->getURL());
 
         if (file_exists(CONTROLLER_PATH . ucwords($url[0]) . ".php")) {
             // Se cambia el controlador por defecto
