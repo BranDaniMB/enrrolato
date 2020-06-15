@@ -27,7 +27,7 @@ class Action extends Controller
                         $data = [
                             "TITLE" => "Sabor agregado | " . SITE_NAME,
                             "TYPE" => $type,
-                            "ACTION" => "create",
+                            "ACTION" => "add",
                             "SUCCESS_ACTION" => "Sabor agregado"
                         ];
                     }
@@ -37,7 +37,7 @@ class Action extends Controller
                         $data = [
                             "TITLE" => "Relleno agregado | " . SITE_NAME,
                             "TYPE" => $type,
-                            "ACTION" => "create",
+                            "ACTION" => "add",
                             "SUCCESS_ACTION" => "Relleno agregado"
                         ];
                     }
@@ -47,7 +47,7 @@ class Action extends Controller
                         $data = [
                             "TITLE" => "Topping agregado | " . SITE_NAME,
                             "TYPE" => $type,
-                            "ACTION" => "create",
+                            "ACTION" => "add",
                             "SUCCESS_ACTION" => "Topping agregado"
                         ];
                     }
@@ -57,7 +57,7 @@ class Action extends Controller
                         $data = [
                             "TITLE" => "Envase agregado | " . SITE_NAME,
                             "TYPE" => $type,
-                            "ACTION" => "create",
+                            "ACTION" => "add",
                             "SUCCESS_ACTION" => "Envase agregado"
                         ];
                     }
