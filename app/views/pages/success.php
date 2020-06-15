@@ -13,7 +13,7 @@ include VIEWS_PATH . "inc/header.php";
         case "container":
             switch ($data["ACTION"]) {
                 case "add":
-                    echo '<a class="primary-button" href="/ingredients/' . $data["ACTION"] . $data["TYPE"] . '">Agregar otro</a>';
+                    echo '<a class="primary-button" href="/ingredients/' . $data["ACTION"] .'/'. $data["TYPE"] . '">Agregar otro</a>';
                     break;
             }
             echo '<a class="primary-button" href="/ingredients/">Volver a ingredientes</a>';

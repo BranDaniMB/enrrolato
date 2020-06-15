@@ -360,14 +360,12 @@ footer span {
   width: 100%;
   transition-duration: 500ms;
   border-radius: 0 0 5px 5px;
+  color: #0D181C;
 }
 .ingredient-container .ingredient-edit:hover {
   background-color: #0D181C;
   color: #e6e6e6;
   transition-duration: 500ms;
-}
-.ingredient-container .ingredient-edit a {
-  color: #0D181C;
 }
 .ingredient-container .ingredient-edit:hover > a:before {
   content: " Editar";
