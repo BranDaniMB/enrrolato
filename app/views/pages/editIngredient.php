@@ -10,7 +10,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="edit_ingredient_flavor" action="/action/edit/flavor" method="post">
             <label>Nombre:
-                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." readonly required></label>
             <label>Es licor:
                 <input id="isLiqueur" type="checkbox" <?php echo $data['INGREDIENT']['isLiqueur'] == 1?'checked':''?> name="isLiqueur"></label>
             <label>Es especial:
@@ -27,7 +27,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="edit_ingredient_filling" action="/action/edit/filling" method="post">
             <label>Nombre:
-                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." readonly required></label>
             <label>Es exclusivo:
                 <input id="isExclusive" type="checkbox" <?php echo $data['INGREDIENT']['isExclusive'] == 1?'checked':''?> name="isExclusive"></label>
             <label>¿Disponible?
@@ -40,7 +40,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="edit_ingredient_topping" action="/action/edit/topping" method="post">
             <label>Nombre:
-                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." readonly required></label>
             <label>¿Disponible?
                 <input id="avaliable" type="checkbox" <?php echo $data['INGREDIENT']['avaliable'] == 1?'checked':''?> name="avaliable"></label>
             <input type="submit" value="Guardar cambios">
@@ -51,7 +51,7 @@ switch ($data["TYPE"]) {
         ?>
         <form name="edit_ingredient_container" action="/action/edit/container" method="post">
             <label>Nombre:
-                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." readonly required></label>
             <label>¿Disponible?
                 <input id="avaliable" type="checkbox" <?php echo $data['INGREDIENT']['avaliable'] == 1?'checked':''?> name="avaliable"></label>
             <input type="submit" value="Guardar cambios">
