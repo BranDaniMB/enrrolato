@@ -3,22 +3,22 @@ session_start();
 $_SESSION["ACCESS"] = AVAIL_CONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
-<h2>Editando <?php echo $data['INGREDIENT'] ?></h2>
+<h2>Editando <?php echo $data['INGREDIENT']['name'] ?></h2>
 <?php
 switch ($data["TYPE"]) {
     case "flavor":
         ?>
         <form name="edit_ingredient_flavor" action="/action/edit/flavor" method="post">
             <label>Nombre:
-                <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
+                <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label>Es licor:
-                <input id="isLiqueur" type="checkbox" name="isLiqueur"></label>
+                <input id="isLiqueur" type="checkbox" checked="<?php echo $data['INGREDIENT']['isLiqueur'] == 1?'true':'false'?>" name="isLiqueur"></label>
             <label>Es especial:
-                <input id="isSpecial" type="checkbox" name="isSpecial"></label>
+                <input id="isSpecial" type="checkbox" checked="<?php echo $data['INGREDIENT']['isSpecial'] == 1?'true':'false'?>" name="isSpecial"></label>
             <label>Es exclusivo:
-                <input id="isExclusive" type="checkbox" name="isExclusive"></label>
+                <input id="isExclusive" type="checkbox" checked="<?php echo $data['INGREDIENT']['isExclusive'] == 1?'true':'false'?>" name="isExclusive"></label>
             <label>¿Disponible?
-                <input id="avaliable" type="checkbox" name="avaliable"></label>
+                <input id="avaliable" type="checkbox" checked="<?php echo $data['INGREDIENT']['avaliable'] == 1?'true':'false'?>" name="avaliable"></label>
             <input type="submit" value="Guardar cambios">
         </form>
         <?php
