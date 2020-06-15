@@ -45,7 +45,7 @@ class IngredientsModel extends Base
                     '<p>¿Sabor especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u></p>' .
                     '<p>¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u></p>' .
                     '<p>¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></p>' .
-                    '<a class="ingredient-edit" href="/ingredients/edit/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
+                    '<a class="ingredient-edit" href="/ingredients/edit/flavor/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
                     '</div>';
             }
 
@@ -64,7 +64,7 @@ class IngredientsModel extends Base
                     '<p class="ingredient-name">' . ucfirst($item["name"]) . '</p>' .
                     '<p>¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u></p>' .
                     '<p>¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></p>' .
-                    '<a class="ingredient-edit" href="/ingredients/edit/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
+                    '<a class="ingredient-edit" href="/ingredients/edit/filling/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
                     '</div>';
             }
 
@@ -82,7 +82,7 @@ class IngredientsModel extends Base
                 $boxes .='<div class="ingredient-container">' .
                     '<p class="ingredient-name">' . ucfirst($item["name"]) . '</p>' .
                     '<p>¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></p>' .
-                    '<a class="ingredient-edit" href="/ingredients/edit/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
+                    '<a class="ingredient-edit" href="/ingredients/edit/topping/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
                     '</div>';
             }
 
@@ -100,7 +100,7 @@ class IngredientsModel extends Base
                 $boxes .='<div class="ingredient-container">' .
                     '<p class="ingredient-name">' . ucfirst($item["name"]) . '</p>' .
                     '<p>¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></p>' .
-                    '<a class="ingredient-edit" href="/ingredients/edit/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
+                    '<a class="ingredient-edit" href="/ingredients/edit/container/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
                     '</div>';
             }
 

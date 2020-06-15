@@ -21,12 +21,14 @@ class Ingredients extends Controller
         $this->view("pages/showIngredients", $data);
     }
 
-    public function edit($type, $flavor) {
+    public function edit($type, $ingredient) {
+        $model = new IngredientsModel();
         $data = [
-            "TITLE" => "Editar {$flavor} | " . SITE_NAME,
+            "TITLE" => "Editar {$ingredient} | " . SITE_NAME,
             "TYPE" => $type,
-            "FLAVOR" => $flavor
+            "INGREDIENT" => $model->getInfo(INGREDIENTS.'/'.$type.'s/'.$ingredient)
         ];
+        echo $data["INGREDIENT"];
         $this->view("pages/editIngredient", $data);
     }
 
