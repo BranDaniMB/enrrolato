@@ -26,6 +26,8 @@ class Action extends Controller
                     if ($model->createFlavor($_POST)) {
                         $data = [
                             "TITLE" => "Sabor agregado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "create",
                             "SUCCESS_ACTION" => "Sabor agregado"
                         ];
                     }
@@ -34,6 +36,8 @@ class Action extends Controller
                     if ($model->createFilling($_POST)) {
                         $data = [
                             "TITLE" => "Relleno agregado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "create",
                             "SUCCESS_ACTION" => "Relleno agregado"
                         ];
                     }
@@ -42,6 +46,8 @@ class Action extends Controller
                     if ($model->createTopping($_POST)) {
                         $data = [
                             "TITLE" => "Topping agregado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "create",
                             "SUCCESS_ACTION" => "Topping agregado"
                         ];
                     }
@@ -50,6 +56,8 @@ class Action extends Controller
                     if ($model->createContainer($_POST)) {
                         $data = [
                             "TITLE" => "Envase agregado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "create",
                             "SUCCESS_ACTION" => "Envase agregado"
                         ];
                     }
@@ -79,6 +87,8 @@ class Action extends Controller
                     if ($model->editFlavor($_POST)) {
                         $data = [
                             "TITLE" => "Sabor editado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "edit",
                             "SUCCESS_ACTION" => "Sabor editado"
                         ];
                     }
@@ -87,6 +97,8 @@ class Action extends Controller
                     if ($model->editFilling($_POST)) {
                         $data = [
                             "TITLE" => "Relleno editado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "edit",
                             "SUCCESS_ACTION" => "Relleno editado"
                         ];
                     }
@@ -95,6 +107,8 @@ class Action extends Controller
                     if ($model->editTopping($_POST)) {
                         $data = [
                             "TITLE" => "Topping editado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "edit",
                             "SUCCESS_ACTION" => "Topping editado"
                         ];
                     }
@@ -103,6 +117,8 @@ class Action extends Controller
                     if ($model->editContainer($_POST)) {
                         $data = [
                             "TITLE" => "Envase editado | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "edit",
                             "SUCCESS_ACTION" => "Envase editado"
                         ];
                     }
