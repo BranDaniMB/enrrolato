@@ -19,12 +19,7 @@ if (isset($_GET['code'])) {
     $payload = $googleClient->verifyIdToken($_SESSION["token_data"]["id_token"]);
     $_SESSION["payload"] = $payload;
 
-    // Acceso temporal
-    unset($_SESSION["access_token"]);
-    $_SESSION["isValidLogin"] = true;
-    header('Location: /');
-
-    /*if ($auth->authenticate($_SESSION["payload"]["sub"], $_SESSION["payload"]["email"]) == 1) {
+    if ($auth->authenticate($_SESSION["payload"]["sub"])) {
         unset($_SESSION["access_token"]);
         $_SESSION["isValidLogin"] = true;
         header('Location: /');
@@ -35,7 +30,7 @@ if (isset($_GET['code'])) {
         $_SESSION["ERROR_MESSAGE"] = "La cuenta de correo <u>" . $_SESSION["payload"]["email"] . "</u> no está autorizada a ingresar al sistema.";
         unset($_SESSION["payload"]);
         header('Location: /systemerror');
-    }*/
+    }
 }
 ?>
 <a class="google-login" href="<?php echo $auth->getAuthUrl() ?>">

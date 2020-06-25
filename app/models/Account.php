@@ -20,23 +20,14 @@ class Account extends Base
         return $this->googleClient->createAuthUrl();
     }
 
-    public function authenticate($sup, $email)
+    public function authenticate($sup)
     {
-        $myparams['id'] = $sup;
-        $myparams['email'] = $email;
-        $myparams['result'] = 0;
-
-        $procedure_params = array(
-            array(&$myparams['id'], SQLSRV_PARAM_IN),
-            array(&$myparams['email'], SQLSRV_PARAM_IN),
-            array(&$myparams['result'], SQLSRV_PARAM_OUT)
-        );
-
-        $sql = "EXEC stp_authenticate @id = ?, @email = ?, @result = ?";
-
-        $this->execute($sql, $procedure_params);
-
-        return $myparams["result"];
+        $reference = $this->getReference(ADMINS."/".$sup);
+        try {
+            return $reference->getSnapshot()->exists();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            return false;
+        }
     }
 
     public function getAuthenticationAccounts()
