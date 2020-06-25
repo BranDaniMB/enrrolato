@@ -7,6 +7,7 @@ class Account extends Base
 
     public function __construct(Google_Client $newGoogleClient = null)
     {
+        parent::__construct();
         $this->googleClient = $newGoogleClient;
 
         if ($this->googleClient) {
