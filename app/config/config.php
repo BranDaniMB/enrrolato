@@ -28,5 +28,6 @@ define('FLAVORS',INGREDIENTS.'/flavors');
 define('FILLINGS',INGREDIENTS.'/fillings');
 define('TOPPINGS',INGREDIENTS.'/toppings');
 define('CONTAINERS',INGREDIENTS.'/containers');
+define('ICECREAMS',BUSINESS.'/ice_creams');
 
 

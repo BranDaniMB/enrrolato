@@ -121,16 +121,28 @@ class Actions extends Base
     }
 
     public function editFlavor($POST) {
-        $reference = $this->getReference(FLAVORS . '/' . $POST["name"]);
+        $reference = $this->getReference(FLAVORS . '/' . $POST["currentName"]);
         try {
             if ($reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'isLiqueur' => isset($POST['isLiqueur'])?'1':'0',
-                    'isSpecial' => isset($POST['isSpecial'])?'1':'0',
-                    'isExclusive' => isset($POST['isExclusive'])?'1':'0',
-                    'avaliable' => isset($POST['avaliable'])?'1':'0'
-                ]);
+                if ($POST['currentName'] != $POST['name']) {
+                    $reference->set(null);
+                    $reference = $this->getReference(FLAVORS . '/' . $POST["name"]);
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'isLiqueur' => isset($POST['isLiqueur'])?'1':'0',
+                        'isSpecial' => isset($POST['isSpecial'])?'1':'0',
+                        'isExclusive' => isset($POST['isExclusive'])?'1':'0',
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                } else {
+                    $reference->set([
+                        'name' => $POST['currentName'],
+                        'isLiqueur' => isset($POST['isLiqueur'])?'1':'0',
+                        'isSpecial' => isset($POST['isSpecial'])?'1':'0',
+                        'isExclusive' => isset($POST['isExclusive'])?'1':'0',
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                }
             } else {
                 throw new Exception("Ese sabor no existe, por favor use la opción de añadir para agregarlo.");
             }
@@ -151,14 +163,24 @@ class Actions extends Base
     }
 
     public function editFilling($POST) {
-        $reference = $this->getReference(FILLINGS . '/' . $POST["name"]);
+        $reference = $this->getReference(FILLINGS . '/' . $POST["currentName"]);
         try {
             if ($reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'isExclusive' => isset($POST['isExclusive'])?'1':'0',
-                    'avaliable' => isset($POST['avaliable'])?'1':'0'
-                ]);
+                if ($POST["currentName"] != $POST["name"]) {
+                    $reference->set(null);
+                    $reference = $this->getReference(FILLINGS . '/' . $POST["name"]);
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'isExclusive' => isset($POST['isExclusive'])?'1':'0',
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                } else {
+                    $reference->set([
+                        'name' => $POST['currentName'],
+                        'isExclusive' => isset($POST['isExclusive'])?'1':'0',
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                }
             } else {
                 throw new Exception("Ese relleno no existe, por favor use la opción de añadir para agregarlo.");
             }
@@ -179,13 +201,22 @@ class Actions extends Base
     }
 
     public function editTopping($POST) {
-        $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
+        $reference = $this->getReference(TOPPINGS . '/' . $POST["currentName"]);
         try {
             if ($reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'avaliable' => isset($POST['avaliable'])?'1':'0'
-                ]);
+                if ($POST["name"] != $POST["currentName"]) {
+                    $reference->set(null);
+                    $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                } else {
+                    $reference->set([
+                        'name' => $POST['currentName'],
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                }
             } else {
                 throw new Exception("Ese topping no existe, por favor use la opción de añadir para agregarlo.");
             }
@@ -206,13 +237,22 @@ class Actions extends Base
     }
 
     public function editContainer($POST) {
-        $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
+        $reference = $this->getReference(CONTAINERS . '/' . $POST["currentName"]);
         try {
             if ($reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'avaliable' => isset($POST['avaliable'])?'1':'0'
-                ]);
+                if ($POST["name"] != $POST["currentName"]) {
+                    $reference->set(null);
+                    $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                } else {
+                    $reference->set([
+                        'name' => $POST['currentName'],
+                        'avaliable' => isset($POST['avaliable'])?'1':'0'
+                    ]);
+                }
             } else {
                 throw new Exception("Ese envase no existe, por favor use la opción de añadir para agregarlo.");
             }

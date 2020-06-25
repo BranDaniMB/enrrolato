@@ -8,7 +8,8 @@ include VIEWS_PATH . "inc/header.php";
 <a id="add-ingredient-button" class="add-ingredient-button button-left" href="/ingredients/add">Añadir un ingrediente</a>
 
 <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'flavor')" id="defaultOpen">Sabores</button>
+    <button class="tablinks" onclick="openTab(event, 'icecream')" id="defaultOpen">Helados</button>
+    <button class="tablinks" onclick="openTab(event, 'flavor')">Sabores</button>
     <button class="tablinks" onclick="openTab(event, 'filling')">Jarabes</button>
     <button class="tablinks" onclick="openTab(event, 'topping')">Topping's</button>
     <button class="tablinks" onclick="openTab(event, 'container')">Envases</button>
@@ -18,6 +19,14 @@ $modify = new IngredientsModel();
 ?>
 
 <!-- Tab content -->
+<div id="icecream" class="tabcontent">
+    <div class="ingredients-container">
+        <?php
+        echo $modify->createIceCreamBox();
+        ?>
+    </div>
+</div>
+
 <div id="flavor" class="tabcontent">
     <div class="ingredients-container">
     <?php

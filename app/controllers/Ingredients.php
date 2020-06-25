@@ -24,7 +24,7 @@ class Ingredients extends Controller
     public function edit($type, $ingredient) {
         $model = new IngredientsModel();
         $data = [
-            "TITLE" => "Editar {$ingredient} | " . SITE_NAME,
+            "TITLE" => "Editando {$ingredient} | " . SITE_NAME,
             "TYPE" => $type,
             "INGREDIENT" => $model->getInfo(INGREDIENTS.'/'.$type.'s/'.$ingredient)
         ];

@@ -34,6 +34,27 @@ class IngredientsModel extends Base
         }
     }
 
+    public function createIceCreamBox() {
+        $iceCreamList = $this->getInfo(ICECREAMS);
+        if (!empty($iceCreamList)) {
+            $boxes = "";
+            foreach ($iceCreamList as &$item) {
+                $boxes .='<div class="ingredient-container">' .
+                    '<p class="ingredient-name">' . ucfirst($item["name"]) . '</p>' .
+                    '<p>¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u></p>' .
+                    '<p>¿Sabor especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u></p>' .
+                    '<p>¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u></p>' .
+                    '<p>¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></p>' .
+                    '<a class="ingredient-edit" href="/ingredients/edit/flavor/'. $item["name"] .'"><i class="material-icons">create</i></a>' .
+                    '</div>';
+            }
+
+            return $boxes;
+        } else {
+            return "No hay helados para mostrar.";
+        }
+    }
+
     public function createFlavorsBox() {
         $flavorList = $this->getInfo(FLAVORS);
         if (!empty($flavorList)) {
