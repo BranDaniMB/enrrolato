@@ -23,6 +23,7 @@ class Action extends Controller
             $model = new Actions();
             switch ($type) {
                 case 'flavor':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->createFlavor($_POST)) {
                         $data = [
                             "TITLE" => "Sabor agregado | " . SITE_NAME,
@@ -33,6 +34,7 @@ class Action extends Controller
                     }
                     break;
                 case 'filling':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->createFilling($_POST)) {
                         $data = [
                             "TITLE" => "Relleno agregado | " . SITE_NAME,
@@ -43,6 +45,7 @@ class Action extends Controller
                     }
                     break;
                 case 'topping':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->createTopping($_POST)) {
                         $data = [
                             "TITLE" => "Topping agregado | " . SITE_NAME,
@@ -53,6 +56,7 @@ class Action extends Controller
                     }
                     break;
                 case 'container':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->createContainer($_POST)) {
                         $data = [
                             "TITLE" => "Envase agregado | " . SITE_NAME,
@@ -62,18 +66,27 @@ class Action extends Controller
                         ];
                     }
                     break;
+                case 'account':
+                    $_SESSION["ERROR_HREF"] = "/authentication/";
+                    if ($model->createTempAccount($_POST)) {
+                        $data = [
+                            "TITLE" => "Cuenta agregada | " . SITE_NAME,
+                            "TYPE" => $type,
+                            "ACTION" => "add",
+                            "SUCCESS_ACTION" => "Cuenta agregada"
+                        ];
+                    }
+                    break;
                 default:
-                    $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
-                    $_SESSION["ERROR_MESSAGE"] = "El tipo de sabor no es válido.";
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
+                    $_SESSION["ERROR_TITLE"] = "Tipo de acción no definida";
+                    $_SESSION["ERROR_MESSAGE"] = "El tipo de acción no es válida, no se puede llevar a cabo la acción, vuelva a intentarlo.";
                     header('Location: /appError');
                     break;
             }
             $this->view("pages/success", $data);
         } else {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el ingrediente.";
+            $_SESSION["ERROR_TITLE"] = "Error al agregar.";
             $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
             header('Location: /appError');
         }
     }
@@ -84,6 +97,7 @@ class Action extends Controller
             $model = new Actions();
             switch ($type) {
                 case 'flavor':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->editFlavor($_POST)) {
                         $data = [
                             "TITLE" => "Sabor editado | " . SITE_NAME,
@@ -94,6 +108,7 @@ class Action extends Controller
                     }
                     break;
                 case 'filling':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->editFilling($_POST)) {
                         $data = [
                             "TITLE" => "Relleno editado | " . SITE_NAME,
@@ -104,6 +119,7 @@ class Action extends Controller
                     }
                     break;
                 case 'topping':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->editTopping($_POST)) {
                         $data = [
                             "TITLE" => "Topping editado | " . SITE_NAME,
@@ -114,6 +130,7 @@ class Action extends Controller
                     }
                     break;
                 case 'container':
+                    $_SESSION["ERROR_HREF"] = "/ingredients/";
                     if ($model->editContainer($_POST)) {
                         $data = [
                             "TITLE" => "Envase editado | " . SITE_NAME,
@@ -124,17 +141,15 @@ class Action extends Controller
                     }
                     break;
                 default:
-                    $_SESSION["ERROR_TITLE"] = "Error al editar el ingrediente.";
-                    $_SESSION["ERROR_MESSAGE"] = "El tipo de sabor no es válido.";
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
+                    $_SESSION["ERROR_TITLE"] = "Error al editar.";
+                    $_SESSION["ERROR_MESSAGE"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
                     header('Location: /appError');
                     break;
             }
             $this->view("pages/success", $data);
         } else {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el ingrediente.";
+            $_SESSION["ERROR_TITLE"] = "Error al editar.";
             $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
             header('Location: /appError');
         }
     }

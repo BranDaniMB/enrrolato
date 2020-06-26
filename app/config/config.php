@@ -30,5 +30,6 @@ define('TOPPINGS',INGREDIENTS.'/toppings');
 define('CONTAINERS',INGREDIENTS.'/containers');
 define('ICECREAMS',BUSINESS.'/ice_creams');
 define('ADMINS', BUSINESS.'/admins');
+define('TEMP_ADMINS', BUSINESS.'/admins/temps');
 
 

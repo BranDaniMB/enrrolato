@@ -21,11 +21,20 @@ class Account extends Base
         return $this->googleClient->createAuthUrl();
     }
 
-    public function authenticate($sup)
+    public function authenticate($sup, $email)
     {
-        $reference = $this->getReference(ADMINS."/".$sup);
         try {
-            return $reference->getSnapshot()->exists();
+            $reference = $this->getReference(ADMINS."/".$sup);
+            if (!$reference->getSnapshot()->exists()) {
+                $reference = $this->getReference(TEMP_ADMINS."/".md5($email));
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->set(null);
+                    $reference = $this->getReference(ADMINS."/".$sup);
+                    $reference->set($email);
+                }
+            } else {
+                return true;
+            }
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
             return false;
         }
@@ -33,16 +42,11 @@ class Account extends Base
 
     public function getAuthenticationAccounts()
     {
-        $myparams['accounts'] = "";
-
-        $procedure_params = array(
-            array(&$myparams['accounts'], SQLSRV_PARAM_OUT)
-        );
-
-        $sql = "EXEC stp_getAuthAccounts @accounts = ?";
-
-        $this->execute($sql, $procedure_params);
-
-        return $myparams["accounts"];
+        $reference = $this->getReference(ADMINS);
+        try {
+            return $reference->getSnapshot()->getValue();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            return null;
+        }
     }
 }

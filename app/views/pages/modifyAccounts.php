@@ -13,25 +13,23 @@ include VIEWS_PATH . "inc/header.php";
     $auth = new Account($googleClient);
 
     $accounts = $auth->getAuthenticationAccounts();
-    $accounts = substr($accounts, 0, strlen($accounts)-1);
-    $accounts = explode(",", $accounts);
 
-    foreach ($accounts as &$account) {
+    foreach ($accounts as $key => $value) {
         echo "<tr>";
-        echo "<td>${account}</td>";
+        echo "<td>$value</td>";
         echo "<td><i class=\"material-icons\">delete</i></td>";
         echo "</tr>";
     }
     ?>
     <tr>
-        <th colspan="2">Para permitir otra cuenta, inicie sesión con ella desde aquí abajo <i class="material-icons">arrow_downward</i></th>
+        <th colspan="2">Para permitir otra cuenta, ingrese el correo aquí <i class="material-icons">arrow_downward</i></th>
     </tr>
     <tr>
-        <td><a class="" href="<?php echo $auth->getAuthUrl() ?>">
-                <img alt="Cambiar imagen" onmouseout="this.src='/images/btn_google_signin_dark_normal_web@2x.png';"
-                     onmouseover="this.src='/images/btn_google_signin_dark_focus_web@2x.png';"
-                     src="/images/btn_google_signin_dark_normal_web@2x.png"/>
-            </a></td>
+        <form name="add_account" action="/action/add/account" method="post">
+            <label>Nombre:
+                <input id="email" type="email" name="email" required></label>
+            <input type="submit" value="Agregar">
+        </form>
     </tr>
 </table>
 <?php

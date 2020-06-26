@@ -120,6 +120,22 @@ class Actions extends Base
         }
     }
 
+    public function createTempAccount($POST) {
+        $reference = $this->getReference(TEMP_ADMINS."/".md5($POST['email']));
+        try {
+            if (!$reference->getSnapshot()->exists()) {
+                $reference->set($POST['email']);
+                return true;
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $_SESSION["ERROR_TITLE"] = "Error al agregar la cuenta.";
+            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar la cuenta.\n". $e->getMessage();
+            $_SESSION["ERROR_HREF"] = "/authentication/";
+            header('Location: /appError');
+            return false;
+        }
+    }
+
     public function editFlavor($POST) {
         $reference = $this->getReference(FLAVORS . '/' . $POST["currentName"]);
         try {

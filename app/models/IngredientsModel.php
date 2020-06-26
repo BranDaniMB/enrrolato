@@ -18,7 +18,7 @@ class IngredientsModel extends Base
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
             $_SESSION["ERROR_TITLE"] = "Error al acceder a la base de datos.";
             $_SESSION["ERROR_MESSAGE"] = "Hubo un error al recopilar los datos desde la base de datos.";
-            header('Location: /systemerror');
+            header('Location: /appError');
         }
         return null;
     }
