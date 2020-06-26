@@ -91,7 +91,8 @@ class Action extends Controller
         }
     }
 
-    public function edit($type) {
+    public function edit($type)
+    {
         session_start();
         if (!empty($_POST)) {
             $model = new Actions();
@@ -153,33 +154,29 @@ class Action extends Controller
             header('Location: /appError');
         }
     }
-    public function delete($type, $value) {
+
+    public function delete($type, $value)
+    {
         session_start();
-        if (!empty($_POST)) {
-            $model = new Actions();
-            switch ($type) {
-                case 'account':
-                    $_SESSION["ERROR_HREF"] = "/authentication/";
-                    if ($model->deleteAccount($value)) {
-                        $data = [
-                            "TITLE" => "Cuenta autorizada eliminada | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "delete",
-                            "SUCCESS_ACTION" => "Cuenta eliminada"
-                        ];
-                    }
-                    break;
-                default:
-                    $_SESSION["ERROR_TITLE"] = "Error al eliminar.";
-                    $_SESSION["ERROR_MESSAGE"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
-                    header('Location: /appError');
-                    break;
-            }
-            $this->view("pages/success", $data);
-        } else {
-            $_SESSION["ERROR_TITLE"] = "Error al eliminar.";
-            $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
-            header('Location: /appError');
+        $model = new Actions();
+        switch ($type) {
+            case 'account':
+                $_SESSION["ERROR_HREF"] = "/authentication/";
+                if ($model->deleteAccount($value)) {
+                    $data = [
+                        "TITLE" => "Cuenta autorizada eliminada | " . SITE_NAME,
+                        "TYPE" => $type,
+                        "ACTION" => "delete",
+                        "SUCCESS_ACTION" => "Cuenta eliminada"
+                    ];
+                }
+                break;
+            default:
+                $_SESSION["ERROR_TITLE"] = "Error al eliminar.";
+                $_SESSION["ERROR_MESSAGE"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                header('Location: /appError');
+                break;
         }
+        $this->view("pages/success", $data);
     }
 }
