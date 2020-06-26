@@ -9,6 +9,7 @@ include VIEWS_PATH . "inc/header.php";
         <th colspan="2">Cuentas autorizadas</th>
     </tr>
     <?php
+    $auth = new Account();
     $accounts = $auth->getAuthenticationAccounts();
 
     foreach ($accounts as $key => $value) {
