@@ -171,6 +171,17 @@ class Action extends Controller
                     ];
                 }
                 break;
+            case 'temp_account':
+                $_SESSION["ERROR_HREF"] = "/authentication/";
+                if ($model->deleteTempAccount($value)) {
+                    $data = [
+                        "TITLE" => "Acceso temporal eliminado | " . SITE_NAME,
+                        "TYPE" => $type,
+                        "ACTION" => "delete",
+                        "SUCCESS_ACTION" => "Acceso temporal"
+                    ];
+                }
+                break;
             default:
                 $_SESSION["ERROR_TITLE"] = "Error al eliminar.";
                 $_SESSION["ERROR_MESSAGE"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";

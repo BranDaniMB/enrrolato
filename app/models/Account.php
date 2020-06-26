@@ -52,4 +52,14 @@ class Account extends Base
             return null;
         }
     }
+
+    public function getTempAccounts()
+    {
+        $reference = $this->getReference(TEMP_ADMINS);
+        try {
+            return $reference->getSnapshot()->getValue();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            return null;
+        }
+    }
 }
