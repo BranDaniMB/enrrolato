@@ -17,7 +17,7 @@ include VIEWS_PATH . "inc/header.php";
     foreach ($accounts as $key => $value) {
         echo "<tr>";
         echo "<td>$value</td>";
-        echo "<td><i class=\"material-icons\">delete</i></td>";
+        echo "<td><a href='/action/delete/account/". $value. "'><i class=\"material-icons\">delete</i></a></td>";
         echo "</tr>";
     }
     ?>
@@ -25,11 +25,13 @@ include VIEWS_PATH . "inc/header.php";
         <th colspan="2">Para permitir otra cuenta, ingrese el correo aquí <i class="material-icons">arrow_downward</i></th>
     </tr>
     <tr>
-        <form name="add_account" action="/action/add/account" method="post">
-            <label>Nombre:
-                <input id="email" type="email" name="email" required></label>
-            <input type="submit" value="Agregar">
-        </form>
+        <th>
+            <form name="add_account" action="/action/add/account" method="post">
+                <label>Nombre:
+                    <input id="email" class="" type="email" name="email" required></label>
+                <input type="submit" value="Agregar">
+            </form>
+        </th>
     </tr>
 </table>
 <?php

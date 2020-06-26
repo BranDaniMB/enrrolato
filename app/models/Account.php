@@ -31,6 +31,9 @@ class Account extends Base
                     $reference->set(null);
                     $reference = $this->getReference(ADMINS."/".$sup);
                     $reference->set($email);
+                    return true;
+                } else {
+                    return false;
                 }
             } else {
                 return true;

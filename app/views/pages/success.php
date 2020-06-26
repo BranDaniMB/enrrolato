@@ -18,6 +18,9 @@ include VIEWS_PATH . "inc/header.php";
             }
             echo '<a class="primary-button" href="/ingredients/">Volver a ingredientes</a>';
             break;
+        case "account":
+            echo '<a class="primary-button" href="/authentication/">Volver al gestor de cuentas</a>';
+            break;
         default:
             echo '<a class="primary-button" href="/">Volver</a>';
             break;

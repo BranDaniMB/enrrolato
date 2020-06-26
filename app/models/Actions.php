@@ -287,4 +287,33 @@ class Actions extends Base
             return false;
         }
     }
+
+    public function deleteAccount($email) {
+        $reference = $this->getReference(ADMINS);
+        try {
+            $accounts = $reference->getSnapshot()->getValue();
+            if (count($accounts) > 1) {
+                foreach ($accounts as $key => $value) {
+                    if ($value == $email) {
+                        $reference = $this->getReference(ADMINS."/".$key);
+                        $reference->set(null);
+                        return true;
+                    }
+                }
+            } else {
+                $_SESSION["ERROR_TITLE"] = "Error al eliminar la cuenta.";
+                $_SESSION["ERROR_MESSAGE"] = "No puedes eliminar está cuenta, ya que es la única existente, por razones de seguridad debe haber al menos una cuenta.";
+                $_SESSION["ERROR_HREF"] = "/authentication/";
+                header('Location: /appError');
+                return false;
+            }
+
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $_SESSION["ERROR_TITLE"] = "Error al eliminar la cuenta.";
+            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al eliminar la cuenta.\n" . $e->getMessage();
+            $_SESSION["ERROR_HREF"] = "/authentication/";
+            header('Location: /appError');
+            return false;
+        }
+    }
 }
