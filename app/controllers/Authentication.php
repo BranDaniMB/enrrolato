@@ -16,6 +16,13 @@ class Authentication extends Controller
         $this->view("pages/modifyAccounts", $data);
     }
 
+    public function add() {
+        $data = [
+            "TITLE" => "Agregar cuenta | " . SITE_NAME
+        ];
+        $this->view("pages/addAccount", $data);
+    }
+
     public function login()
     {
         $data = [

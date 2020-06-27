@@ -416,6 +416,10 @@ footer span {
 .accounts-table .delete-button {
   color: #F9B122;
 }
+.accounts-table a {
+  color: white;
+  text-decoration: underline;
+}
 form {
   width: 400px;
   background-color: #02434F;

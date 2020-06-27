@@ -33,7 +33,7 @@ include VIEWS_PATH . "inc/header.php";
     }
     ?>
     <tr>
-        <td>
+        <td colspan="2">
             <a href="/authentication/add">Agregar otra cuenta</a>
         </td>
     </tr>
