@@ -175,10 +175,10 @@ class Action extends Controller
                 $_SESSION["ERROR_HREF"] = "/authentication/";
                 if ($model->deleteTempAccount($value)) {
                     $data = [
-                        "TITLE" => "Acceso temporal eliminado | " . SITE_NAME,
+                        "TITLE" => "Cuenta autorizada eliminada | " . SITE_NAME,
                         "TYPE" => $type,
                         "ACTION" => "delete",
-                        "SUCCESS_ACTION" => "Acceso temporal"
+                        "SUCCESS_ACTION" => "Cuenta eliminada"
                     ];
                 }
                 break;

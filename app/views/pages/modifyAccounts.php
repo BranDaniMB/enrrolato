@@ -20,7 +20,7 @@ include VIEWS_PATH . "inc/header.php";
     }
     ?>
     <tr>
-        <th colspan="2">Cuentas por autentificar</th>
+        <th colspan="2">Pendientes de autenticarse</th>
     </tr>
     <?php
     $accounts = $auth->getTempAccounts();
@@ -33,17 +33,9 @@ include VIEWS_PATH . "inc/header.php";
     }
     ?>
     <tr>
-        <th colspan="2">Para permitir otra cuenta, ingrese el correo aquí <i class="material-icons">arrow_downward</i></th>
-    </tr>
-    <tr>
-        <th colspan="2">
-            La cuenta de correo debe ser de Google, además una vez agregada como aquí, se debe de iniciar sesión con ella en la app, para terminar el proceso de registro.
-            <form name="add_account" action="/action/add/account" method="post">
-                <label>Email:
-                    <input id="email" class="" type="email" name="email" required></label>
-                <input type="submit" value="Agregar">
-            </form>
-        </th>
+        <td>
+            <a href="/authentication/add">Agregar otra cuenta</a>
+        </td>
     </tr>
 </table>
 <?php
