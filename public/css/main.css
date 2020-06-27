@@ -447,3 +447,8 @@ form input[type="submit"] {
   border-radius: 10px;
   margin-top: 10px;
 }
+form small {
+  font-size: 0.9em;
+  color: white;
+  text-align: center;
+}
