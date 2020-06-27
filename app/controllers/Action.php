@@ -162,7 +162,12 @@ class Action extends Controller
         switch ($type) {
             case 'account':
                 $_SESSION["ERROR_HREF"] = "/authentication/";
-                if ($model->deleteAccount($value)) {
+                if ($value == $_SESSION["payload"]["email"]) {
+                    $_SESSION["ERROR_TITLE"] = "Error al eliminar.";
+                    $_SESSION["ERROR_MESSAGE"] = "No puedes eliminar el correo asociado a la sesión actual, inicia sesión con otro usuario e intenta de nuevo.";
+                    header('Location: /appError');
+                    break;
+                } else if ($model->deleteAccount($value)) {
                     $data = [
                         "TITLE" => "Cuenta autorizada eliminada | " . SITE_NAME,
                         "TYPE" => $type,
