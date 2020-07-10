@@ -1,8 +1,9 @@
 <?php
 
-
 class Action extends Controller
 {
+    private array $returnData = array();
+
     public function __construct()
     {
         $this->controllerModel = $this->model("Actions");
@@ -10,10 +11,10 @@ class Action extends Controller
 
     public function index()
     {
-        $_SESSION["ERROR_TITLE"] = "Error al ejecutar la solicitud.";
-        $_SESSION["ERROR_MESSAGE"] = "No se ha seleccionado la acción, los datos están incompletos, no se puede llevar a cabo la acción.";
-        $_SESSION["ERROR_HREF"] = "/ingredients/";
-        header('Location: /appError');
+        $this->returnData["success"] = false;
+        $this->returnData["error"] = "No se ha seleccionado la acción, los datos están incompletos, no se puede llevar a cabo la acción.";
+        echo "||$$||" . json_encode($this->returnData);
+        $this->returnData = array();
     }
 
     public function add($type)
@@ -22,72 +23,36 @@ class Action extends Controller
         if (!empty($_POST)) {
             $model = new Actions();
             switch ($type) {
+                case 'icecream':
+                    $model->createIceCream($_POST);
+                    break;
                 case 'flavor':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->createFlavor($_POST)) {
-                        $data = [
-                            "TITLE" => "Sabor agregado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "add",
-                            "SUCCESS_ACTION" => "Sabor agregado"
-                        ];
-                    }
+                    $model->createFlavor($_POST);
                     break;
                 case 'filling':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->createFilling($_POST)) {
-                        $data = [
-                            "TITLE" => "Relleno agregado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "add",
-                            "SUCCESS_ACTION" => "Relleno agregado"
-                        ];
-                    }
+                    $model->createFilling($_POST);
                     break;
                 case 'topping':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->createTopping($_POST)) {
-                        $data = [
-                            "TITLE" => "Topping agregado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "add",
-                            "SUCCESS_ACTION" => "Topping agregado"
-                        ];
-                    }
+                    $model->createTopping($_POST);
                     break;
                 case 'container':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->createContainer($_POST)) {
-                        $data = [
-                            "TITLE" => "Envase agregado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "add",
-                            "SUCCESS_ACTION" => "Envase agregado"
-                        ];
-                    }
+                    $model->createContainer($_POST);
                     break;
                 case 'account':
-                    $_SESSION["ERROR_HREF"] = "/authentication/";
-                    if ($model->createTempAccount($_POST)) {
-                        $data = [
-                            "TITLE" => "Cuenta agregada | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "add",
-                            "SUCCESS_ACTION" => "Cuenta agregada"
-                        ];
-                    }
+                    $model->createTempAccount($_POST);
                     break;
                 default:
-                    $_SESSION["ERROR_TITLE"] = "Tipo de acción no definida";
-                    $_SESSION["ERROR_MESSAGE"] = "El tipo de acción no es válida, no se puede llevar a cabo la acción, vuelva a intentarlo.";
-                    header('Location: /appError');
+                    $this->returnData["success"] = false;
+                    $this->returnData["error"] = "El tipo de acción no es válida, no se puede llevar a cabo la acción, vuelva a intentarlo.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
                     break;
             }
-            $this->view("pages/success", $data);
         } else {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar.";
-            $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
-            header('Location: /appError');
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "El formulario no contiene datos o no son válidos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
@@ -98,101 +63,111 @@ class Action extends Controller
             $model = new Actions();
             switch ($type) {
                 case 'flavor':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->editFlavor($_POST)) {
-                        $data = [
-                            "TITLE" => "Sabor editado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "edit",
-                            "SUCCESS_ACTION" => "Sabor editado"
-                        ];
-                    }
+                    $model->editFlavor($_POST);
                     break;
                 case 'filling':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->editFilling($_POST)) {
-                        $data = [
-                            "TITLE" => "Relleno editado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "edit",
-                            "SUCCESS_ACTION" => "Relleno editado"
-                        ];
-                    }
+                    $model->editFilling($_POST);
                     break;
                 case 'topping':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->editTopping($_POST)) {
-                        $data = [
-                            "TITLE" => "Topping editado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "edit",
-                            "SUCCESS_ACTION" => "Topping editado"
-                        ];
-                    }
+                    $model->editTopping($_POST);
                     break;
                 case 'container':
-                    $_SESSION["ERROR_HREF"] = "/ingredients/";
-                    if ($model->editContainer($_POST)) {
-                        $data = [
-                            "TITLE" => "Envase editado | " . SITE_NAME,
-                            "TYPE" => $type,
-                            "ACTION" => "edit",
-                            "SUCCESS_ACTION" => "Envase editado"
-                        ];
-                    }
+                    $model->editContainer($_POST);
                     break;
                 default:
-                    $_SESSION["ERROR_TITLE"] = "Error al editar.";
-                    $_SESSION["ERROR_MESSAGE"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
-                    header('Location: /appError');
-                    break;
+                    $this->returnData["success"] = false;
+                    $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
             }
-            $this->view("pages/success", $data);
         } else {
-            $_SESSION["ERROR_TITLE"] = "Error al editar.";
-            $_SESSION["ERROR_MESSAGE"] = "El formulario no contiene datos o no son válidos.";
-            header('Location: /appError');
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "El formulario no contiene datos o no son válidos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
-    public function delete($type, $value)
+    public function delete($type)
+    {
+        session_start();
+        if (!empty($_POST)) {
+            $model = new Actions();
+            switch ($type) {
+                case 'icecream':
+                    $model->deleteIceCream($_POST);
+                    break;
+                case 'account':
+                    if ($_POST["email"] == $_SESSION["payload"]["email"]) {
+                        // Fail
+                        $this->returnData["success"] = false;
+                        $this->returnData["error"] = "No puedes eliminar el correo asociado a la sesión actual, inicia sesión con otro usuario e intenta de nuevo.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                    } else {
+                        $model->deleteAccount($_POST);
+                    }
+                    break;
+                case 'temp_account':
+                    $model->deleteTempAccount($_POST);
+                    break;
+                case 'flavor':
+                    $model->deleteFlavor($_POST);
+                    break;
+                case 'filling':
+                    $model->deleteFilling($_POST);
+                    break;
+                case 'topping':
+                    $model->deleteTopping($_POST);
+                    break;
+                case 'container':
+                    $model->deleteContainer($_POST);
+                    break;
+                default:
+                    $this->returnData["success"] = false;
+                    $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    break;
+            }
+        } else {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "El formulario no contiene datos o no son válidos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function get($type)
     {
         session_start();
         $model = new Actions();
         switch ($type) {
             case 'account':
-                $_SESSION["ERROR_HREF"] = "/authentication/";
-                if ($value == $_SESSION["payload"]["email"]) {
-                    $_SESSION["ERROR_TITLE"] = "Error al eliminar.";
-                    $_SESSION["ERROR_MESSAGE"] = "No puedes eliminar el correo asociado a la sesión actual, inicia sesión con otro usuario e intenta de nuevo.";
-                    header('Location: /appError');
-                    break;
-                } else if ($model->deleteAccount($value)) {
-                    $data = [
-                        "TITLE" => "Cuenta autorizada eliminada | " . SITE_NAME,
-                        "TYPE" => $type,
-                        "ACTION" => "delete",
-                        "SUCCESS_ACTION" => "Cuenta eliminada"
-                    ];
-                }
                 break;
             case 'temp_account':
-                $_SESSION["ERROR_HREF"] = "/authentication/";
-                if ($model->deleteTempAccount($value)) {
-                    $data = [
-                        "TITLE" => "Cuenta autorizada eliminada | " . SITE_NAME,
-                        "TYPE" => $type,
-                        "ACTION" => "delete",
-                        "SUCCESS_ACTION" => "Cuenta eliminada"
-                    ];
-                }
+                break;
+            case 'icecream':
+                $model->getIceCream();
+                break;
+            case 'flavor':
+                $model->getFlavors();
+                break;
+            case 'filling':
+                $model->getFilling();
+                break;
+            case 'topping':
+                $model->getTopping();
+                break;
+            case 'container':
+                $model->getContainer();
                 break;
             default:
-                $_SESSION["ERROR_TITLE"] = "Error al eliminar.";
-                $_SESSION["ERROR_MESSAGE"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
-                header('Location: /appError');
+                $this->returnData["success"] = false;
+                $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
                 break;
         }
-        $this->view("pages/success", $data);
     }
 }

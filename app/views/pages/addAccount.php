@@ -4,7 +4,7 @@ $_SESSION["ACCESS"] = AVAIL_CONNECT;
 include VIEWS_PATH . "inc/header.php";
 ?>
 <h2>Cuentas autorizadas</h2>
-<form name="add_account" action="/action/add/account" method="post">
+<form name="add_account" action="/enrrolato/action/add/account" method="post">
     <label>Email:
         <input id="email" class="" type="email" name="email" required></label>
     <input type="submit" value="Agregar">

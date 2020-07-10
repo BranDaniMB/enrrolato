@@ -2,40 +2,87 @@
 
 class Actions extends Base
 {
+    private array $returnData = array();
+
     public function __construct()
     {
         parent::__construct();
-        session_start();
+    }
+
+    public function createIceCream($POST)
+    {
+        try {
+            if (isset($POST["name"]) && isset($POST["flavor"]) && isset($POST["filling"]) && isset($POST["topping"]) && isset($POST["container"])) {
+                $reference = $this->getReference(ICE_CREAMS . '/' . $POST["name"]);
+                if (!$reference->getSnapshot()->exists()) {
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'flavor' => $POST['flavor'],
+                        'filling' => $POST['filling'],
+                        'topping' => $POST['topping'],
+                        'container' => $POST['container'],
+                        'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
+                        'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                    ]);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Helado agregado con éxito, ya puedes cerrar esta ventana.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('add', 'icecream', $POST['name']);
+                } else {
+                    throw new Exception("Ese helado ya existe, por favor use la opción de edición para modificar su contenido.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
     }
 
     public function createFlavor($POST)
     {
-        $reference = $this->getReference(FLAVORS . '/' . $POST["name"]);
         try {
-            if (!$reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
-                    'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
-                    'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                    'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                ]);
+            if (isset($POST["name"])) {
+                $reference = $this->getReference(FLAVORS . '/' . $POST["name"]);
+                if (!$reference->getSnapshot()->exists()) {
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
+                        'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
+                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                    ]);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Sabor agregado con éxito, ya puedes cerrar esta ventana.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('add', 'flavor', $POST['name']);
+                } else {
+                    throw new Exception("Ese sabor ya existe, por favor use la opción de edición para modificar su contenido.");
+                }
             } else {
-                throw new Exception("Ese sabor ya existe, por favor use la opción de edición para modificar su contenido.");
+                throw new Exception("Datos incompletos.");
             }
-            return true;
-        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el sabor.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
         } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el sabor.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
@@ -43,28 +90,34 @@ class Actions extends Base
     {
         $reference = $this->getReference(FILLINGS . '/' . $POST["name"]);
         try {
-            if (!$reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                    'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                ]);
+            if (isset($POST["name"])) {
+                if (!$reference->getSnapshot()->exists()) {
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                    ]);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Relleno agregado con éxito, ya puedes cerrar esta ventana.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('add', 'filling', $POST['name']);
+                } else {
+                    throw new Exception("Ese relleno ya existe, por favor use la opción de edición para modificar su contenido.");
+                }
             } else {
-                throw new Exception("Ese relleno ya existe, por favor use la opción de edición para modificar su contenido.");
+                throw new Exception("Datos incompletos.");
             }
-            return true;
-        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el relleno.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el relleno.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
         } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el relleno.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
@@ -72,280 +125,704 @@ class Actions extends Base
     {
         $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
         try {
-            if (!$reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                ]);
+            if (isset($POST["name"])) {
+                if (!$reference->getSnapshot()->exists()) {
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                    ]);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Topping agregado con éxito, ya puedes cerrar esta ventana.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('add', 'topping', $POST['name']);
+                } else {
+                    throw new Exception("Ese topping ya existe, por favor use la opción de edición para modificar su contenido.");
+                }
             } else {
-                throw new Exception("Ese topping ya existe, por favor use la opción de edición para modificar su contenido.");
+                throw new Exception("Datos incompletos.");
             }
-            return true;
-        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el topping.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el topping.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
         } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el topping.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
     public function createContainer($POST)
     {
-        $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
         try {
-            if (!$reference->getSnapshot()->exists()) {
-                $reference->set([
-                    'name' => $POST['name'],
-                    'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                ]);
+            if (isset($POST["name"])) {
+                $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
+                if (!$reference->getSnapshot()->exists()) {
+                    $reference->set([
+                        'name' => $POST['name'],
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                    ]);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Envase agregado con éxito, ya puedes cerrar está ventana.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('add', 'container', $POST['name']);
+                } else {
+                    throw new Exception("Ese envase ya existe, por favor use la opción de edición para modificar su contenido.");
+                }
             } else {
-                throw new Exception("Ese envase ya existe, por favor use la opción de edición para modificar su contenido.");
+                throw new Exception("Datos incompletos.");
             }
-            return true;
-        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el envase.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar el envase.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
         } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar el envase.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
     public function createTempAccount($POST)
     {
-        $reference = $this->getReference(TEMP_ADMINS . "/" . md5($POST['email']));
         try {
-            if (!$reference->getSnapshot()->exists()) {
-                $reference->set($POST['email']);
-                return true;
+            if (isset($POST['email'])) {
+                $reference = $this->getReference(TEMP_ADMINS . "/" . md5($POST['email']));
+                if (!$reference->getSnapshot()->exists()) {
+                    $reference->set($POST['email']);
+                }
+                $this->returnData["success"] = true;
+                $this->returnData["posted"] = "Cuenta temporal agregada.";
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
+                $this->registerAudit('add', 'tempAccount', $POST['email']);
+            } else {
+                throw new Exception("Datos incompletos.");
             }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al agregar la cuenta.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al agregar la cuenta.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/authentication/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
     public function editFlavor($POST)
     {
-        $reference = $this->getReference(FLAVORS . '/' . $POST["currentName"]);
         try {
-            if ($reference->getSnapshot()->exists()) {
-                if ($POST['currentName'] != $POST['name']) {
-                    $reference->set(null);
-                    $reference = $this->getReference(FLAVORS . '/' . $POST["name"]);
-                    $reference->set([
-                        'name' => $POST['name'],
-                        'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
-                        'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
-                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
+            if (isset($POST["currentName"])) {
+                $reference = $this->getReference(FLAVORS . '/' . $POST["currentName"]);
+                if ($reference->getSnapshot()->exists()) {
+                    if ($POST['currentName'] != $POST['name']) {
+                        $reference->set(null);
+                        $reference = $this->getReference(FLAVORS . '/' . $POST["name"]);
+                        $reference->set([
+                            'name' => $POST['name'],
+                            'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
+                            'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Sabor modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'flavor', $POST['name']);
+                    } else {
+                        $reference->set([
+                            'name' => $POST['currentName'],
+                            'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
+                            'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Sabor modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'flavor', $POST['name']);
+                    }
                 } else {
-                    $reference->set([
-                        'name' => $POST['currentName'],
-                        'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
-                        'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
-                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
+                    throw new Exception("Ese sabor no existe, por favor use la opción de añadir para agregarlo.");
                 }
             } else {
-                throw new Exception("Ese sabor no existe, por favor use la opción de añadir para agregarlo.");
+                throw new Exception("Datos incompletos.");
             }
-            return true;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el sabor.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al editar el sabor.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el sabor.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
     public function editFilling($POST)
     {
-        $reference = $this->getReference(FILLINGS . '/' . $POST["currentName"]);
         try {
-            if ($reference->getSnapshot()->exists()) {
-                if ($POST["currentName"] != $POST["name"]) {
-                    $reference->set(null);
-                    $reference = $this->getReference(FILLINGS . '/' . $POST["name"]);
-                    $reference->set([
-                        'name' => $POST['name'],
-                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
+            if (isset($POST["currentName"])) {
+                $reference = $this->getReference(FILLINGS . '/' . $POST["currentName"]);
+                if ($reference->getSnapshot()->exists()) {
+                    if ($POST["currentName"] != $POST["name"]) {
+                        $reference->set(null);
+                        $reference = $this->getReference(FILLINGS . '/' . $POST["name"]);
+                        $reference->set([
+                            'name' => $POST['name'],
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Relleno modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'filling', $POST['name']);
+                    } else {
+                        $reference->set([
+                            'name' => $POST['currentName'],
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Relleno modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'filling', $POST['name']);
+                    }
                 } else {
-                    $reference->set([
-                        'name' => $POST['currentName'],
-                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
+                    throw new Exception("Ese relleno no existe, por favor use la opción de añadir para agregarlo.");
                 }
             } else {
-                throw new Exception("Ese relleno no existe, por favor use la opción de añadir para agregarlo.");
+                throw new Exception("Datos incompletos.");
             }
-            return true;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el relleno.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al editar el relleno.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el relleno.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
     public function editTopping($POST)
     {
-        $reference = $this->getReference(TOPPINGS . '/' . $POST["currentName"]);
         try {
-            if ($reference->getSnapshot()->exists()) {
-                if ($POST["name"] != $POST["currentName"]) {
-                    $reference->set(null);
-                    $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
-                    $reference->set([
-                        'name' => $POST['name'],
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
+            if (isset($POST["currentName"])) {
+                $reference = $this->getReference(TOPPINGS . '/' . $POST["currentName"]);
+                if ($reference->getSnapshot()->exists()) {
+                    if ($POST["name"] != $POST["currentName"]) {
+                        $reference->set(null);
+                        $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
+                        $reference->set([
+                            'name' => $POST['name'],
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Topping modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'topping', $POST['name']);
+                    } else {
+                        $reference->set([
+                            'name' => $POST['currentName'],
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Topping modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'topping', $POST['name']);
+                    }
                 } else {
-                    $reference->set([
-                        'name' => $POST['currentName'],
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
+                    throw new Exception("Ese topping no existe, por favor use la opción de añadir para agregarlo.");
                 }
             } else {
-                throw new Exception("Ese topping no existe, por favor use la opción de añadir para agregarlo.");
+                throw new Exception("Datos incompletos.");
             }
-            return true;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el topping.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al editar el topping.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el topping.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
     public function editContainer($POST)
     {
-        $reference = $this->getReference(CONTAINERS . '/' . $POST["currentName"]);
         try {
-            if ($reference->getSnapshot()->exists()) {
-                if ($POST["name"] != $POST["currentName"]) {
-                    $reference->set(null);
-                    $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
-                    $reference->set([
-                        'name' => $POST['name'],
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
-                } else {
-                    $reference->set([
-                        'name' => $POST['currentName'],
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
-                    ]);
-                }
-            } else {
-                throw new Exception("Ese envase no existe, por favor use la opción de añadir para agregarlo.");
-            }
-            return true;
-        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el envase.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al editar el envase.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
-        } catch (Exception $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al editar el envase.";
-            $_SESSION["ERROR_MESSAGE"] = $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/ingredients/";
-            header('Location: /appError');
-            return false;
-        }
-    }
-
-    public function deleteAccount($email)
-    {
-        $reference = $this->getReference(ADMINS);
-        try {
-            $accounts = $reference->getSnapshot()->getValue();
-            if (count($accounts) > 1) {
-                foreach ($accounts as $key => $value) {
-                    if ($value == $email) {
-                        $reference = $this->getReference(ADMINS . "/" . $key);
+            $reference = $this->getReference(CONTAINERS . '/' . $POST["currentName"]);
+            if (isset($POST["currentName"])) {
+                if ($reference->getSnapshot()->exists()) {
+                    if ($POST["name"] != $POST["currentName"]) {
                         $reference->set(null);
-                        return true;
+                        $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
+                        $reference->set([
+                            'name' => $POST['name'],
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Envase modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'container', $POST['name']);
+                    } else {
+                        $reference->set([
+                            'name' => $POST['currentName'],
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "envase modificado.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('edit', 'container', $POST['name']);
                     }
+                } else {
+                    throw new Exception("Ese envase no existe, por favor use la opción de añadir para agregarlo.");
                 }
-                return false;
             } else {
-                $_SESSION["ERROR_TITLE"] = "Error al eliminar la cuenta.";
-                $_SESSION["ERROR_MESSAGE"] = "No puedes eliminar está cuenta, ya que es la única existente, por razones de seguridad debe haber al menos una cuenta.";
-                $_SESSION["ERROR_HREF"] = "/authentication/";
-                header('Location: /appError');
-                return false;
+                throw new Exception("Datos incompletos.");
             }
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al eliminar la cuenta.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al eliminar la cuenta.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/authentication/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 
-    public function deleteTempAccount($email)
+    public function deleteAccount($POST)
     {
-        $reference = $this->getReference(TEMP_ADMINS);
         try {
-            $accounts = $reference->getSnapshot()->getValue();
-            foreach ($accounts as $key => $value) {
-                if ($value == $email) {
-                    $reference = $this->getReference(TEMP_ADMINS . "/" . $key);
-                    $reference->set(null);
-                    return true;
+            if (isset($POST['email'])) {
+                $reference = $this->getReference(ADMINS);
+                if ($reference->getSnapshot()->exists()) {
+                    $accounts = $reference->getSnapshot()->getValue();
+                    if (count($accounts) > 1) {
+                        foreach ($accounts as $key => $value) {
+                            if ($value == $POST['email']) {
+                                $reference = $this->getReference(ADMINS . "/" . $key);
+                                $reference->set(null);
+                                // Success
+                                $this->returnData["success"] = true;
+                                $this->returnData["posted"] = "Cuenta eliminada.";
+                                echo "||$$||" . json_encode($this->returnData);
+                                $this->returnData = array();
+                                $this->registerAudit('delete', 'account', $POST['email']);
+                            }
+                        }
+                    } else {
+                        throw new Exception("No puedes eliminar está cuenta, ya que es la única existente, por razones de seguridad debe haber al menos una cuenta.");
+                    }
+                } else {
+                    throw new Exception("Datos incompletos.");
                 }
             }
-            return false;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            $_SESSION["ERROR_TITLE"] = "Error al eliminar la cuenta.";
-            $_SESSION["ERROR_MESSAGE"] = "Ha sucedido un error al eliminar la cuenta.\n" . $e->getMessage();
-            $_SESSION["ERROR_HREF"] = "/authentication/";
-            header('Location: /appError');
-            return false;
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function deleteTempAccount($POST)
+    {
+        try {
+            if (isset($POST['email'])) {
+                $reference = $this->getReference(TEMP_ADMINS . "/" . md5($POST['email']));
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->set(null);
+                    // Success
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Cuenta temporal eliminada.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('delete', 'tempAccount', $POST['email']);
+                } else {
+                    throw new Exception("No existe esa cuenta.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function deleteIceCream($POST)
+    {
+        try {
+            if (isset($POST['name'])) {
+                $reference = $this->getReference(ICE_CREAMS . "/" . $POST['name']);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->set(null);
+                    // Success
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Helado eliminado.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('delete', 'icecream', $POST['name']);
+                } else {
+                    throw new Exception("No existe este helado.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function deleteFlavor($POST)
+    {
+        try {
+            if (isset($POST['name'])) {
+                $reference = $this->getReference(FLAVORS . "/" . $POST['name']);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->set(null);
+                    // Success
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Sabor eliminado.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('delete', 'flavor', $POST['name']);
+                } else {
+                    throw new Exception("No existe este sabor.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function deleteFilling($POST)
+    {
+        try {
+            if (isset($POST['name'])) {
+                $reference = $this->getReference(FILLINGS . "/" . $POST['name']);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->set(null);
+                    // Success
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Relleno eliminado.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('delete', 'filling', $POST['name']);
+                } else {
+                    throw new Exception("No existe este relleno.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function deleteTopping($POST)
+    {
+        try {
+            if (isset($POST['name'])) {
+                $reference = $this->getReference(TOPPINGS . "/" . $POST['name']);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->set(null);
+                    // Success
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Topping eliminado.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('delete', 'topping', $POST['name']);
+                } else {
+                    throw new Exception("No existe este topping.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function deleteContainer($POST)
+    {
+        try {
+            if (isset($POST['name'])) {
+                $reference = $this->getReference(CONTAINERS . "/" . $POST['name']);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->set(null);
+                    // Success
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Envase eliminado.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    $this->registerAudit('delete', 'container', $POST['name']);
+                } else {
+                    throw new Exception("No existe este envase.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getIceCream()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createIceCreamBox();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getFlavors()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createFlavorsBox();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getFilling()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createFillingBox();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getTopping()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createToppingBox();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getContainer()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createContainerBox();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getFlavorList()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createFlavorsList();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getFillingList()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createFillingList();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    public function getContainerList()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createContainerList();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         }
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 
+use Firebase\JWT\JWT;
+
 class Account extends Base
 {
     private $googleClient;
@@ -8,6 +10,7 @@ class Account extends Base
     public function __construct(Google_Client $newGoogleClient = null)
     {
         parent::__construct();
+        JWT::$leeway = 60;
         $this->googleClient = $newGoogleClient;
 
         if ($this->googleClient) {
@@ -57,7 +60,11 @@ class Account extends Base
     {
         $reference = $this->getReference(TEMP_ADMINS);
         try {
-            return $reference->getSnapshot()->getValue();
+            if ($reference->getSnapshot()->exists()) {
+                return $reference->getSnapshot()->getValue();
+            } else {
+                return null;
+            }
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
             return null;
         }

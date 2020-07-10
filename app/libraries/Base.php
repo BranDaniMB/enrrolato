@@ -18,4 +18,19 @@ class Base {
     function getReference($reference) {
         return $reference = $this->database->getReference($reference);
     }
+
+    function registerAudit($action, $type, $name) {
+        $reference = $this->getReference(AUDIT . '/' . date("dmYHis"));
+        try {
+            $reference->set([
+                'action' => $action,
+                'type' => $type,
+                'name' => $name,
+                'date' => date("d/m/Y"),
+                'hour' => date("H:i:s"),
+                'author' => $_SESSION["payload"]["email"]
+            ]);
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+        }
+    }
 }

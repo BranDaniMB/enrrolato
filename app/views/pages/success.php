@@ -13,16 +13,16 @@ include VIEWS_PATH . "inc/header.php";
         case "container":
             switch ($data["ACTION"]) {
                 case "add":
-                    echo '<a class="primary-button" href="/ingredients/' . $data["ACTION"] .'/'. $data["TYPE"] . '">Agregar otro</a>';
+                    echo '<a class="primary-button" href="/enrrolato/ingredients/' . $data["ACTION"] .'/'. $data["TYPE"] . '">Agregar otro</a>';
                     break;
             }
-            echo '<a class="primary-button" href="/ingredients/">Volver a ingredientes</a>';
+            echo '<a class="primary-button" href="/enrrolato/ingredients/">Volver a ingredientes</a>';
             break;
         case "account":
-            echo '<a class="primary-button" href="/authentication/">Volver al gestor de cuentas</a>';
+            echo '<a class="primary-button" href="/enrrolato/authentication/">Volver al gestor de cuentas</a>';
             break;
         default:
-            echo '<a class="primary-button" href="/">Volver</a>';
+            echo '<a class="primary-button" href="/enrrolato">Volver</a>';
             break;
     }
     unset($data);

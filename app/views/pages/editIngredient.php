@@ -8,7 +8,7 @@ include VIEWS_PATH . "inc/header.php";
 switch ($data["TYPE"]) {
     case "flavor":
         ?>
-        <form name="edit_ingredient_flavor" action="/action/edit/flavor" method="post">
+        <form name="edit_ingredient_flavor" action="/enrrolato/action/edit/flavor" method="post">
             <input id="currentName" value="<?php echo $data['INGREDIENT']['name'] ?>" type="hidden" name="currentName" required/>
             <label>Nombre:
                 <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
@@ -26,7 +26,7 @@ switch ($data["TYPE"]) {
         break;
     case "filling":
         ?>
-        <form name="edit_ingredient_filling" action="/action/edit/filling" method="post">
+        <form name="edit_ingredient_filling" action="/enrrolato/action/edit/filling" method="post">
             <input id="currentName" value="<?php echo $data['INGREDIENT']['name'] ?>" type="hidden" name="currentName" required/>
             <label>Nombre:
                 <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
@@ -40,7 +40,7 @@ switch ($data["TYPE"]) {
         break;
     case "topping":
         ?>
-        <form name="edit_ingredient_topping" action="/action/edit/topping" method="post">
+        <form name="edit_ingredient_topping" action="/enrrolato/action/edit/topping" method="post">
             <input id="currentName" value="<?php echo $data['INGREDIENT']['name'] ?>" type="hidden" name="currentName" required/>
             <label>Nombre:
                 <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
@@ -52,7 +52,7 @@ switch ($data["TYPE"]) {
         break;
     case "container":
         ?>
-        <form name="edit_ingredient_container" action="/action/edit/container" method="post">
+        <form name="edit_ingredient_container" action="/enrrolato/action/edit/container" method="post">
             <input id="currentName" value="<?php echo $data['INGREDIENT']['name'] ?>" type="hidden" name="currentName" required/>
             <label>Nombre:
                 <input id="name" value="<?php echo $data['INGREDIENT']['name'] ?>" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>

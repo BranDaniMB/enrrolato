@@ -8,7 +8,7 @@ include VIEWS_PATH . "inc/header.php";
 switch ($data["TYPE"]) {
     case "flavor":
         ?>
-        <form name="add_ingredient_flavor" action="/action/add/flavor" method="post">
+        <form name="add_ingredient_flavor" action="/enrrolato/action/add/flavor" method="post">
             <label>Nombre:
                 <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label>Es licor:
@@ -25,7 +25,7 @@ switch ($data["TYPE"]) {
         break;
     case "filling":
         ?>
-        <form name="add_ingredient_filling" action="/action/add/filling" method="post">
+        <form name="add_ingredient_filling" action="/enrrolato/action/add/filling" method="post">
             <label>Nombre:
                 <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label>Es exclusivo:
@@ -38,7 +38,7 @@ switch ($data["TYPE"]) {
         break;
     case "topping":
         ?>
-        <form name="add_ingredient_topping" action="/action/add/topping" method="post">
+        <form name="add_ingredient_topping" action="/enrrolato/action/add/topping" method="post">
             <label for="name">Nombre:
                 <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label for="avaliable">¿Disponible?
@@ -49,7 +49,7 @@ switch ($data["TYPE"]) {
         break;
     case "container":
         ?>
-        <form name="add_ingredient_container" action="/action/add/container" method="post">
+        <form name="add_ingredient_container" action="/enrrolato/action/add/container" method="post">
             <label for="name">Nombre:
                 <input id="name" type="text" name="name" pattern="[a-záéíóúñü'\s]+" title="El nombre debe estar en minúsculas y puede contener espacios." required></label>
             <label for="avaliable">¿Disponible?

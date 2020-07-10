@@ -9,7 +9,7 @@ $googleClient = new Google_Client();
 $auth = new Account($googleClient);
 
 if (isset($_SESSION["isValidLogin"])) {
-    header('Location: /');
+    header('Location: /enrrolato');
 }
 
 if (isset($_GET['code'])) {
@@ -22,14 +22,14 @@ if (isset($_GET['code'])) {
     if ($auth->authenticate($_SESSION["payload"]["sub"],$_SESSION["payload"]["email"])) {
         unset($_SESSION["access_token"]);
         $_SESSION["isValidLogin"] = true;
-        header('Location: /');
+        header('Location: /enrrolato');
     } else {
         unset($_SESSION["access_token"]);
         unset($_SESSION["token_data"]);
         $_SESSION["ERROR_TITLE"] = "Cuenta no autorizada";
         $_SESSION["ERROR_MESSAGE"] = "La cuenta de correo <u>" . $_SESSION["payload"]["email"] . "</u> no está autorizada a ingresar al sistema.";
         unset($_SESSION["payload"]);
-        header('Location: /appError');
+        header('Location: /enrrolato/appError');
     }
 }
 ?>
