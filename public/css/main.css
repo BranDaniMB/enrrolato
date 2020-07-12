@@ -1,7 +1,13 @@
+/**
+ * Import font and other CSS
+ */
 @import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
 @import "offline-theme-default-indicator.css";
 @import "offline-language-spanish-indicator.css";
 
+/**
+ * body css
+ */
 body {
     background-color: #216e7e;
     font-family: 'Gotu', 'Helvetica Neue', sans-serif;
@@ -34,6 +40,9 @@ footer {
     padding: 10px 0;
 }
 
+/**
+ * Buttons CSS
+ */
 .button {
     background-color: #F9B122;
     font-size: 1em;
@@ -77,6 +86,9 @@ footer {
     text-decoration: none;
 }
 
+/**
+ * Orders CSS
+ */
 .orders-container {
     overflow-x: scroll;
     height: 530px;
@@ -108,6 +120,9 @@ footer {
     background-color: #0A286E;
 }
 
+/**
+ * About Us CSS
+ */
 .logo-img {
     margin: 0 auto;
     display: block;
@@ -142,6 +157,9 @@ footer {
     text-decoration: underline;
 }
 
+/**
+ * Tab CSS
+ */
 .tab button {
     background-color: inherit;
     float: left;
@@ -177,6 +195,9 @@ footer {
     overflow: scroll;
 }
 
+/**
+ * Login Google Button CSS
+ */
 .google-login {
     display: block;
     margin: 200px auto 0 auto;
@@ -187,6 +208,9 @@ footer {
     border-radius: 10px;
 }
 
+/**
+ * Upper right profile
+ */
 #user-profile {
     margin-top: 1em;
     display: flex;
@@ -225,6 +249,9 @@ footer {
     display: inline-block;
 }
 
+/**
+ * Error box
+ */
 #error {
     display: block;
     background-color: #e81a3f;
@@ -246,6 +273,9 @@ footer {
     text-align: center;
 }
 
+/**
+ * Orders container
+ */
 .ingredient-container {
     background-color: #F9B122;
     width: 250px;
@@ -271,6 +301,9 @@ footer {
     overflow-x: hidden;
 }
 
+/**
+ * Scroll bar CSS
+ */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -287,6 +320,9 @@ footer {
     background-color: #F9B122;
 }
 
+/**
+ * Accounts CSS
+ */
 .accounts-table {
     width: 90%;
     background-color: #02434f;
@@ -314,23 +350,38 @@ footer {
     text-decoration: underline;
 }
 
+/**
+ * Default card CSS
+ */
 .card {
     color: white;
     background-color: #02434F;
 }
 
+/**
+ * Default list group item CSS
+ */
 .list-group-item {
     background-color: transparent;
 }
 
+/**
+ * Default carousel CSS
+ */
 .carousel-inner {
     padding-bottom: 30px;
 }
 
+/**
+ * Default Alert CSS
+ */
 .alert {
     display: none;
 }
 
+/**
+ * Modals list
+ */
 #iceCream_flavorsList,
 #iceCream_fillingList,
 #iceCream_toppingList,

@@ -1,14 +1,26 @@
 <?php
 
+/**
+ * MVC - Model
+ * Class Actions
+ * Database access
+ */
 class Actions extends Base
 {
     private array $returnData = array();
 
+    /**
+     * Actions constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Create IceCream, receives POST data from AJAX
+     * @param $POST
+     */
     public function createIceCream($POST)
     {
         try {
@@ -49,6 +61,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Create Flavor, receives POST data from AJAX
+     * @param $POST
+     */
     public function createFlavor($POST)
     {
         try {
@@ -86,6 +102,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Create Filling, receives POST data from AJAX
+     * @param $POST
+     */
     public function createFilling($POST)
     {
         $reference = $this->getReference(FILLINGS . '/' . $POST["name"]);
@@ -121,6 +141,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Create Topping, receives POST data from AJAX
+     * @param $POST
+     */
     public function createTopping($POST)
     {
         $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
@@ -155,6 +179,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Create Container, receives POST data from AJAX
+     * @param $POST
+     */
     public function createContainer($POST)
     {
         try {
@@ -189,6 +217,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Create Temp account, receives POST data from AJAX
+     * @param $POST
+     */
     public function createTempAccount($POST)
     {
         try {
@@ -218,6 +250,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Edit Flavor, receives POST data from AJAX
+     * @param $POST
+     */
     public function editFlavor($POST)
     {
         try {
@@ -272,6 +308,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Edit Filling, receives POST data from AJAX
+     * @param $POST
+     */
     public function editFilling($POST)
     {
         try {
@@ -322,6 +362,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Edit Topping, receives POST data from AJAX
+     * @param $POST
+     */
     public function editTopping($POST)
     {
         try {
@@ -370,6 +414,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Edit Container, receives POST data by AJAX
+     * @param $POST
+     */
     public function editContainer($POST)
     {
         try {
@@ -418,6 +466,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Delete Account, receives POST data by AJAX
+     * @param $POST
+     */
     public function deleteAccount($POST)
     {
         try {
@@ -458,6 +510,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Delete Temp Account, receives POST data by AJAX
+     * @param $POST
+     */
     public function deleteTempAccount($POST)
     {
         try {
@@ -490,6 +546,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Delete IceCream, receives POST data by AJAX
+     * @param $POST
+     */
     public function deleteIceCream($POST)
     {
         try {
@@ -522,6 +582,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Delete Flavor, receives POST data by AJAX
+     * @param $POST
+     */
     public function deleteFlavor($POST)
     {
         try {
@@ -554,6 +618,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Delete Filling, receives POST data by AJAX
+     * @param $POST
+     */
     public function deleteFilling($POST)
     {
         try {
@@ -586,6 +654,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Delete Topping, receives POST data by AJAX
+     * @param $POST
+     */
     public function deleteTopping($POST)
     {
         try {
@@ -618,6 +690,10 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Delete Container, receives POST data by AJAX
+     * @param $POST
+     */
     public function deleteContainer($POST)
     {
         try {
@@ -650,6 +726,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info IceCream, return HTML to AJAX
+     */
     public function getIceCream()
     {
         require(MODELS_PATH . "IngredientsModel.php");
@@ -672,6 +751,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info Flavors, return HTML to AJAX
+     */
     public function getFlavors()
     {
         require(MODELS_PATH . "IngredientsModel.php");
@@ -694,6 +776,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info Filling, return HTML to AJAX
+     */
     public function getFilling()
     {
         require(MODELS_PATH . "IngredientsModel.php");
@@ -716,6 +801,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info Topping, return HTML to AJAX
+     */
     public function getTopping()
     {
         require(MODELS_PATH . "IngredientsModel.php");
@@ -738,6 +826,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info Container, return HTML to AJAX
+     */
     public function getContainer()
     {
         require(MODELS_PATH . "IngredientsModel.php");
@@ -760,6 +851,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info Flavor list to create IceCream, return HTML to AJAX
+     */
     public function getFlavorList()
     {
         require(MODELS_PATH . "IngredientsModel.php");
@@ -782,6 +876,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info Filling list to create IceCream, return HTML to AJAX
+     */
     public function getFillingList()
     {
         require(MODELS_PATH . "IngredientsModel.php");
@@ -804,6 +901,9 @@ class Actions extends Base
         }
     }
 
+    /**
+     * Get info Container list to create IceCream, return HTML to AJAX
+     */
     public function getContainerList()
     {
         require(MODELS_PATH . "IngredientsModel.php");

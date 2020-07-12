@@ -1,12 +1,24 @@
 <?php
 
+/**
+ * MVC - Model
+ * Class Report
+ * Database Report Model
+ */
 class Report extends Base
 {
+    /**
+     * Report constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Retrieve the audit log
+     * @return string - HTML
+     */
     function getAudits()
     {
         $reference = $this->getReference(AUDIT)->orderByKey();
@@ -25,6 +37,11 @@ class Report extends Base
         }
     }
 
+    /**
+     * Format the text of each record
+     * @param $item
+     * @return string - HTML
+     */
     private function formatAudit($item) {
         $audit = '<strong>'.$item['author'] . "</strong> ha ";
         switch ($item['action']) {
@@ -49,7 +66,7 @@ class Report extends Base
                 $audit .= '<strong>rellenos</strong>';
                 break;
             case 'topping':
-                $audit .= '<strong>topping\'s</strong>';
+                $audit .= '<strong>toppings</strong>';
                 break;
             case 'container':
                 $audit .= '<strong>envases</strong>';

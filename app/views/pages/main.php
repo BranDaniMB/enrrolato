@@ -26,7 +26,7 @@ include VIEWS_PATH . "inc/header.php";
 </header>
 <div class="row">
     <div class="col-12">
-        <a class="primary-button" href="/enrrolato/orders/">Mirar las ordenes</a>
+        <a class="primary-button" href="/enrrolato/orders/">Mirar las órdenes</a>
     </div>
     <div class="w-100"></div>
     <div class="col-12">

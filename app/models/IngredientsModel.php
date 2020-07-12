@@ -1,12 +1,25 @@
 <?php
 
+/**
+ * MVC - Model
+ * Class IngredientsModel
+ * Database Ingredients Model
+ */
 class IngredientsModel extends Base
 {
+    /**
+     * IngredientsModel constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Return value from database reference
+     * @param $path
+     * @return mixed|null
+     */
     public function getInfo($path)
     {
         $reference = $this->getReference($path)->orderByKey();
@@ -23,6 +36,11 @@ class IngredientsModel extends Base
         return null;
     }
 
+    /**
+     * Returns a string according to the boolean configuration
+     * @param $value
+     * @return string
+     */
     public function definedIsValue($value)
     {
         switch ($value) {
@@ -35,6 +53,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the ice cream HTML boxes
+     * @return string - HTML
+     */
     public function createIceCreamBox()
     {
         $iceCreamList = $this->getInfo(ICE_CREAMS);
@@ -65,6 +87,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the flavor HTML boxes
+     * @return string - HTML
+     */
     public function createFlavorsBox()
     {
         $flavorList = $this->getInfo(FLAVORS);
@@ -92,6 +118,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the filling HTML boxes
+     * @return string -HTML
+     */
     public function createFillingBox()
     {
         $fillingList = $this->getInfo(FILLINGS);
@@ -117,6 +147,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the topping HTML boxes
+     * @return string
+     */
     public function createToppingBox()
     {
         $toppingList = $this->getInfo(TOPPINGS);
@@ -141,6 +175,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the container HTML boxes
+     * @return string - HTML
+     */
     public function createContainerBox()
     {
         $containerList = $this->getInfo(CONTAINERS);
@@ -165,6 +203,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the flavor HTML list
+     * @return string - HTML
+     */
     public function createFlavorsList()
     {
         $flavorList = $this->getInfo(FLAVORS);
@@ -209,6 +251,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the filling HTML list
+     * @return string - HTML
+     */
     public function createFillingList()
     {
         $fillingList = $this->getInfo(FILLINGS);
@@ -253,6 +299,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the topping HTML list
+     * @return string - HTML
+     */
     public function createToppingList()
     {
         $toppingList = $this->getInfo(TOPPINGS);
@@ -297,6 +347,10 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Create the container HTML list
+     * @return string - HTML
+     */
     public function createContainerList()
     {
         $containerList = $this->getInfo(CONTAINERS);
@@ -340,6 +394,12 @@ class IngredientsModel extends Base
         }
     }
 
+    /**
+     * Accentuates the text if it is exclusive
+     * @param $bool
+     * @param $value
+     * @return string
+     */
     private function isExclusive($bool, $value) {
         if ($bool == 1) {
             return '<strong>' . $value . '</strong>';

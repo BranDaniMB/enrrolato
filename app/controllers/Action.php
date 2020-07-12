@@ -1,14 +1,30 @@
 <?php
 
+/**
+ * MVC - Controller
+ * Class Action
+ * Set of all actions, built for AJAX
+ */
 class Action extends Controller
 {
+    /**
+     * Represents the data returned to Ajax
+     * @var array
+     */
     private array $returnData = array();
 
+    /**
+     * Action constructor.
+     */
     public function __construct()
     {
         $this->controllerModel = $this->model("Actions");
     }
 
+    /**
+     * No method is provided, default page loads.
+     * In this case it is not allowed, please inform AJAX of this.
+     */
     public function index()
     {
         $this->returnData["success"] = false;
@@ -17,6 +33,11 @@ class Action extends Controller
         $this->returnData = array();
     }
 
+    /**
+     * Method add, receives the item type.
+     * @param $type
+     * Throws exception if type is not provided.
+     */
     public function add($type)
     {
         session_start();
@@ -56,6 +77,11 @@ class Action extends Controller
         }
     }
 
+    /**
+     * Method edit, receives the item type.
+     * @param $type
+     * Throws exception if type is not provided.
+     */
     public function edit($type)
     {
         session_start();
@@ -88,6 +114,11 @@ class Action extends Controller
         }
     }
 
+    /**
+     * Method delete, receives the item type.
+     * @param $type
+     * Throws exception if type is not provided.
+     */
     public function delete($type)
     {
         session_start();
@@ -138,6 +169,11 @@ class Action extends Controller
         }
     }
 
+    /**
+     * Method add, receives the item type. Return HTML.
+     * @param $type
+     * Throws exception if type is not provided.
+     */
     public function get($type)
     {
         session_start();

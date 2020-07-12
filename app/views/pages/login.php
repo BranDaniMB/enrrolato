@@ -34,9 +34,9 @@ if (isset($_GET['code'])) {
 }
 ?>
 <a class="google-login" href="<?php echo $auth->getAuthUrl() ?>">
-    <img alt="Cambiar imagen" onmouseout="this.src='/images/btn_google_signin_dark_normal_web@2x.png';"
-         onmouseover="this.src='/images/btn_google_signin_dark_focus_web@2x.png';"
-         src="/images/btn_google_signin_dark_normal_web@2x.png"/>
+    <img alt="Cambiar imagen" onmouseout="this.src='/enrrolato/images/btn_google_signin_dark_normal_web@2x.png';"
+         onmouseover="this.src='/enrrolato/images/btn_google_signin_dark_focus_web@2x.png';"
+         src="/enrrolato/images/btn_google_signin_dark_normal_web@2x.png"/>
 </a>
 
 <?php

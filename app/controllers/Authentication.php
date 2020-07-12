@@ -1,13 +1,23 @@
 <?php
 
-
+/**
+ * MVC - Controller
+ * Class Authentication
+ * Set of methods for authentication
+ */
 class Authentication extends Controller
 {
+    /**
+     * Authentication constructor.
+     */
     public function __construct()
     {
         $this->controllerModel = $this->model("Account");
     }
 
+    /**
+     * No method is provided, default page loads.
+     */
     public function index()
     {
         $data = [
@@ -16,6 +26,9 @@ class Authentication extends Controller
         $this->view("pages/modifyAccounts", $data);
     }
 
+    /**
+     * @deprecated - replaced by AJAX
+     */
     public function add() {
         $data = [
             "TITLE" => "Agregar cuenta | " . SITE_NAME
@@ -23,6 +36,9 @@ class Authentication extends Controller
         $this->view("pages/addAccount", $data);
     }
 
+    /**
+     * Default page, login action
+     */
     public function login()
     {
         $data = [
@@ -31,6 +47,9 @@ class Authentication extends Controller
         $this->view("pages/login", $data);
     }
 
+    /**
+     * Logout page
+     */
     public function logout()
     {
         session_start();
@@ -38,6 +57,9 @@ class Authentication extends Controller
         header('Location: /enrrolato/authentication/login/');
     }
 
+    /**
+     * Unauthorized account
+     */
     public function loginerror()
     {
         $data = [

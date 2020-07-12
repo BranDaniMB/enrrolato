@@ -1,3 +1,8 @@
+/**
+ * Page: showIngredients.php
+ * Change the function of the upper left button
+ * @param type
+ */
 function setAddAction(type) {
     const addButton = $('#add-ingredient-button');
     addButton.attr("data-target", "#add" + type + "Modal");
@@ -20,10 +25,21 @@ function setAddAction(type) {
     }
 }
 
+/**
+ * Page: showIngredients.php
+ * not implemented
+ * @param flavor
+ */
 function modifyFlavor(flavor) {
     alert(flavor);
 }
 
+/**
+ * Page: showIngredients.php
+ * Change the modal and AJAX to delete.
+ * @param type
+ * @param name
+ */
 function deleteModal(type, name) {
     const deleteModal = $('#deleteConfirmModal');
     const deleteSubmit = $("#deleteConfirmModal #delete-submit");
@@ -65,6 +81,10 @@ function deleteModal(type, name) {
     });
 }
 
+/**
+ * Page: showIngredients.php
+ * @param type
+ */
 function updateIngredients(type) {
     $.post("/enrrolato/action/get/" + type, {}, function (text) {
         let trash = text.split("||$$||")
@@ -89,7 +109,14 @@ function updateIngredients(type) {
     });
 }
 
+/**
+ * Page: showIngredients.php
+ */
 $(document).ready(function () {
+    /**
+     * Submit
+     * Add flavor
+     */
     $('#addIngredientFlavor').submit(function (e) {
         const msgLoad = $('#addFlavorModal #msgLoad');
         const msgError = $('#addFlavorModal #msgError');
@@ -121,12 +148,19 @@ $(document).ready(function () {
         });
     });
 
+    /**
+     * Reset flavor messages
+     */
     $('#addFlavorModal').on('show.bs.modal', function (event) {
         $('#addFlavorModal #msgLoad').css('display', 'none');
         $('#addFlavorModal #msgError').css('display', 'none');
         $('#addFlavorModal #msgSuccess').css('display', 'none');
     });
 
+    /**
+     * Submit
+     * Add filling
+     */
     $('#addIngredientFilling').submit(function (e) {
         const msgLoad = $('#addFillingModal #msgLoad');
         const msgError = $('#addFillingModal #msgError');
@@ -157,12 +191,19 @@ $(document).ready(function () {
         });
     });
 
+    /**
+     * Reset filling messages
+     */
     $('#addFillingModal').on('show.bs.modal', function (event) {
         $('#addFillingModal #msgLoad').css('display', 'none');
         $('#addFillingModal #msgError').css('display', 'none');
         $('#addFillingModal #msgSuccess').css('display', 'none');
     });
 
+    /**
+     * Submit
+     * Add topping
+     */
     $('#addIngredientTopping').submit(function (e) {
         const msgLoad = $('#addToppingModal #msgLoad');
         const msgError = $('#addToppingModal #msgError');
@@ -194,12 +235,19 @@ $(document).ready(function () {
         });
     });
 
+    /**
+     * Reset topping messages
+     */
     $('#addToppingModal').on('show.bs.modal', function (event) {
         $('#addToppingModal #msgLoad').css('display', 'none');
         $('#addToppingModal #msgError').css('display', 'none');
         $('#addToppingModal #msgSuccess').css('display', 'none');
     });
 
+    /**
+     * Submit
+     * Add container
+     */
     $('#addIngredientContainer').submit(function (e) {
         const msgLoad = $('#addContainerModal #msgLoad');
         const msgError = $('#addContainerModal #msgError');
@@ -230,16 +278,26 @@ $(document).ready(function () {
 
         });
     });
+
+    /**
+     * Reset container messages
+     */
     $('#addContainerModal').on('show.bs.modal', function (event) {
         $('#addContainerModal #msgLoad').css('display', 'none');
         $('#addContainerModal #msgError').css('display', 'none');
         $('#addContainerModal #msgSuccess').css('display', 'none');
     });
 
-    // IceCream Create Process
+    /**
+     * Create ice cream process
+     */
     var processCurrentStep;
     var IceCream;
 
+    /**
+     * Start a process step
+     * @param step
+     */
     function initStep(step) {
         switch (step) {
             case 1:
