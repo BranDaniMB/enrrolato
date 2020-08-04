@@ -41,7 +41,7 @@ class IngredientsModel extends Base
      * @param $value
      * @return string
      */
-    public function definedIsValue($value)
+    private function definedIsValue($value)
     {
         switch ($value) {
             case 0:
@@ -51,6 +51,19 @@ class IngredientsModel extends Base
             default:
                 return 'Desconocido';
         }
+    }
+
+    private function definedPrice($value)
+    {
+        if ($value != 'false') {
+            return '₡' . $value;
+        } else {
+            return 'No posee precio personalizado.';
+        }
+    }
+
+    private function sanitizeForID($text) {
+        return str_replace(" ", "_", $text);
     }
 
     /**
@@ -63,24 +76,40 @@ class IngredientsModel extends Base
         if (!empty($iceCreamList)) {
             $boxes = "";
             foreach ($iceCreamList as &$item) {
-                $boxes .= '<div class="card text-white text-center ingredient-container">' .
-                    '<div class="card-header">' . ucfirst($item["name"]) . '</div>' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container" style="width: 300px;">' .
+                    '<div class="card-header font-weight-bold">' . ucfirst($item["name"]) . '</div>' .
                     '<ul class="list-group list-group-flush">' .
-                    '<li class="list-group-item">Sabores: <br/>' . $item["flavor"] . '</li>' .
-                    '<li class="list-group-item">Rellenos: <br/>' . $item["filling"] . '</li>' .
-                    '<li class="list-group-item">Toppings: <br/>' . $item["topping"] . '</li>' .
-                    '<li class="list-group-item">Envases: <br/>' . $item["container"] . '</li>' .
-                    '<li class="list-group-item">¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u></li>' .
-                    '<li class="list-group-item">¿Sabor especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u></li>' .
-                    '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#iceCream' . $this->sanitizeForID($item["name"]) . 'Flavor" role="button" aria-expanded="false"">Sabores<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="iceCream' . $this->sanitizeForID($item["name"]) . 'Flavor"><hr/>' . $item['flavor'] . '</div>' .
+                    '</li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#iceCream' . $this->sanitizeForID($item["name"]) . 'Filling" role="button" aria-expanded="false">Rellenos<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="iceCream' . $this->sanitizeForID($item["name"]) . 'Filling"><hr/>' . $item['filling'] . '</div>' .
+                    '</li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#iceCream' . $this->sanitizeForID($item["name"]) . 'Topping" role="button" aria-expanded="false">Toppings<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="iceCream' . $this->sanitizeForID($item["name"]) . 'Topping"><hr/>' . $item['topping'] . '</div>' .
+                    '</li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#iceCream' . $this->sanitizeForID($item["name"]) . 'Container" role="button" aria-expanded="false">Envases<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="iceCream' . $this->sanitizeForID($item["name"]) . 'Container"><hr/>' . $item['container'] . '</div>' .
+                    '</li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#iceCream' . $this->sanitizeForID($item["name"]) . 'Details" role="button" aria-expanded="false">Detalles<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="iceCream' . $this->sanitizeForID($item["name"]) . 'Details"><hr/>' .
+                        '¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u><br/>' .
+                        '¿Helado de temporada?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u><br/>' .
+                        '¿Helado especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u><br/>' .
+                        '¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u><br/>' .
+                    '</div>' .
+                    '</li>' .
                     '</ul>' .
-                    '<div class="card-body row">' .
-                    '<a class="col-6" onclick="modifyIceCream(\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
+                    '<div class="card-body row justify-content-around">' .
                     '<a class="col-6" onclick="deleteModal(\'icecream\',\'' . $item["name"] . '\')"><i class="material-icons">delete</i></a>' .
                     '</div>' .
                     '</div>';
             }
-
             return $boxes;
         } else {
             return "No hay helados para mostrar.";
@@ -91,22 +120,28 @@ class IngredientsModel extends Base
      * Create the flavor HTML boxes
      * @return string - HTML
      */
-    public function createFlavorsBox()
+    public function createFlavorBox()
     {
         $flavorList = $this->getInfo(FLAVORS);
         if (!empty($flavorList)) {
             $boxes = "";
             foreach ($flavorList as &$item) {
-                $boxes .= '<div class="card text-white text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') .' font-weight-bold text-center ingredient-container">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
-                    '<li class="list-group-item">¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u></li>' .
-                    '<li class="list-group-item">¿Sabor especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u></li>' .
-                    '<li class="list-group-item">¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u></li>' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#' . $this->sanitizeForID($item["name"]) . 'FlavorCollapse" role="button" aria-expanded="false">Otros detalles<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="' . $this->sanitizeForID($item["name"]) . 'FlavorCollapse"><hr/>' .
+                        '¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u><br/>' .
+                        '¿Sabor especial?: <u>' . $this->definedIsValue($item["isSpecial"]) . '</u><br/>' .
+                        '¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u><br/>' .
+                        'Precio: <u>' . $this->definedPrice($item["price"]) . '</u><br/>' .
+                    '</div>' .
+                    '</li>' .
                     '</ul>' .
                     '<div class="card-body row">' .
-                    '<a class="col-6" onclick="modifyFlavor(\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
+                    '<a class="col-6" onclick="modify(\'Flavor\',\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
                     '<a class="col-6" onclick="deleteModal(\'flavor\',\'' . $item["name"] . '\')"><i class="material-icons">delete</i></a>' .
                     '</div>' .
                     '</div>';
@@ -128,14 +163,21 @@ class IngredientsModel extends Base
         if (!empty($fillingList)) {
             $boxes = "";
             foreach ($fillingList as &$item) {
-                $boxes .= '<div class="card text-white text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
-                    '<li class="list-group-item">¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u></li>' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#' . $this->sanitizeForID($item["name"]) . 'FillingCollapse" role="button" aria-expanded="false">Otros detalles<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="' . $this->sanitizeForID($item["name"]) . 'FillingCollapse"><hr/>' .
+                    '¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u><br/>' .
+                    '¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u><br/>' .
+                    'Precio: <u>' . $this->definedPrice($item["price"]) . '</u><br/>' .
+                    '</div>' .
+                    '</li>' .
                     '</ul>' .
                     '<div class="card-body row">' .
-                    '<a class="col-6" onclick="modifyFilling(\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
+                    '<a class="col-6" onclick="modify(\'Filling\',\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
                     '<a class="col-6" onclick="deleteModal(\'filling\',\'' . $item["name"] . '\')"><i class="material-icons">delete</i></a>' .
                     '</div>' .
                     '</div>';
@@ -157,13 +199,21 @@ class IngredientsModel extends Base
         if (!empty($toppingList)) {
             $boxes = "";
             foreach ($toppingList as &$item) {
-                $boxes .= '<div class="card text-white text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#' . $this->sanitizeForID($item["name"]) . 'ToppingCollapse" role="button" aria-expanded="false">Otros detalles<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="' . $this->sanitizeForID($item["name"]) . 'ToppingCollapse"><hr/>' .
+                    '¿Es licor?: <u>' . $this->definedIsValue($item["isLiqueur"]) . '</u><br/>' .
+                    '¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u><br/>' .
+                    'Precio: <u>' . $this->definedPrice($item["price"]) . '</u><br/>' .
+                    '</div>' .
+                    '</li>' .
                     '</ul>' .
                     '<div class="card-body row">' .
-                    '<a class="col-6" onclick="modifyTopping(\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
+                    '<a class="col-6" onclick="modify(\'Topping\',\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
                     '<a class="col-6" onclick="deleteModal(\'topping\',\'' . $item["name"] . '\')"><i class="material-icons">delete</i></a>' .
                     '</div>' .
                     '</div>';
@@ -185,13 +235,20 @@ class IngredientsModel extends Base
         if (!empty($containerList)) {
             $boxes = "";
             foreach ($containerList as &$item) {
-                $boxes .= '<div class="card text-white text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') .' font-weight-bold text-center ingredient-container">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
+                    '<li class="list-group-item">' .
+                    '<a class="font-weight-bold" data-toggle="collapse" href="#' . $this->sanitizeForID($item["name"]) . 'ContainerCollapse" role="button" aria-expanded="false">Otros detalles<br/><small>(click para mostrar)</small></a>' .
+                    '<div class="collapse" id="' . $this->sanitizeForID($item["name"]) . 'ContainerCollapse"><hr/>' .
+                    '¿Es exclusivo?: <u>' . $this->definedIsValue($item["isExclusive"]) . '</u><br/>' .
+                    'Precio: <u>' . $this->definedPrice($item["price"]) . '</u><br/>' .
+                    '</div>' .
+                    '</li>' .
                     '</ul>' .
                     '<div class="card-body row">' .
-                    '<a class="col-6" onclick="modifyContainer(\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
+                    '<a class="col-6" onclick="modify(\'Container\',\'' . $item["name"] . '\')"><i class="material-icons">create</i></a>' .
                     '<a class="col-6" onclick="deleteModal(\'container\',\'' . $item["name"] . '\')"><i class="material-icons">delete</i></a>' .
                     '</div>' .
                     '</div>';
@@ -207,17 +264,17 @@ class IngredientsModel extends Base
      * Create the flavor HTML list
      * @return string - HTML
      */
-    public function createFlavorsList()
+    public function createFlavorList()
     {
         $flavorList = $this->getInfo(FLAVORS);
         if (!empty($flavorList)) {
             $boxes = "";
             $size = count($flavorList);
-            if ($size%2 == 0) {
-                $break = $size/2;
+            if ($size % 2 == 0) {
+                $break = $size / 2;
                 $flag = false;
             } else {
-                $break = ($size-1)/2;
+                $break = ($size - 1) / 2;
                 $flag = true;
             }
             $count = 0;
@@ -226,13 +283,13 @@ class IngredientsModel extends Base
                     $boxes .= '<div class="col-6">';
                 }
                 $boxes .= '<div class="form-group form-check">' .
-                    '<input type="checkbox" class="form-check-input" value="'.$item["name"].'" id="iceCream_flavor_'.$item["name"].'" name="iceCream_flavor_'.$item["name"].'"/>' .
-                    '<label class="form-check-label" for="iceCream_flavor_'.$item["name"].'">' . $this->isExclusive($item["isExclusive"], $item["name"]) .'</label>' .
+                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_flavor_' . $item["name"] . '" name="iceCream_flavor_' . $item["name"] . '"/>' .
+                    '<label class="form-check-label" for="iceCream_flavor_' . $item["name"] . '">' . $this->isExclusive($item["isExclusive"], $item["name"]) . '</label>' .
                     '</div>';
 
                 $count++;
                 if ($flag) {
-                    if ($count == ($break+1)) {
+                    if ($count == ($break + 1)) {
                         $count = 0;
                         $boxes .= '</div>';
                         $flag = false;
@@ -261,11 +318,11 @@ class IngredientsModel extends Base
         if (!empty($fillingList)) {
             $boxes = "";
             $size = count($fillingList);
-            if ($size%2 == 0) {
-                $break = $size/2;
+            if ($size % 2 == 0) {
+                $break = $size / 2;
                 $flag = false;
             } else {
-                $break = ($size-1)/2;
+                $break = ($size - 1) / 2;
                 $flag = true;
             }
             $count = 0;
@@ -274,13 +331,13 @@ class IngredientsModel extends Base
                     $boxes .= '<div class="col-6">';
                 }
                 $boxes .= '<div class="form-group form-check">' .
-                    '<input type="checkbox" class="form-check-input" value="'.$item["name"].'" id="iceCream_flavor_'.$item["name"].'" name="iceCream_flavor_'.$item["name"].'"/>' .
-                    '<label class="form-check-label" for="iceCream_flavor_'.$item["name"].'">' . $this->isExclusive($item["isExclusive"], $item["name"]) .'</label>' .
+                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_flavor_' . $item["name"] . '" name="iceCream_flavor_' . $item["name"] . '"/>' .
+                    '<label class="form-check-label" for="iceCream_flavor_' . $item["name"] . '">' . $this->isExclusive($item["isExclusive"], $item["name"]) . '</label>' .
                     '</div>';
 
                 $count++;
                 if ($flag) {
-                    if ($count == ($break+1)) {
+                    if ($count == ($break + 1)) {
                         $count = 0;
                         $boxes .= '</div>';
                         $flag = false;
@@ -309,11 +366,11 @@ class IngredientsModel extends Base
         if (!empty($toppingList)) {
             $boxes = "";
             $size = count($toppingList);
-            if ($size%2 == 0) {
-                $break = $size/2;
+            if ($size % 2 == 0) {
+                $break = $size / 2;
                 $flag = false;
             } else {
-                $break = ($size-1)/2;
+                $break = ($size - 1) / 2;
                 $flag = true;
             }
             $count = 0;
@@ -322,13 +379,13 @@ class IngredientsModel extends Base
                     $boxes .= '<div class="col-6">';
                 }
                 $boxes .= '<div class="form-group form-check">' .
-                    '<input type="checkbox" class="form-check-input" value="'.$item["name"].'" id="iceCream_flavor_'.$item["name"].'" name="iceCream_flavor_'.$item["name"].'"/>' .
-                    '<label class="form-check-label" for="iceCream_flavor_'.$item["name"].'">' . $item["name"] .'</label>' .
+                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_flavor_' . $item["name"] . '" name="iceCream_flavor_' . $item["name"] . '"/>' .
+                    '<label class="form-check-label" for="iceCream_flavor_' . $item["name"] . '">' . $item["name"] . '</label>' .
                     '</div>';
 
                 $count++;
                 if ($flag) {
-                    if ($count == ($break+1)) {
+                    if ($count == ($break + 1)) {
                         $count = 0;
                         $boxes .= '</div>';
                         $flag = false;
@@ -357,11 +414,11 @@ class IngredientsModel extends Base
         if (!empty($containerList)) {
             $boxes = "";
             $size = count($containerList);
-            if ($size%2 == 0) {
-                $break = $size/2;
+            if ($size % 2 == 0) {
+                $break = $size / 2;
                 $flag = false;
             } else {
-                $break = ($size-1)/2;
+                $break = ($size - 1) / 2;
                 $flag = true;
             }
             $count = 0;
@@ -370,12 +427,12 @@ class IngredientsModel extends Base
                     $boxes .= '<div class="col-6">';
                 }
                 $boxes .= '<div class="form-group form-check">' .
-                    '<input type="checkbox" class="form-check-input" value="'.$item["name"].'" id="iceCream_flavor_'.$item["name"].'" name="iceCream_flavor_'.$item["name"].'"/>' .
-                    '<label class="form-check-label" for="iceCream_flavor_'.$item["name"].'">' . $item["name"] .'</label>' .
+                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_flavor_' . $item["name"] . '" name="iceCream_flavor_' . $item["name"] . '"/>' .
+                    '<label class="form-check-label" for="iceCream_flavor_' . $item["name"] . '">' . $item["name"] . '</label>' .
                     '</div>';
                 $count++;
                 if ($flag) {
-                    if ($count == ($break+1)) {
+                    if ($count == ($break + 1)) {
                         $count = 0;
                         $boxes .= '</div>';
                         $flag = false;
@@ -400,7 +457,8 @@ class IngredientsModel extends Base
      * @param $value
      * @return string
      */
-    private function isExclusive($bool, $value) {
+    private function isExclusive($bool, $value)
+    {
         if ($bool == 1) {
             return '<strong>' . $value . '</strong>';
         } else {

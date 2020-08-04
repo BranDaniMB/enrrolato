@@ -24,7 +24,7 @@ class Actions extends Base
     public function createIceCream($POST)
     {
         try {
-            if (isset($POST["name"]) && isset($POST["flavor"]) && isset($POST["filling"]) && isset($POST["topping"]) && isset($POST["container"])) {
+            if (isset($POST["name"], $POST["flavor"], $POST["filling"], $POST["topping"], $POST["container"])) {
                 $reference = $this->getReference(ICE_CREAMS . '/' . $POST["name"]);
                 if (!$reference->getSnapshot()->exists()) {
                     $reference->set([
@@ -35,7 +35,8 @@ class Actions extends Base
                         'container' => $POST['container'],
                         'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
                         'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                        'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                     ]);
                     $this->returnData["success"] = true;
                     $this->returnData["posted"] = "Helado agregado con éxito, ya puedes cerrar esta ventana.";
@@ -76,7 +77,8 @@ class Actions extends Base
                         'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
                         'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
                         'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                        'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                     ]);
                     $this->returnData["success"] = true;
                     $this->returnData["posted"] = "Sabor agregado con éxito, ya puedes cerrar esta ventana.";
@@ -114,8 +116,10 @@ class Actions extends Base
                 if (!$reference->getSnapshot()->exists()) {
                     $reference->set([
                         'name' => $POST['name'],
+                        'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
                         'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                        'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                     ]);
                     $this->returnData["success"] = true;
                     $this->returnData["posted"] = "Relleno agregado con éxito, ya puedes cerrar esta ventana.";
@@ -153,7 +157,10 @@ class Actions extends Base
                 if (!$reference->getSnapshot()->exists()) {
                     $reference->set([
                         'name' => $POST['name'],
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
+                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                        'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                     ]);
                     $this->returnData["success"] = true;
                     $this->returnData["posted"] = "Topping agregado con éxito, ya puedes cerrar esta ventana.";
@@ -191,7 +198,9 @@ class Actions extends Base
                 if (!$reference->getSnapshot()->exists()) {
                     $reference->set([
                         'name' => $POST['name'],
-                        'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                        'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                        'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                        'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                     ]);
                     $this->returnData["success"] = true;
                     $this->returnData["posted"] = "Envase agregado con éxito, ya puedes cerrar está ventana.";
@@ -251,13 +260,85 @@ class Actions extends Base
     }
 
     /**
+     * Create Schedule, receives POST data from AJAX
+     * @param $POST
+     */
+    public function createSchedule($POST)
+    {
+        try {
+            if (isset($POST['title'], $POST['isActive'], $POST['isActive'], $POST['typeOfAvailability'], $POST['startTime'], $POST['endTime'], $POST['startDate'], $POST['repeat'])) {
+                $reference = $this->getReference(SCHEDULES . "/" . $POST['title']);
+                if (!$reference->getSnapshot()->exists()) {
+                    if ($POST['repeat'] != 'personalized') {
+                        $reference->set([
+                            'isActive' => $POST['isActive'],
+                            'typeOfAvailability' => $POST['typeOfAvailability'],
+                            'startTime' => $POST['startTime'],
+                            'endTime' => $POST['endTime'],
+                            'startDate' => $POST['startDate'],
+                            'endDate' => ($POST['endDate'] != "") ? $POST['endDate'] : 'false',
+                            'repeat' => $POST['repeat']
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Horario agregado con éxito, ya puedes cerrar está ventana.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('add', 'schedule', $POST['title']);
+                    } else {
+                        $reference->set([
+                            'isActive' => $POST['isActive'],
+                            'typeOfAvailability' => $POST['typeOfAvailability'],
+                            'startTime' => $POST['startTime'],
+                            'endTime' => $POST['endTime'],
+                            'startDate' => $POST['startDate'],
+                            'endDate' => ($POST['endDate'] != "") ? $POST['endDate'] : 'false',
+                            'repeat' => $POST['repeat'],
+                            'days' => [
+                                'repeat_monday' => isset($POST['repeat_monday']),
+                                'repeat_tuesday' => isset($POST['repeat_tuesday']),
+                                'repeat_wednesday' => isset($POST['repeat_wednesday']),
+                                'repeat_thursday' => isset($POST['repeat_thursday']),
+                                'repeat_friday' => isset($POST['repeat_friday']),
+                                'repeat_saturday' => isset($POST['repeat_saturday']),
+                                'repeat_sunday' => isset($POST['repeat_sunday']),
+                            ]
+                        ]);
+                        $this->returnData["success"] = true;
+                        $this->returnData["posted"] = "Horario agregado con éxito, ya puedes cerrar está ventana.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        $this->registerAudit('add', 'schedule', $POST['title']);
+                    }
+                } else {
+                    $this->returnData["success"] = false;
+                    $this->returnData["error"] = 'Ya existe un horario con este título.';
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
      * Edit Flavor, receives POST data from AJAX
      * @param $POST
      */
     public function editFlavor($POST)
     {
         try {
-            if (isset($POST["currentName"])) {
+            if (isset($POST["name"], $POST["currentName"])) {
                 $reference = $this->getReference(FLAVORS . '/' . $POST["currentName"]);
                 if ($reference->getSnapshot()->exists()) {
                     if ($POST['currentName'] != $POST['name']) {
@@ -268,7 +349,8 @@ class Actions extends Base
                             'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
                             'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
                             'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "Sabor modificado.";
@@ -281,7 +363,8 @@ class Actions extends Base
                             'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
                             'isSpecial' => isset($POST['isSpecial']) ? '1' : '0',
                             'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "Sabor modificado.";
@@ -315,7 +398,7 @@ class Actions extends Base
     public function editFilling($POST)
     {
         try {
-            if (isset($POST["currentName"])) {
+            if (isset($POST["name"], $POST["currentName"])) {
                 $reference = $this->getReference(FILLINGS . '/' . $POST["currentName"]);
                 if ($reference->getSnapshot()->exists()) {
                     if ($POST["currentName"] != $POST["name"]) {
@@ -323,8 +406,10 @@ class Actions extends Base
                         $reference = $this->getReference(FILLINGS . '/' . $POST["name"]);
                         $reference->set([
                             'name' => $POST['name'],
+                            'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
                             'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "Relleno modificado.";
@@ -334,8 +419,10 @@ class Actions extends Base
                     } else {
                         $reference->set([
                             'name' => $POST['currentName'],
+                            'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
                             'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "Relleno modificado.";
@@ -369,7 +456,7 @@ class Actions extends Base
     public function editTopping($POST)
     {
         try {
-            if (isset($POST["currentName"])) {
+            if (isset($POST["name"], $POST["currentName"])) {
                 $reference = $this->getReference(TOPPINGS . '/' . $POST["currentName"]);
                 if ($reference->getSnapshot()->exists()) {
                     if ($POST["name"] != $POST["currentName"]) {
@@ -377,7 +464,10 @@ class Actions extends Base
                         $reference = $this->getReference(TOPPINGS . '/' . $POST["name"]);
                         $reference->set([
                             'name' => $POST['name'],
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "Topping modificado.";
@@ -387,7 +477,10 @@ class Actions extends Base
                     } else {
                         $reference->set([
                             'name' => $POST['currentName'],
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'isLiqueur' => isset($POST['isLiqueur']) ? '1' : '0',
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "Topping modificado.";
@@ -422,14 +515,16 @@ class Actions extends Base
     {
         try {
             $reference = $this->getReference(CONTAINERS . '/' . $POST["currentName"]);
-            if (isset($POST["currentName"])) {
+            if (isset($POST["name"], $POST["currentName"])) {
                 if ($reference->getSnapshot()->exists()) {
                     if ($POST["name"] != $POST["currentName"]) {
                         $reference->set(null);
                         $reference = $this->getReference(CONTAINERS . '/' . $POST["name"]);
                         $reference->set([
                             'name' => $POST['name'],
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "Envase modificado.";
@@ -439,7 +534,9 @@ class Actions extends Base
                     } else {
                         $reference->set([
                             'name' => $POST['currentName'],
-                            'avaliable' => isset($POST['avaliable']) ? '1' : '0'
+                            'isExclusive' => isset($POST['isExclusive']) ? '1' : '0',
+                            'avaliable' => isset($POST['avaliable']) ? '1' : '0',
+                            'price' => ($POST['price'] != "") ? $POST['price'] : 'false'
                         ]);
                         $this->returnData["success"] = true;
                         $this->returnData["posted"] = "envase modificado.";
@@ -450,6 +547,55 @@ class Actions extends Base
                 } else {
                     throw new Exception("Ese envase no existe, por favor use la opción de añadir para agregarlo.");
                 }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Edit prices, receives POST data by AJAX
+     * @param $POST
+     */
+    public function editPrices($POST)
+    {
+        try {
+            $reference = $this->getReference(PRICES);
+            if (isset($POST["regularPrice"],
+                $POST["regularFlavorAmount"],
+                $POST["regularFillingAmount"],
+                $POST["regularToppingAmount"],
+                $POST["regularExtraToppingPrice"],
+                $POST["specialFlavorPrice"],
+                $POST["liqueurFlavorPrice"],
+                $POST["seasonIceCreamPrice"])) {
+                $reference->set([
+                    'regular' => [
+                        'regular_price' => $POST["regularPrice"],
+                        'flavor_amount' => $POST["regularFlavorAmount"],
+                        'filling_amount' => $POST["regularFillingAmount"],
+                        'topping_amount' => $POST["regularToppingAmount"],
+                        'extra_topping_price' => $POST["regularExtraToppingPrice"]
+                    ],
+                    'special_flavor' => $POST["specialFlavorPrice"],
+                    'liqueur_flavor' => $POST["liqueurFlavorPrice"],
+                    'season_ice_cream' => $POST["seasonIceCreamPrice"]
+                ]);
+                $this->returnData["success"] = true;
+                $this->returnData["posted"] = "Se ha modificado los precios con éxito.";
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
+                $this->registerAudit('edit', 'prices', null);
             } else {
                 throw new Exception("Datos incompletos.");
             }
@@ -727,9 +873,149 @@ class Actions extends Base
     }
 
     /**
+     * Get info from flavor, return JSON
+     * @param $POST
+     */
+    public function findFlavor($POST) {
+        try {
+            $reference = $this->getReference(FLAVORS . '/' . $POST['name']);
+            if ($reference->getSnapshot()->exists()) {
+                $this->returnData["success"] = true;
+                $this->returnData["json"] = json_encode($reference->getSnapshot()->getValue());
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
+            } else {
+                throw new Exception("No existe este sabor.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info from filling, return JSON
+     * @param $POST
+     */
+    public function findFilling($POST) {
+        try {
+            $reference = $this->getReference(FILLINGS . '/' . $POST['name']);
+            if ($reference->getSnapshot()->exists()) {
+                $this->returnData["success"] = true;
+                $this->returnData["json"] = json_encode($reference->getSnapshot()->getValue());
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
+            } else {
+                throw new Exception("No existe este relleno.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info from topping, return JSON
+     * @param $POST
+     */
+    public function findTopping($POST) {
+        try {
+            $reference = $this->getReference(TOPPINGS . '/' . $POST['name']);
+            if ($reference->getSnapshot()->exists()) {
+                $this->returnData["success"] = true;
+                $this->returnData["json"] = json_encode($reference->getSnapshot()->getValue());
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
+            } else {
+                throw new Exception("No existe este topping.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info from container, return JSON
+     * @param $POST
+     */
+    public function findContainer($POST) {
+        try {
+            $reference = $this->getReference(CONTAINERS . '/' . $POST['name']);
+            if ($reference->getSnapshot()->exists()) {
+                $this->returnData["success"] = true;
+                $this->returnData["json"] = json_encode($reference->getSnapshot()->getValue());
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
+            } else {
+                throw new Exception("No existe este envase.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info from prices, return JSON
+     * @param $POST
+     */
+    public function getPrices($POST) {
+        try {
+            $reference = $this->getReference(PRICES);
+            if ($reference->getSnapshot()->exists()) {
+                $this->returnData["success"] = true;
+                $this->returnData["json"] = json_encode($reference->getSnapshot()->getValue());
+                echo "||$$||" . json_encode($this->returnData);
+                $this->returnData = array();
+            } else {
+                throw new Exception("No hay información acerca de los precios.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
      * Get info IceCream, return HTML to AJAX
      */
-    public function getIceCream()
+    public function getIceCreamBox()
     {
         require(MODELS_PATH . "IngredientsModel.php");
         $ingredients = new IngredientsModel();
@@ -754,13 +1040,13 @@ class Actions extends Base
     /**
      * Get info Flavors, return HTML to AJAX
      */
-    public function getFlavors()
+    public function getFlavorBox()
     {
         require(MODELS_PATH . "IngredientsModel.php");
         $ingredients = new IngredientsModel();
         try {
             $this->returnData["success"] = true;
-            $this->returnData["html"] = $ingredients->createFlavorsBox();
+            $this->returnData["html"] = $ingredients->createFlavorBox();
             echo "||$$||" . json_encode($this->returnData);
             $this->returnData = array();
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
@@ -779,7 +1065,7 @@ class Actions extends Base
     /**
      * Get info Filling, return HTML to AJAX
      */
-    public function getFilling()
+    public function getFillingBox()
     {
         require(MODELS_PATH . "IngredientsModel.php");
         $ingredients = new IngredientsModel();
@@ -804,7 +1090,7 @@ class Actions extends Base
     /**
      * Get info Topping, return HTML to AJAX
      */
-    public function getTopping()
+    public function getToppingBox()
     {
         require(MODELS_PATH . "IngredientsModel.php");
         $ingredients = new IngredientsModel();
@@ -829,7 +1115,7 @@ class Actions extends Base
     /**
      * Get info Container, return HTML to AJAX
      */
-    public function getContainer()
+    public function getContainerBox()
     {
         require(MODELS_PATH . "IngredientsModel.php");
         $ingredients = new IngredientsModel();
@@ -852,6 +1138,57 @@ class Actions extends Base
     }
 
     /**
+     * Get info account list, return HTML to AJAX
+     */
+    public function getAccountList()
+    {
+        require(MODELS_PATH . "Account.php");
+        $account = new Account();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $account->getAuthenticationAccounts();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info temp account list, return HTML to AJAX
+     */
+    public function getTempAccountList()
+    {
+        require(MODELS_PATH . "Account.php");
+        $account = new Account();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $account->getTempAccounts();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+
+    /**
      * Get info Flavor list to create IceCream, return HTML to AJAX
      */
     public function getFlavorList()
@@ -860,7 +1197,7 @@ class Actions extends Base
         $ingredients = new IngredientsModel();
         try {
             $this->returnData["success"] = true;
-            $this->returnData["html"] = $ingredients->createFlavorsList();
+            $this->returnData["html"] = $ingredients->createFlavorList();
             echo "||$$||" . json_encode($this->returnData);
             $this->returnData = array();
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
@@ -886,6 +1223,31 @@ class Actions extends Base
         try {
             $this->returnData["success"] = true;
             $this->returnData["html"] = $ingredients->createFillingList();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info Topping list to create IceCream, return HTML to AJAX
+     */
+    public function getToppingList()
+    {
+        require(MODELS_PATH . "IngredientsModel.php");
+        $ingredients = new IngredientsModel();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $ingredients->createToppingList();
             echo "||$$||" . json_encode($this->returnData);
             $this->returnData = array();
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {

@@ -96,12 +96,6 @@ footer {
     white-space: nowrap;
 }
 
-.card {
-    display: inline-block;
-    color: white;
-    background-color: #02434F;
-}
-
 #guide-color-ready,
 #guide-color-not-ready {
     padding: 5px;
@@ -324,29 +318,21 @@ footer {
  * Accounts CSS
  */
 .accounts-table {
-    width: 90%;
-    background-color: #02434f;
-    text-align: center;
+    background-color: #F9B122;
     margin: 0 auto;
+    color: #0D181C;
+    border-radius: 5px;
 }
 
-.accounts-table th {
-    background-color: #F9B122;
+.accounts-table .title {
+    padding: 5px;
     color: #0D181C;
     font-weight: bold;
     font-size: 1em;
 }
 
-.accounts-table td {
-    color: #e6e6e6;
-}
-
-.accounts-table .delete-button {
-    color: #F9B122;
-}
-
 .accounts-table a {
-    color: white;
+    color: black;
     text-decoration: underline;
 }
 
@@ -354,8 +340,10 @@ footer {
  * Default card CSS
  */
 .card {
-    color: white;
-    background-color: #02434F;
+    display: inline-block;
+}
+.card a {
+    color: inherit;
 }
 
 /**
@@ -388,5 +376,46 @@ footer {
 #iceCream_containerList
  {
     max-height: 260px;
+    overflow-y: scroll;
+}
+
+/**
+ * Ingredients color guide
+ */
+.circle-guide-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 1px solid #fff;
+}
+
+.circle-available {
+    background-color: #0fc441;
+}
+
+.circle-not-available {
+    background-color: #ffc107;
+}
+
+#prices-form {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #0D181C;
+    line-height: 3;
+}
+
+.input-amount {
+    width: 50px;
+    line-height: normal;
+}
+
+.input-money {
+    width: 80px;
+    line-height: normal;
+}
+
+#audit-list {
+    height: 450px;
     overflow-y: scroll;
 }

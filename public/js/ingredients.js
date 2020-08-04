@@ -6,20 +6,20 @@
 function setAddAction(type) {
     const addButton = $('#add-ingredient-button');
     addButton.attr("data-target", "#add" + type + "Modal");
-    switch (type) {
-        case 'IceCream':
+    switch (type.toLowerCase()) {
+        case 'icecream':
             addButton.html("Agregar un helado");
             break;
-        case 'Flavor':
+        case 'flavor':
             addButton.html("Agregar un sabor");
             break;
-        case 'Filling':
+        case 'filling':
             addButton.html("Agregar un jarabe");
             break;
-        case 'Topping':
+        case 'topping':
             addButton.html("Agregar un topping");
             break;
-        case 'Container':
+        case 'container':
             addButton.html("Agregar un envase");
             break;
     }
@@ -27,12 +27,91 @@ function setAddAction(type) {
 
 /**
  * Page: showIngredients.php
- * not implemented
- * @param flavor
+ * Change the modal and AJAX modify
+ * @param type
+ * @param name
  */
-function modifyFlavor(flavor) {
-    alert(flavor);
+function modify(type, name) {
+    $('#edit' + type + 'ModalLabel').html('Modificando ' + name);
+    const editForm = $('#editIngredient' + type);
+    const editModal = $('#edit' + type + 'Modal');
+    const msgLoad = $('#edit' + type + 'Modal #msgLoad');
+    const msgError = $('#edit' + type + 'Modal #msgError');
+    const msgSuccess = $('#edit' + type + 'Modal #msgSuccess');
+    var data = undefined;
+
+    editForm.trigger("reset");
+    msgSuccess.css('display', 'none');
+    msgError.css('display', 'none');
+    editModal.modal('show');
+    msgLoad.css('display', 'block');
+    msgLoad.html('Cargando datos actuales del elemento...');
+
+    $.post("/enrrolato/action/get/json/" + type.toLowerCase(), {name: name}, function (text) {
+        let trash = text.split("||$$||")
+        console.log(trash);
+        let response = JSON.parse(trash[1]);
+        if (response['success']) {
+            data = JSON.parse(response['json']);
+            msgLoad.css('display', 'none');
+            msgSuccess.html('Datos de ' + name + ' cargados.');
+            msgSuccess.css('display', 'block');
+        } else {
+            msgLoad.css('display', 'none');
+            msgError.html(response['error']);
+            msgError.css('display', 'block');
+            editModal.modal('show');
+            return;
+        }
+    }, "text").done(function () {
+        $('#editIngredient' + type + '_name').val(data['name']);
+        $('#editIngredient' + type + '_isLiqueur').prop('checked', data['isLiqueur'] === '1');
+        $('#editIngredient' + type + '_isSpecial').prop('checked', data['isSpecial'] === '1');
+        $('#editIngredient' + type + '_isExclusive').prop('checked', data['isExclusive'] === '1');
+        $('#editIngredient' + type + '_avaliable').prop('checked', data['avaliable'] === '1');
+
+        editForm.off('submit');
+        editForm.submit(function (e) {
+            e.preventDefault();
+            msgSuccess.css('display', 'none');
+            msgError.css('display', 'none');
+            msgLoad.html('Procesando solicitud...');
+            msgLoad.css('display', 'block');
+            var newData = editForm.serializeJSON();
+            newData['currentName'] = data['name'];
+            console.log(newData);
+            $.post("/enrrolato/action/edit/" + type.toLowerCase(), newData, function (text) {
+                let trash = text.split("||$$||")
+                let response = JSON.parse(trash[1]);
+                if (response['success']) {
+                    msgLoad.css('display', 'none');
+                    msgSuccess.html(name + ' se ha modificado con éxito, ya puedes cerrar está ventana.');
+                    msgSuccess.css('display', 'block');
+                } else {
+                    msgLoad.css('display', 'none');
+                    msgError.html(response['error']);
+                    msgError.css('display', 'block');
+                }
+            }, "text").done(function () {
+                updateIngredients(type.toLowerCase());
+            }).fail(function () {
+                alert("error");
+            }).always(function () {
+            });
+        });
+    }).fail(function () {
+        alert("error");
+    });
 }
+
+$('#deleteConfirmModal').on('show.bs.modal', function (event) {
+    $('#deleteConfirmModal #msgLoad').css('display', 'none');
+    $('#deleteConfirmModal #msgSuccess').css('display', 'none');
+    $('#deleteConfirmModal #msgError').css('display', 'none');
+})
+$('#deleteConfirmModal').on('hidden.bs.modal', function (event) {
+    $("#deleteConfirmModal #delete-submit").off("click");
+})
 
 /**
  * Page: showIngredients.php
@@ -46,15 +125,8 @@ function deleteModal(type, name) {
     const msgLoad = $('#deleteConfirmModal #msgLoad');
     const msgError = $('#deleteConfirmModal #msgError');
     const msgSuccess = $('#deleteConfirmModal #msgSuccess');
-    deleteModal.on('show.bs.modal', function (event) {
-        deleteModal.find('.modal-title').text(("Eliminar {ingredient}").replace("{ingredient}", name));
-        msgLoad.css('display', 'none');
-        msgSuccess.css('display', 'none');
-        msgError.css('display', 'none');
-    })
-    deleteModal.on('hidden.bs.modal', function (event) {
-        deleteSubmit.off("click");
-    })
+
+    deleteModal.find('.modal-title').text(("Eliminar {ingredient}").replace("{ingredient}", name));
     deleteModal.modal('show');
     deleteSubmit.off('click');
     deleteSubmit.click(function () {
@@ -86,10 +158,10 @@ function deleteModal(type, name) {
  * @param type
  */
 function updateIngredients(type) {
-    $.post("/enrrolato/action/get/" + type, {}, function (text) {
+    $.post("/enrrolato/action/get/box/" + type.toLowerCase(), {}, function (text) {
         let trash = text.split("||$$||")
         let response = JSON.parse(trash[1]);
-        switch (type) {
+        switch (type.toLowerCase()) {
             case 'icecream':
                 $('#icecreams-list').html(response['html']);
                 break;
@@ -107,12 +179,31 @@ function updateIngredients(type) {
                 break;
         }
     });
+    $.post("/enrrolato/action/get/list/" + type.toLowerCase(), {}, function (text) {
+        let trash = text.split("||$$||")
+        let response = JSON.parse(trash[1]);
+        switch (type.toLowerCase()) {
+            case 'flavor':
+                $('#iceCream_flavorsList').html(response['html']);
+                break;
+            case 'filling':
+                $('#iceCream_fillingList').html(response['html']);
+                break;
+            case 'topping':
+                $('#iceCream_toppingList').html(response['html']);
+                break;
+            case 'container':
+                $('#iceCream_containerList').html(response['html']);
+                break;
+        }
+    });
 }
 
 /**
  * Page: showIngredients.php
  */
 $(document).ready(function () {
+
     /**
      * Submit
      * Add flavor
@@ -324,10 +415,8 @@ $(document).ready(function () {
     }
 
     // Step 1
-    $('#addIceCreamModal').on('show.bs.modal', function (e) {
-        if (processCurrentStep === undefined) {
-            initStep(1);
-        } else {
+    $('#addIceCreamModal').on('shown.bs.modal', function (e) {
+        if (processCurrentStep !== undefined && processCurrentStep !== 1) {
             $('#addIceCreamModal').modal('hide');
             initStep(processCurrentStep);
         }
@@ -520,5 +609,86 @@ $(document).ready(function () {
                 msgError.html('Debes seleccionar al menos un envase.');
             }
         }
-    })
+    });
+
+    function updatePrices() {
+        const msgError = $('#prices #msgError');
+        const msgLoad = $('#prices #msgLoad');
+        const msgSuccess = $('#prices #msgSuccess');
+        var data = undefined;
+        $.post("/enrrolato/action/get/json/prices", {}, function (text) {
+            let trash = text.split("||$$||")
+            let response = JSON.parse(trash[1]);
+            if (response['success']) {
+                data = JSON.parse(response['json']);
+                msgLoad.css('display', 'none');
+                msgSuccess.css('display', 'block');
+                msgSuccess.html('Se ha cargado los precios correctamente.');
+            } else {
+                msgLoad.css('display', 'none');
+                msgError.css('display', 'block');
+                msgError.html(response['error']);
+            }
+        }, "text").done(function () {
+            if (data !== undefined) {
+               $('#regularPrice').val(data['regular']['regular_price']);
+               $('#regularFlavorAmount').val(data['regular']['flavor_amount']);
+               $('#regularFillingAmount').val(data['regular']['filling_amount']);
+               $('#regularToppingAmount').val(data['regular']['topping_amount']);
+               $('#regularExtraToppingPrice').val(data['regular']['extra_topping_price']);
+               $('#specialFlavorPrice').val(data['special_flavor']);
+               $('#liqueurFlavorPrice').val(data['liqueur_flavor']);
+               $('#seasonIceCreamPrice').val(data['season_ice_cream']);
+            }
+        }).fail(function () {
+            alert("error");
+        }).always(function () {
+
+        });
+    }
+
+    $(document).ready(function () {
+            updatePrices();
+        }
+    );
+
+    $('#prices-form').submit(function (e) {
+        e.preventDefault();
+        const changePricesForm = $('#prices-form');
+        const changePricesButton = $('#change-prices');
+        const msgError = $('#prices #msgError');
+        const msgLoad = $('#prices #msgLoad');
+        const msgSuccess = $('#prices #msgSuccess');
+
+        if (changePricesButton.val() === '0') {
+            changePricesForm.find('input').prop("readonly", false);
+            changePricesButton.html('Guardar');
+            changePricesButton.val('1');
+        } else {
+            changePricesForm.find('input').prop("readonly", true);
+            msgError.css('display', 'none');
+            msgLoad.css('display', 'block');
+            msgSuccess.css('display', 'none');
+            $.post("/enrrolato/action/edit/prices", changePricesForm.serializeJSON(), function (text) {
+                let trash = text.split("||$$||")
+                let response = JSON.parse(trash[1]);
+                if (response['success']) {
+                    msgLoad.css('display', 'none');
+                    msgSuccess.css('display', 'block');
+                    msgSuccess.html(response['posted']);
+                } else {
+                    msgLoad.css('display', 'none');
+                    msgError.css('display', 'block');
+                    msgError.html(response['error']);
+                }
+            }, "text").done(function () {
+            }).fail(function () {
+                alert("error");
+            }).always(function () {
+
+            });
+            changePricesButton.html('Modificar');
+            changePricesButton.val('0');
+        }
+    });
 });

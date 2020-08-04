@@ -29,8 +29,10 @@ define('FILLINGS',INGREDIENTS.'/fillings');
 define('TOPPINGS',INGREDIENTS.'/toppings');
 define('CONTAINERS',INGREDIENTS.'/containers');
 define('ICE_CREAMS',BUSINESS.'/ice_creams');
+define('PRICES', BUSINESS . '/prices');
 define('ADMINS', BUSINESS.'/admins');
 define('TEMP_ADMINS', BUSINESS.'/temps_admins');
 define('AUDIT', BUSINESS . '/audit');
+define('SCHEDULES', BUSINESS . '/schedules');
 
 

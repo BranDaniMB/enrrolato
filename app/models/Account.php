@@ -76,9 +76,14 @@ class Account extends Base
     {
         $reference = $this->getReference(ADMINS);
         try {
-            return $reference->getSnapshot()->getValue();
+            $accounts = $reference->getSnapshot()->getValue();
+            $result = "";
+            foreach ($accounts as $key => $value) {
+                $result .= '<li class="list-group-item">' . $value . ' <a class="delete-button" onclick="deleteModal(\'account\',\'' . $value . '\')"><i class="material-icons">delete</i></a></li>';
+            }
+            return $result;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            return null;
+            return 'No hay cuentas en el sistema.';
         }
     }
 
@@ -89,14 +94,20 @@ class Account extends Base
     public function getTempAccounts()
     {
         $reference = $this->getReference(TEMP_ADMINS);
+        $result = "";
         try {
             if ($reference->getSnapshot()->exists()) {
-                return $reference->getSnapshot()->getValue();
+                $accounts = $reference->getSnapshot()->getValue();
+                foreach ($accounts as $key => $value) {
+                    $result .= '<li class="list-group-item">' . $value . ' <a class="delete-button" onclick="deleteModal(\'temp_account\',\'' . $value . '\')"><i class="material-icons">delete</i></a></li>';
+                }
             } else {
-                return null;
+                $result .= 'No hay cuentas por autentificar';
             }
+            return $result;
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
-            return null;
+            $result .= 'No hay cuentas por autentificar';
+            return $result;
         }
     }
 }

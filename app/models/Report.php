@@ -22,9 +22,9 @@ class Report extends Base
     function getAudits()
     {
         $reference = $this->getReference(AUDIT)->orderByKey();
-        $audits = $reference->getSnapshot()->getValue();
-        $audits = array_reverse($audits);
+        $audits = $reference->limitToLast(50)->getSnapshot()->getValue();
         if (!empty($audits)) {
+            $audits = array_reverse($audits);
             $list = "";
             foreach ($audits as &$item) {
                 $list .='<li class="list-group-item">' .
@@ -46,13 +46,25 @@ class Report extends Base
         $audit = '<strong>'.$item['author'] . "</strong> ha ";
         switch ($item['action']) {
             case 'add':
-                $audit .= 'añadido <strong>' . $item['name'] . '</strong> a ';
+                if (isset($item['name'])) {
+                    $audit .= 'añadido <strong>' . $item['name'] . '</strong> a ';
+                } else {
+                    $audit .= 'añadido ';
+                }
                 break;
             case 'edit':
-                $audit .= 'editado <strong>' . $item['name'] . '</strong> a ';
+                if (isset($item['name'])) {
+                    $audit .= 'editado <strong>' . $item['name'] . '</strong> de ';
+                } else {
+                    $audit .= 'editado ';
+                }
                 break;
             case 'delete':
-                $audit .= 'eliminado <strong>' . $item['name'] . '</strong> de ';
+                if (isset($item['name'])) {
+                    $audit .= 'eliminado <strong>' . $item['name'] . '</strong> de ';
+                } else {
+                    $audit .= 'eliminado ';
+                }
                 break;
         }
         switch ($item['type']) {
@@ -77,6 +89,11 @@ class Report extends Base
             case 'account':
                 $audit .= '<strong>cuentas autentificadas</strong>';
                 break;
+            case 'schedule':
+                $audit .= '<strong>horario de disponibilidad</strong>';
+                break;
+            case 'prices':
+                $audit .= 'los <strong>precios</strong>';
         }
         $audit .= ' el <strong>' . $item['date'] . '</strong> a las <strong>' . $item['hour'] . '</strong>.';
         return $audit;

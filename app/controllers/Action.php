@@ -62,6 +62,9 @@ class Action extends Controller
                 case 'account':
                     $model->createTempAccount($_POST);
                     break;
+                case 'schedule':
+                    $model->createSchedule($_POST);
+                    break;
                 default:
                     $this->returnData["success"] = false;
                     $this->returnData["error"] = "El tipo de acción no es válida, no se puede llevar a cabo la acción, vuelva a intentarlo.";
@@ -99,6 +102,9 @@ class Action extends Controller
                     break;
                 case 'container':
                     $model->editContainer($_POST);
+                    break;
+                case 'prices':
+                    $model->editPrices($_POST);
                     break;
                 default:
                     $this->returnData["success"] = false;
@@ -171,36 +177,102 @@ class Action extends Controller
 
     /**
      * Method add, receives the item type. Return HTML.
+     * @param $format
      * @param $type
      * Throws exception if type is not provided.
      */
-    public function get($type)
+    public function get($format, $type)
     {
         session_start();
         $model = new Actions();
-        switch ($type) {
-            case 'account':
+        switch ($format) {
+            case 'json':
+                switch ($type) {
+                    case 'account':
+                        break;
+                    case 'temp_account':
+                        break;
+                    case 'icecream':
+                        break;
+                    case 'flavor':
+                        $model->findFlavor($_POST);
+                        break;
+                    case 'filling':
+                        $model->findFilling($_POST);
+                        break;
+                    case 'topping':
+                        $model->findTopping($_POST);
+                        break;
+                    case 'container':
+                        $model->findContainer($_POST);
+                        break;
+                    case 'prices':
+                        $model->getPrices($_POST);
+                        break;
+                    default:
+                        $this->returnData["success"] = false;
+                        $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        break;
+                }
                 break;
-            case 'temp_account':
+            case 'box':
+                switch ($type) {
+                    case 'icecream':
+                        $model->getIceCreamBox();
+                        break;
+                    case 'flavor':
+                        $model->getFlavorBox();
+                        break;
+                    case 'filling':
+                        $model->getFillingBox();
+                        break;
+                    case 'topping':
+                        $model->getToppingBox();
+                        break;
+                    case 'container':
+                        $model->getContainerBox();
+                        break;
+                    default:
+                        $this->returnData["success"] = false;
+                        $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        break;
+                }
                 break;
-            case 'icecream':
-                $model->getIceCream();
-                break;
-            case 'flavor':
-                $model->getFlavors();
-                break;
-            case 'filling':
-                $model->getFilling();
-                break;
-            case 'topping':
-                $model->getTopping();
-                break;
-            case 'container':
-                $model->getContainer();
+            case 'list':
+                switch ($type) {
+                    case 'account':
+                        $model->getAccountList();
+                        break;
+                    case 'temp_account':
+                        $model->getTempAccountList();
+                        break;
+                    case 'flavor':
+                        $model->getFlavorList();
+                        break;
+                    case 'filling':
+                        $model->getFillingList();
+                        break;
+                    case 'topping':
+                        $model->getToppingList();
+                        break;
+                    case 'container':
+                        $model->getContainerList();
+                        break;
+                    default:
+                        $this->returnData["success"] = false;
+                        $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                        echo "||$$||" . json_encode($this->returnData);
+                        $this->returnData = array();
+                        break;
+                }
                 break;
             default:
                 $this->returnData["success"] = false;
-                $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                $this->returnData["error"] = "El formato no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
                 echo "||$$||" . json_encode($this->returnData);
                 $this->returnData = array();
                 break;
