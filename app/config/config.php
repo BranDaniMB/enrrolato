@@ -21,7 +21,7 @@ define('AVAIL_FOREVER', 0);
 // Firebase
 define('GOOGLE_APPLICATION_CREDENTIALS', CONFIG_PATH . "enrrolato-1588267227733-firebase-adminsdk-mcd44-8adfedd088.json");
 // Firebase references
-// business/ingredients/flavors
+// business
 define('BUSINESS', 'business');
 define('INGREDIENTS', BUSINESS.'/ingredients');
 define('FLAVORS',INGREDIENTS.'/flavors');
@@ -34,5 +34,9 @@ define('ADMINS', BUSINESS.'/admins');
 define('TEMP_ADMINS', BUSINESS.'/temps_admins');
 define('AUDIT', BUSINESS . '/audit');
 define('SCHEDULES', BUSINESS . '/schedules');
+define('LAST_DONE_ORDER', BUSINESS . '/last_done_order');
+// app
+define('APP', 'app');
+define('ORDERS', APP.'/orders');
 
 

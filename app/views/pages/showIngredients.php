@@ -771,26 +771,53 @@ $modify = new IngredientsModel();
     </div>
 </div>
 <header class="row">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-12">
+        <a class="navbar-brand" href="/enrrolato/pages/about/">Enrrolato</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/orders/">órdenes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/enrrolato/ingredients/">Ingredientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/schedule/">Horarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/reports/">Reportes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/authentication/">Cuentas de usuario</a>
+                </li>
+            </ul>
+            <div class="dropdown mr-6">
+                <button class="btn btn-secondary dropdown-toggle" id="user-profile" type="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img id="user-profile-img" src="<?php echo $_SESSION["payload"]["picture"] ?>" width="40px"
+                         height="40px"/>
+                    <span id="user-profile-name"><?php echo ucfirst(strtolower($_SESSION["payload"]["given_name"])) ?></span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="user-profile">
+                    <button class="dropdown-item" type="button">Cerrar sesión</button>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="col-3">
-        <a id="add-ingredient-button" class="add-ingredient-button button" data-toggle="modal"
+        <a id="add-ingredient-button" class="button" data-toggle="modal"
            data-target="#addIceCreamModal">Añadir un helado</a>
     </div>
     <div class="col-6">
         <h2>Lista de ingredientes</h2>
-    </div>
-    <div class="col-3">
-        <?php
-        if ($_SESSION["ACCESS"] == AVAIL_CONNECT && isset($_SESSION["isValidLogin"])) {
-            ?>
-            <div id="user-profile">
-                <img id="user-profile-img" src="<?php echo $_SESSION["payload"]["picture"] ?>" width="50px"
-                     height="50px"/>
-                <p id="user-profile-name"><?php echo strtolower($_SESSION["payload"]["given_name"]) ?></p>
-                <a href="/enrrolato/authentication/logout/" id="user-profile-logout">Salir</a>
-            </div>
-            <?php
-        }
-        ?>
     </div>
 </header>
 <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
@@ -823,12 +850,14 @@ $modify = new IngredientsModel();
 </ul>
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="icecream" role="tabpanel">
-        <div class="row justify-content-center align-items-center text-light font-weight-bold">
-            <div class="m-2">
-                <div class="circle-guide-color circle-available"></div>&nbsp;Disponible
-            </div>
-            <div class="m-2">
-                <div class="circle-guide-color circle-not-available"></div>&nbsp;No disponible
+        <div class="row justify-content-center align-items-center">
+            <div class="input-group mb-3 col-8">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-light font-weight-bold" id="available-tip">Disponible</span>
+                    <span class="input-group-text bg-warning text-dark font-weight-bold" id="not-available-tip">No disponible</span>
+                    <span class="input-group-text bg-info text-light font-weight-bold" id="search-tip">Filtrar por nombre:</span>
+                </div>
+                <input type="text" class="form-control" id="search-iceCream" placeholder="nombre" aria-label="name" aria-describedby="search-tip">
             </div>
         </div>
         <div class="ingredients-container" id="icecreams-list">
@@ -838,12 +867,14 @@ $modify = new IngredientsModel();
         </div>
     </div>
     <div class="tab-pane fade" id="flavor" role="tabpanel">
-        <div class="row justify-content-center align-items-center text-light font-weight-bold">
-            <div class="m-2">
-                <div class="circle-guide-color circle-available"></div>&nbsp;Disponible
-            </div>
-            <div class="m-2">
-                <div class="circle-guide-color circle-not-available"></div>&nbsp;No disponible
+        <div class="row justify-content-center align-items-center">
+            <div class="input-group mb-3 col-8">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-light font-weight-bold" id="available-tip">Disponible</span>
+                    <span class="input-group-text bg-warning text-dark font-weight-bold" id="not-available-tip">No disponible</span>
+                    <span class="input-group-text bg-info text-light font-weight-bold" id="search-tip">Filtrar por nombre:</span>
+                </div>
+                <input type="text" class="form-control" id="search-flavor" placeholder="nombre" aria-label="name" aria-describedby="search-tip">
             </div>
         </div>
         <div class="ingredients-container" id="flavors-list">
@@ -853,12 +884,14 @@ $modify = new IngredientsModel();
         </div>
     </div>
     <div class="tab-pane fade" id="filling" role="tabpanel">
-        <div class="row justify-content-center align-items-center text-light font-weight-bold">
-            <div class="m-2">
-                <div class="circle-guide-color circle-available"></div>&nbsp;Disponible
-            </div>
-            <div class="m-2">
-                <div class="circle-guide-color circle-not-available"></div>&nbsp;No disponible
+        <div class="row justify-content-center align-items-center">
+            <div class="input-group mb-3 col-8">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-light font-weight-bold" id="available-tip">Disponible</span>
+                    <span class="input-group-text bg-warning text-dark font-weight-bold" id="not-available-tip">No disponible</span>
+                    <span class="input-group-text bg-info text-light font-weight-bold" id="search-tip">Filtrar por nombre:</span>
+                </div>
+                <input type="text" class="form-control" id="search-filling" placeholder="nombre" aria-label="name" aria-describedby="search-tip">
             </div>
         </div>
         <div class="ingredients-container" id="fillings-list">
@@ -868,12 +901,14 @@ $modify = new IngredientsModel();
         </div>
     </div>
     <div class="tab-pane fade" id="topping" role="tabpanel">
-        <div class="row justify-content-center align-items-center text-light font-weight-bold">
-            <div class="m-2">
-                <div class="circle-guide-color circle-available"></div>&nbsp;Disponible
-            </div>
-            <div class="m-2">
-                <div class="circle-guide-color circle-not-available"></div>&nbsp;No disponible
+        <div class="row justify-content-center align-items-center">
+            <div class="input-group mb-3 col-8">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-light font-weight-bold" id="available-tip">Disponible</span>
+                    <span class="input-group-text bg-warning text-dark font-weight-bold" id="not-available-tip">No disponible</span>
+                    <span class="input-group-text bg-info text-light font-weight-bold" id="search-tip">Filtrar por nombre:</span>
+                </div>
+                <input type="text" class="form-control" id="search-topping" placeholder="nombre" aria-label="name" aria-describedby="search-tip">
             </div>
         </div>
         <div class="ingredients-container" id="toppings-list">
@@ -883,12 +918,14 @@ $modify = new IngredientsModel();
         </div>
     </div>
     <div class="tab-pane fade" id="container" role="tabpanel">
-        <div class="row justify-content-center align-items-center text-light font-weight-bold">
-            <div class="m-2">
-                <div class="circle-guide-color circle-available"></div>&nbsp;Disponible
-            </div>
-            <div class="m-2">
-                <div class="circle-guide-color circle-not-available"></div>&nbsp;No disponible
+        <div class="row justify-content-center align-items-center">
+            <div class="input-group mb-3 col-8">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-light font-weight-bold" id="available-tip">Disponible</span>
+                    <span class="input-group-text bg-warning text-dark font-weight-bold" id="not-available-tip">No disponible</span>
+                    <span class="input-group-text bg-info text-light font-weight-bold" id="search-tip">Filtrar por nombre:</span>
+                </div>
+                <input type="text" class="form-control" id="search-container" placeholder="nombre" aria-label="name" aria-describedby="search-tip">
             </div>
         </div>
         <div class="ingredients-container" id="containers-list">

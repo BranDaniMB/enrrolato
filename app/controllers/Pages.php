@@ -24,15 +24,4 @@ class Pages extends Controller
         ];
         $this->view("pages/main", $data);
     }
-
-    /**
-     * About Us page.
-     */
-    public function about()
-    {
-        $data = [
-            "TITLE" => "Acerca de | " . SITE_NAME
-        ];
-        $this->view("pages/about", $data);
-    }
 }

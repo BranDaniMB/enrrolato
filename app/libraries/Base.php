@@ -40,7 +40,7 @@ class Base {
      * @param $name
      */
     function registerAudit($action, $type, $name) {
-        $reference = $this->getReference(AUDIT . '/' . date("dmYHis"));
+        $reference = $this->getReference(AUDIT . '/' . date("YmdHis"));
         try {
             $reference->set([
                 'action' => $action,

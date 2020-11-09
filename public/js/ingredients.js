@@ -200,9 +200,62 @@ function updateIngredients(type) {
 }
 
 /**
+ * Filter list
+ */
+function filterList(search, container) {
+    let result;
+    if (search.val().trim() !== "") {
+        result = container.find('div.card:not(div[title*="' + search.val() +'"])');
+        result.css('display','none');
+        result = container.find('div.card[title*="' + search.val() +'"]');
+        result.css('display','inline-block');
+    } else {
+        result = container.find('div.card');
+        result.css('display','inline-block');
+    }
+}
+
+/**
  * Page: showIngredients.php
  */
 $(document).ready(function () {
+
+    /**
+     * Filter ice cream list
+     */
+    $('#search-iceCream').keyup(function(e) {
+        filterList($('#search-iceCream'), $('#icecreams-list'));
+    });
+
+    /**
+     * Filter flavor list
+     */
+    $('#search-flavor').keyup(function(e) {
+        filterList($('#search-flavor'), $('#flavors-list'));
+    });
+
+    /**
+     * Filter filling list
+     */
+    $('#search-filling').keyup(function(e) {
+        filterList($('#search-filling'), $('#fillings-list'));
+    });
+
+    /**
+     * Filter topping list
+     */
+    $('#search-topping').keyup(function(e) {
+        filterList($('#search-topping'), $('#toppings-list'));
+    });
+
+    /**
+     * Filter container list
+     */
+    $('#search-container').keyup(function(e) {
+        filterList($('#search-container'), $('#containers-list'));
+    });
+
+
 
     /**
      * Submit
@@ -631,11 +684,11 @@ $(document).ready(function () {
             }
         }, "text").done(function () {
             if (data !== undefined) {
-               $('#regularPrice').val(data['regular']['regular_price']);
-               $('#regularFlavorAmount').val(data['regular']['flavor_amount']);
-               $('#regularFillingAmount').val(data['regular']['filling_amount']);
-               $('#regularToppingAmount').val(data['regular']['topping_amount']);
-               $('#regularExtraToppingPrice').val(data['regular']['extra_topping_price']);
+               $('#regularPrice').val(data['regular_price']);
+               $('#regularFlavorAmount').val(data['flavor_amount']);
+               $('#regularFillingAmount').val(data['filling_amount']);
+               $('#regularToppingAmount').val(data['topping_amount']);
+               $('#regularExtraToppingPrice').val(data['extra_topping_price']);
                $('#specialFlavorPrice').val(data['special_flavor']);
                $('#liqueurFlavorPrice').val(data['liqueur_flavor']);
                $('#seasonIceCreamPrice').val(data['season_ice_cream']);

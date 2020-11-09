@@ -66,31 +66,52 @@ include VIEWS_PATH . "inc/header.php";
     </div>
 </div>
 <header class="row">
-    <div class="col-3">
-        <a id="add-ingredient-button" class="add-ingredient-button button" data-toggle="modal"
-           data-target="#addIceCreamModal">Añadir un helado</a>
-    </div>
-    <div class="col-6">
-        <h2>Lista de ingredientes</h2>
-    </div>
-    <div class="col-3">
-        <?php
-        if ($_SESSION["ACCESS"] == AVAIL_CONNECT && isset($_SESSION["isValidLogin"])) {
-            ?>
-            <div id="user-profile">
-                <img id="user-profile-img" src="<?php echo $_SESSION["payload"]["picture"] ?>" width="50px"
-                     height="50px"/>
-                <p id="user-profile-name"><?php echo strtolower($_SESSION["payload"]["given_name"]) ?></p>
-                <a href="/enrrolato/authentication/logout/" id="user-profile-logout">Salir</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-12">
+        <a class="navbar-brand" href="/enrrolato/pages/about/">Enrrolato</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/orders/">órdenes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/ingredients/">Ingredientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/schedule/">Horarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enrrolato/reports/">Reportes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/enrrolato/authentication/">Cuentas de usuario</a>
+                </li>
+            </ul>
+            <div class="dropdown mr-6">
+                <button class="btn btn-secondary dropdown-toggle" id="user-profile" type="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img id="user-profile-img" src="<?php echo $_SESSION["payload"]["picture"] ?>" width="40px"
+                         height="40px"/>
+                    <span id="user-profile-name"><?php echo ucfirst(strtolower($_SESSION["payload"]["given_name"])) ?></span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="user-profile">
+                    <button class="dropdown-item" type="button">Cerrar sesión</button>
+                </div>
             </div>
-            <?php
-        }
-        ?>
+        </div>
+    </nav>
+    <div class="col-12">
+        <h2>Cuentas autorizadas</h2>
     </div>
 </header>
 <div class="row">
-    <h2 class="col-12">Cuentas autorizadas</h2>
-    <div class="w-100"></div>
     <div class="accounts-table text-center col-10">
         <div class="row title">
             <div class="col-12">Cuentas autorizadas</div>

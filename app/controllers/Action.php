@@ -121,6 +121,48 @@ class Action extends Controller
     }
 
     /**
+     * Method change, receives the item type.
+     * @param $type
+     * Throws exception if type is not provided.
+     * @param $action
+     */
+    public function order($action)
+    {
+        session_start();
+        if (!empty($_POST)) {
+            $model = new Actions();
+            switch ($action) {
+                case 'done':
+                    $model->markOrderAsDone($_POST);
+                    break;
+                case 'prepared':
+                    $model->markOrderAsPrepared($_POST);
+                    break;
+                case 'revert_prepared':
+                    $model->unmarkOrderAsPrepared($_POST);
+                    break;
+                case 'delivered':
+                    $model->markOrderAsDelivered($_POST);
+                    break;
+                case 'revert_delivered':
+                    $model->unmarkOrderAsDelivered($_POST);
+                    break;
+                default:
+                    $this->returnData["success"] = false;
+                    $this->returnData["error"] = "El tipo no es válido, no sé puede llevar a cabo la acción, vuelva a intentar.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                    break;
+            }
+        } else {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "El formulario no contiene datos o no son válidos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
      * Method delete, receives the item type.
      * @param $type
      * Throws exception if type is not provided.
@@ -188,12 +230,6 @@ class Action extends Controller
         switch ($format) {
             case 'json':
                 switch ($type) {
-                    case 'account':
-                        break;
-                    case 'temp_account':
-                        break;
-                    case 'icecream':
-                        break;
                     case 'flavor':
                         $model->findFlavor($_POST);
                         break;
@@ -208,6 +244,12 @@ class Action extends Controller
                         break;
                     case 'prices':
                         $model->getPrices($_POST);
+                        break;
+                    case 'earnings':
+                        $model->getEarnings($_POST);
+                        break;
+                    case 'quantity_orders':
+                        $model->getQuantityOrders($_POST);
                         break;
                     default:
                         $this->returnData["success"] = false;
@@ -233,6 +275,9 @@ class Action extends Controller
                         break;
                     case 'container':
                         $model->getContainerBox();
+                        break;
+                    case 'current_orders':
+                        $model->getOrdersBox();
                         break;
                     default:
                         $this->returnData["success"] = false;

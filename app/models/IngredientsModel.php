@@ -76,7 +76,7 @@ class IngredientsModel extends Base
         if (!empty($iceCreamList)) {
             $boxes = "";
             foreach ($iceCreamList as &$item) {
-                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container" style="width: 300px;">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container" title="' . $this->sanitizeForID($item["name"]) .'" style="width: 300px;">' .
                     '<div class="card-header font-weight-bold">' . ucfirst($item["name"]) . '</div>' .
                     '<ul class="list-group list-group-flush">' .
                     '<li class="list-group-item">' .
@@ -126,7 +126,7 @@ class IngredientsModel extends Base
         if (!empty($flavorList)) {
             $boxes = "";
             foreach ($flavorList as &$item) {
-                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') .' font-weight-bold text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') .'  font-weight-bold text-center ingredient-container" title="' . $this->sanitizeForID($item["name"]) .'">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
@@ -163,7 +163,7 @@ class IngredientsModel extends Base
         if (!empty($fillingList)) {
             $boxes = "";
             foreach ($fillingList as &$item) {
-                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container" title="' . $this->sanitizeForID($item["name"]) .'">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
@@ -199,7 +199,7 @@ class IngredientsModel extends Base
         if (!empty($toppingList)) {
             $boxes = "";
             foreach ($toppingList as &$item) {
-                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') . ' font-weight-bold text-center ingredient-container" title="' . $this->sanitizeForID($item["name"]) .'">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
@@ -235,7 +235,7 @@ class IngredientsModel extends Base
         if (!empty($containerList)) {
             $boxes = "";
             foreach ($containerList as &$item) {
-                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') .' font-weight-bold text-center ingredient-container">' .
+                $boxes .= '<div class="card '. ($item["avaliable"]==1?'bg-success':'bg-warning') .' font-weight-bold text-center ingredient-container" title="' . $this->sanitizeForID($item["name"]) .'">' .
                     '<div class="card-header"><strong>' . ucfirst($item["name"]) . '</strong></div>' .
                     '<ul class="list-group list-group-flush">' .
                     '<li class="list-group-item">¿Esta disponible?: <u>' . $this->definedIsValue($item["avaliable"]) . '</u></li>' .
@@ -331,8 +331,8 @@ class IngredientsModel extends Base
                     $boxes .= '<div class="col-6">';
                 }
                 $boxes .= '<div class="form-group form-check">' .
-                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_flavor_' . $item["name"] . '" name="iceCream_flavor_' . $item["name"] . '"/>' .
-                    '<label class="form-check-label" for="iceCream_flavor_' . $item["name"] . '">' . $this->isExclusive($item["isExclusive"], $item["name"]) . '</label>' .
+                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_filling_' . $item["name"] . '" name="iceCream_filling_' . $item["name"] . '"/>' .
+                    '<label class="form-check-label" for="iceCream_filling_' . $item["name"] . '">' . $this->isExclusive($item["isExclusive"], $item["name"]) . '</label>' .
                     '</div>';
 
                 $count++;
@@ -379,8 +379,8 @@ class IngredientsModel extends Base
                     $boxes .= '<div class="col-6">';
                 }
                 $boxes .= '<div class="form-group form-check">' .
-                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_flavor_' . $item["name"] . '" name="iceCream_flavor_' . $item["name"] . '"/>' .
-                    '<label class="form-check-label" for="iceCream_flavor_' . $item["name"] . '">' . $item["name"] . '</label>' .
+                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_topping_' . $item["name"] . '" name="iceCream_topping_' . $item["name"] . '"/>' .
+                    '<label class="form-check-label" for="iceCream_topping_' . $item["name"] . '">' . $item["name"] . '</label>' .
                     '</div>';
 
                 $count++;
@@ -427,8 +427,8 @@ class IngredientsModel extends Base
                     $boxes .= '<div class="col-6">';
                 }
                 $boxes .= '<div class="form-group form-check">' .
-                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_flavor_' . $item["name"] . '" name="iceCream_flavor_' . $item["name"] . '"/>' .
-                    '<label class="form-check-label" for="iceCream_flavor_' . $item["name"] . '">' . $item["name"] . '</label>' .
+                    '<input type="checkbox" class="form-check-input" value="' . $item["name"] . '" id="iceCream_container_' . $item["name"] . '" name="iceCream_container_' . $item["name"] . '"/>' .
+                    '<label class="form-check-label" for="iceCream_container_' . $item["name"] . '">' . $item["name"] . '</label>' .
                     '</div>';
                 $count++;
                 if ($flag) {

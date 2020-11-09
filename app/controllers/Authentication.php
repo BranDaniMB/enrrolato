@@ -23,17 +23,7 @@ class Authentication extends Controller
         $data = [
             "TITLE" => "Cuentas autorizadas | " . SITE_NAME
         ];
-        $this->view("pages/modifyAccounts", $data);
-    }
-
-    /**
-     * @deprecated - replaced by AJAX
-     */
-    public function add() {
-        $data = [
-            "TITLE" => "Agregar cuenta | " . SITE_NAME
-        ];
-        $this->view("pages/addAccount", $data);
+        $this->view("pages/accounts", $data);
     }
 
     /**

@@ -332,6 +332,213 @@ class Actions extends Base
     }
 
     /**
+     * Mark order as prepared, receives POST data from AJAX
+     * @param $POST
+     */
+    public function markOrderAsPrepared($POST)
+    {
+        try {
+            if (isset($POST["ID"])) {
+                $reference = $this->getReference(ORDERS . '/' . $POST["ID"]);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->getChild('prepared')->set(true);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Orden marcada como preparada.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                } else {
+                    throw new Exception("La orden no existe.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Unmark order as prepared, receives POST data from AJAX
+     * @param $POST
+     */
+    public function unmarkOrderAsPrepared($POST)
+    {
+        try {
+            if (isset($POST["ID"])) {
+                $reference = $this->getReference(ORDERS . '/' . $POST["ID"]);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->getChild('prepared')->set(false);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Orden desmarcada como preparada.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                } else {
+                    throw new Exception("La orden no existe.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Mark order as delivered, receives POST data from AJAX
+     * @param $POST
+     */
+    public function markOrderAsDelivered($POST)
+    {
+        try {
+            if (isset($POST["ID"])) {
+                $reference = $this->getReference(ORDERS . '/' . $POST["ID"]);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->getChild('delivered')->set(true);
+                    $reference->getChild('prepared')->set(true);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Orden marcada como entregada.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                } else {
+                    throw new Exception("La orden no existe.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Unmark order as delivered, receives POST data from AJAX
+     * @param $POST
+     */
+    public function unmarkOrderAsDelivered($POST)
+    {
+        try {
+            if (isset($POST["ID"])) {
+                $reference = $this->getReference(ORDERS . '/' . $POST["ID"]);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->getChild('delivered')->set(false);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Orden desmarcada como entregada.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                } else {
+                    throw new Exception("La orden no existe.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Mark order as done, receives POST data from AJAX
+     * @param $POST
+     */
+    public function markOrderAsDone($POST)
+    {
+        try {
+            if (isset($POST["ID"])) {
+                $reference = $this->getReference(ORDERS . '/' . $POST["ID"]);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->getChild('done')->set(true);
+                    $reference = $this->getReference(LAST_DONE_ORDER);
+                    $reference->set($POST['ID']);
+                    $this->returnData["success"] = true;
+                    $this->returnData["posted"] = "Orden marcada como hecha.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                } else {
+                    throw new Exception("La orden no existe.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Unmark order as done, receives POST data from AJAX
+     * @param $POST
+     */
+    public function unmarkOrderAsDone($POST)
+    {
+        try {
+            if (isset($POST["ID"])) {
+                $reference = $this->getReference(ORDERS . '/' . $POST["ID"]);
+                if ($reference->getSnapshot()->exists()) {
+                    $reference->getChild('done')->set(true);
+                    $this->returnData["success"] = false;
+                    $this->returnData["posted"] = "Orden desmarcada como hecha.";
+                    echo "||$$||" . json_encode($this->returnData);
+                    $this->returnData = array();
+                } else {
+                    throw new Exception("La orden no existe.");
+                }
+            } else {
+                throw new Exception("Datos incompletos.");
+            }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
      * Edit Flavor, receives POST data from AJAX
      * @param $POST
      */
@@ -580,13 +787,11 @@ class Actions extends Base
                 $POST["liqueurFlavorPrice"],
                 $POST["seasonIceCreamPrice"])) {
                 $reference->set([
-                    'regular' => [
-                        'regular_price' => $POST["regularPrice"],
-                        'flavor_amount' => $POST["regularFlavorAmount"],
-                        'filling_amount' => $POST["regularFillingAmount"],
-                        'topping_amount' => $POST["regularToppingAmount"],
-                        'extra_topping_price' => $POST["regularExtraToppingPrice"]
-                    ],
+                    'regular_price' => $POST["regularPrice"],
+                    'flavor_amount' => $POST["regularFlavorAmount"],
+                    'filling_amount' => $POST["regularFillingAmount"],
+                    'topping_amount' => $POST["regularToppingAmount"],
+                    'extra_topping_price' => $POST["regularExtraToppingPrice"],
                     'special_flavor' => $POST["specialFlavorPrice"],
                     'liqueur_flavor' => $POST["liqueurFlavorPrice"],
                     'season_ice_cream' => $POST["seasonIceCreamPrice"]
@@ -876,7 +1081,8 @@ class Actions extends Base
      * Get info from flavor, return JSON
      * @param $POST
      */
-    public function findFlavor($POST) {
+    public function findFlavor($POST)
+    {
         try {
             $reference = $this->getReference(FLAVORS . '/' . $POST['name']);
             if ($reference->getSnapshot()->exists()) {
@@ -904,7 +1110,8 @@ class Actions extends Base
      * Get info from filling, return JSON
      * @param $POST
      */
-    public function findFilling($POST) {
+    public function findFilling($POST)
+    {
         try {
             $reference = $this->getReference(FILLINGS . '/' . $POST['name']);
             if ($reference->getSnapshot()->exists()) {
@@ -932,7 +1139,8 @@ class Actions extends Base
      * Get info from topping, return JSON
      * @param $POST
      */
-    public function findTopping($POST) {
+    public function findTopping($POST)
+    {
         try {
             $reference = $this->getReference(TOPPINGS . '/' . $POST['name']);
             if ($reference->getSnapshot()->exists()) {
@@ -960,7 +1168,8 @@ class Actions extends Base
      * Get info from container, return JSON
      * @param $POST
      */
-    public function findContainer($POST) {
+    public function findContainer($POST)
+    {
         try {
             $reference = $this->getReference(CONTAINERS . '/' . $POST['name']);
             if ($reference->getSnapshot()->exists()) {
@@ -988,7 +1197,8 @@ class Actions extends Base
      * Get info from prices, return JSON
      * @param $POST
      */
-    public function getPrices($POST) {
+    public function getPrices($POST)
+    {
         try {
             $reference = $this->getReference(PRICES);
             if ($reference->getSnapshot()->exists()) {
@@ -999,6 +1209,58 @@ class Actions extends Base
             } else {
                 throw new Exception("No hay información acerca de los precios.");
             }
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info from earnings, return JSON
+     * @param $POST
+     */
+    public function getEarnings($POST)
+    {
+        try {
+            require(MODELS_PATH . "Report.php");
+            $report = new Report();
+            $this->returnData["success"] = true;
+            $this->returnData["json"] = json_encode($report->getEarnings($POST));
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info from earnings, return JSON
+     * @param $POST
+     */
+    public function getQuantityOrders($POST)
+    {
+        try {
+            require(MODELS_PATH . "Report.php");
+            $report = new Report();
+            $this->returnData["success"] = true;
+            $this->returnData["json"] = json_encode($report->getQuantityOrders($POST));
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
         } catch (Exception $e) {
             $this->returnData["success"] = false;
             $this->returnData["error"] = $e->getMessage();
@@ -1122,6 +1384,31 @@ class Actions extends Base
         try {
             $this->returnData["success"] = true;
             $this->returnData["html"] = $ingredients->createContainerBox();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = "Error en la base de datos.";
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        } catch (Exception $e) {
+            $this->returnData["success"] = false;
+            $this->returnData["error"] = $e->getMessage();
+            echo "||$$||" . json_encode($this->returnData);
+            $this->returnData = array();
+        }
+    }
+
+    /**
+     * Get info Container, return HTML to AJAX
+     */
+    public function getOrdersBox()
+    {
+        require(MODELS_PATH . "Order.php");
+        $order = new Order();
+        try {
+            $this->returnData["success"] = true;
+            $this->returnData["html"] = $order->getOrdersInQueue();
             echo "||$$||" . json_encode($this->returnData);
             $this->returnData = array();
         } catch (\Kreait\Firebase\Exception\DatabaseException $e) {
